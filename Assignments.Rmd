@@ -11,10 +11,6 @@ output:
     number_sections: no
     toc_depth: 1
 ---
-install.packages("tinytex")
-library(tinytex)
-tinytex::install_tinytex()
-### Instructions for all assignments
 
 I want you to submit your assignment as a PDF, so I can keep a record of what the code looked like that day. I also want you to include your answers on your personal GitHub website. This will be good practice for editing your website and it will help you produce something you can keep after the class is over.
 
@@ -39,10 +35,9 @@ This assignment is due on Canvas on Monday 9/20 before class, at 10:15 am. Inclu
 Install the datasets package on the console below using `install.packages("datasets")`. Now load the library.
 
 ```{r}
-# install.packages("datasets")
 library(datasets)
 ```
-_I previously installed this package, so I commented this out!_
+
 
 Load the USArrests dataset and rename it `dat`. Note that this dataset comes with R, in the package datasets, so there's no need to load data from your computer. Why is it useful to rename the dataset?
 
@@ -53,7 +48,6 @@ dat <- USArrests
 ### Problem 2
 
 Use this command to make the state names into a new variable called State. 
-install.packages("dplyr")
 ```{r, eval=FALSE}
 library(dplyr)
 dat$state <- tolower(rownames(USArrests))
@@ -137,10 +131,12 @@ In the console below (not in text), type `install.packages("maps")` and press En
 Run this code:
 
 ```{r, eval = FALSE, fig.width = 7.5, fig.height = 4}
-install.packages("maps")
-install.packages("ggplot2")
-library('maps') 
-library('ggplot2') 
+library(dplyr)
+dat$state <- tolower(rownames(USArrests))
+State <- dat$state
+rename(dat, State = state)
+library(maps) 
+library(ggplot2) 
 
 ggplot(dat, aes(map_id=state, fill=Murder)) + 
   geom_map(map=map_data("state")) + 
