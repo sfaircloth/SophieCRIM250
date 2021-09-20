@@ -343,7 +343,7 @@ div.tocify {
 </div>
 
 
-<p>I want you to submit your assignment as a PDF, so I can keep a record of what the code looked like that day. I also want you to include your answers on your personal GitHub website. This will be good practice for editing your website and it will help you produce something you can keep after the class is over.</p>
+<p>#Assignment 1 ### Instructions for all assignments I want you to submit your assignment as a PDF, so I can keep a record of what the code looked like that day. I also want you to include your answers on your personal GitHub website. This will be good practice for editing your website and it will help you produce something you can keep after the class is over.</p>
 <ol style="list-style-type: decimal">
 <li><p>Download the Assignment1.Rmd file from Canvas. You can use this as a template for writing your answers. It’s the same as what you can see on my website in the Assignments tab. Once we’re done with this I’ll edit the text on the website to include the solutions.</p></li>
 <li><p>On RStudio, open a new R script in RStudio (File &gt; New File &gt; R Script). This is where you can test out your R code. You’ll write your R commands and draw plots here.</p></li>
@@ -353,63 +353,64 @@ div.tocify {
 </ol>
 <div id="assignment-1" class="section level1">
 <h1>Assignment 1</h1>
-<p>This assignment is due on Canvas on Monday 9/20 before class, at 10:15 am. Include the name of anyone with whom you collaborated at the top of the assignment.</p>
+<p><em>This assignment is due on Canvas on Monday 9/20 before class, at 10:15 am. Include the name of anyone with whom you collaborated at the top of the assignment.</em></p>
 <div id="problem-1" class="section level3">
 <h3>Problem 1</h3>
-<p>Install the datasets package on the console below using <code>install.packages("datasets")</code>. Now load the library.</p>
+<p><em>Install the datasets package on the console below using <code>install.packages("datasets")</code>. Now load the library.</em></p>
 <pre class="r"><code>library(datasets)</code></pre>
-<p>Load the USArrests dataset and rename it <code>dat</code>. Note that this dataset comes with R, in the package datasets, so there’s no need to load data from your computer. Why is it useful to rename the dataset?</p>
+<p><em>Load the USArrests dataset and rename it <code>dat</code>. Note that this dataset comes with R, in the package datasets, so there’s no need to load data from your computer. Why is it useful to rename the dataset?</em></p>
+<p><strong>Answer</strong>: Well, we want to replicate analyses. That’s why it’s nice to rename data.</p>
 <pre class="r"><code>dat &lt;- USArrests</code></pre>
 </div>
 <div id="problem-2" class="section level3">
 <h3>Problem 2</h3>
-<p>Use this command to make the state names into a new variable called State.</p>
+<p><em>Use this command to make the state names into a new variable called State. </em></p>
 <pre class="r"><code>library(dplyr)
-dat$state &lt;- tolower(rownames(USArrests))
-State &lt;- dat$state</code></pre>
+dat$state &lt;- tolower(rownames(USArrests))</code></pre>
 <p><em>I used the dplyr package in order to rename this variable. I am sure there are other ways to do this but I used old reliable!</em></p>
-<p>This dataset has the state names as row names, so we just want to make them into a new variable. We also make them all lower case, because that will help us draw a map later - the map function requires the states to be lower case.</p>
-<p>List the variables contained in the dataset <code>USArrests</code>.</p>
+<p><em>This dataset has the state names as row names, so we just want to make them into a new variable. We also make them all lower case, because that will help us draw a map later - the map function requires the states to be lower case.</em></p>
+<p><em>List the variables contained in the dataset <code>USArrests</code>.</em></p>
 <pre class="r"><code>names(dat)</code></pre>
-<pre><code>## [1] &quot;Murder&quot;   &quot;Assault&quot;  &quot;UrbanPop&quot; &quot;Rape&quot;</code></pre>
-<p>The four variables are Murder, Assault, UrbanPop, and Rape.</p>
+<pre><code>## [1] &quot;Murder&quot;   &quot;Assault&quot;  &quot;UrbanPop&quot; &quot;Rape&quot;     &quot;state&quot;</code></pre>
+<p><strong>Answer</strong>: The four variables are Murder, Assault, UrbanPop, and Rape.</p>
 </div>
 <div id="problem-3" class="section level3">
 <h3>Problem 3</h3>
-<p>What type of variable (from the DVB chapter) is <code>Murder</code>?</p>
-<p>Answer: quantitative variable</p>
-<p>What R Type of variable is it?</p>
-<p>typeof(dat$Murder) Answer: double</p>
+<p><em>What type of variable (from the DVB chapter) is <code>Murder</code>? </em> <strong>Answer</strong>: quantitative variable</p>
+<p><em>What R Type of variable is it?</em></p>
+<pre class="r"><code>typeof(dat$Murder)</code></pre>
+<pre><code>## [1] &quot;double&quot;</code></pre>
+<p><strong>Answer</strong>: double</p>
 </div>
 <div id="problem-4" class="section level3">
 <h3>Problem 4</h3>
-<p>What information is contained in this dataset, in general? What do the numbers mean?</p>
-<p>Answer: The information in this dataset is a set of the number of arrests for different violent crimes in the United States, as divided by state. The numbers represent the numeric value of arrests per 100,000 residents for assault, murder, and rape in each of the 50 US states, also providing the percent of the population living in urban areas (UrbanPop).</p>
+<p><em>What information is contained in this dataset, in general? What do the numbers mean? </em></p>
+<p><strong>Answer</strong>: The information in this dataset is a set of the number of arrests for different violent crimes in the United States, as divided by state. The numbers represent the numeric value of arrests per 100,000 residents for assault, murder, and rape in each of the 50 US states, also providing the percent of the population living in urban areas (UrbanPop).</p>
 </div>
 <div id="problem-5" class="section level3">
 <h3>Problem 5</h3>
-<p>Draw a histogram of <code>Murder</code> with proper labels and title.</p>
+<p><em>Draw a histogram of <code>Murder</code> with proper labels and title.</em></p>
 <pre class="r"><code>hist(dat$Murder, col = &#39;red&#39;, ylab = &#39;Frequency&#39;, xlab = &#39;Murder Arrests per 100,000 residents&#39;, main = &#39;Histogram of Murder Arrests in the US&#39;, sub = &#39;(by state)&#39;)</code></pre>
-<p><img src="Assignments_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 </div>
 <div id="problem-6" class="section level3">
 <h3>Problem 6</h3>
-<p>Please summarize <code>Murder</code> quantitatively. What are its mean and median? What is the difference between mean and median? What is a quartile, and why do you think R gives you the 1st Qu. and 3rd Qu.?</p>
+<p><em>Please summarize <code>Murder</code> quantitatively. What are its mean and median? What is the difference between mean and median? What is a quartile, and why do you think R gives you the 1st Qu. and 3rd Qu.?</em></p>
 <pre class="r"><code>summary(dat$Murder)</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##   0.800   4.075   7.250   7.788  11.250  17.400</code></pre>
-<p>The mean of the Murder variable is 7.788 (murder arrests per 100,000 residents of a state). The median is 7.250 (murder arrests per 100,000 residents of a state). The difference between these two values quantitatively is 0.538. The difference qualitatively is that the mean represents the average number of murder arrests per 100,000 residents of all US states while the median is the middle value of the data set, showing the data has a slight right skew. A quartile isdivides the dataset into four parts, with Q1 being the median of the lower half of the dataset and Q3 being the median of the upper half of the data set. R gives you this information because quartiles can be helpful in determining where a specific data point falls in the set; for example, if a value for “Murders” is greater than Q3, 11.250, we can more reasonably assume that this state has an exceptionally high murder rate in comparison to other states in the US. If a state has a value for “Murders” that is less than 4.075, we can more reasonably assume that this state is relatively safer than other US states!</p>
+<p><strong>Answer</strong>: The mean of the Murder variable is 7.788 (murder arrests per 100,000 residents of a state). The median is 7.250 (murder arrests per 100,000 residents of a state). The difference between these two values quantitatively is 0.538. The difference qualitatively is that the mean represents the average number of murder arrests per 100,000 residents of all US states while the median is the middle value of the data set, showing the data has a slight right skew. A quartile isdivides the dataset into four parts, with Q1 being the median of the lower half of the dataset and Q3 being the median of the upper half of the data set. R gives you this information because quartiles can be helpful in determining where a specific data point falls in the set; for example, if a value for “Murders” is greater than Q3, 11.250, we can more reasonably assume that this state has an exceptionally high murder rate in comparison to other states in the US. If a state has a value for “Murders” that is less than 4.075, we can more reasonably assume that this state is relatively safer than other US states!</p>
 </div>
 <div id="problem-7" class="section level3">
 <h3>Problem 7</h3>
-<p>Repeat the same steps you followed for <code>Murder</code>, for the variables <code>Assault</code> and <code>Rape</code>. Now plot all three histograms together. You can do this by using the command <code>par(mfrow=c(3,1))</code> and then plotting each of the three.</p>
+<p><em>Repeat the same steps you followed for <code>Murder</code>, for the variables <code>Assault</code> and <code>Rape</code>. Now plot all three histograms together. You can do this by using the command <code>par(mfrow=c(3,1))</code> and then plotting each of the three. </em></p>
 <pre class="r"><code>hist(dat$Assault, col = &#39;red&#39;, ylab = &#39;Frequency&#39;, xlab = &#39;Assault Arrests per 100,000 residents&#39;, main = &#39;Histogram of Assault Arrests in the US&#39;, sub = &#39;(by state)&#39;)</code></pre>
-<p><img src="Assignments_files/figure-html/unnamed-chunk-7-1.png" width="480" /></p>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-8-1.png" width="480" /></p>
 <pre class="r"><code>summary(dat$Assault)</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##    45.0   109.0   159.0   170.8   249.0   337.0</code></pre>
 <pre class="r"><code>hist(dat$Rape, col = &#39;red&#39;, ylab = &#39;Frequency&#39;, xlab = &#39;Rape Arrests per 100,000 residents&#39;, main = &#39;Histogram of Rape Arrests in the US&#39;, sub = &#39;(by state)&#39;)</code></pre>
-<p><img src="Assignments_files/figure-html/unnamed-chunk-7-2.png" width="480" /></p>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-8-2.png" width="480" /></p>
 <pre class="r"><code>summary(dat$Rape)</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##    7.30   15.07   20.10   21.23   26.18   46.00</code></pre>
@@ -420,28 +421,25 @@ summary(dat$Assault)</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##    45.0   109.0   159.0   170.8   249.0   337.0</code></pre>
 <pre class="r"><code>hist(dat$Rape, col = &#39;red&#39;, ylab = &#39;Frequency&#39;, xlab = &#39;Rape Arrests per 100,000 residents&#39;, main = &#39;Histogram of Rape Arrests in the US&#39;, sub = &#39;(by state)&#39;)</code></pre>
-<p><img src="Assignments_files/figure-html/unnamed-chunk-7-3.png" width="480" /></p>
-<p>What does the command par do, in your own words (you can look this up by asking R <code>?par</code>)?</p>
-<p>Answer: The par function allows an R user to look at the graphical parameters that control how graphs are displayed. In the case of the par(mfrow=c(3,1)) function, we are able to not only look at the graphical parameters, but control them so that we can decide how many subplots we want displayed.</p>
-<p>What can you learn from plotting the histograms together?</p>
-<p>Answer: From plotting the histograms together, we can view a comparison of the distributions in relation to each other, examining skew and quartile arrangement to see how distributions vary by crime type. On a more general note, plotting the histograms together allows us to see generally how frequency and distribution relationships among multiple variables interact, allowing a viewer a more clear image of the relationship between variables while still being able to view a more individualistic look at each histogram.</p>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-8-3.png" width="480" /></p>
+<p><em>What does the command par do, in your own words (you can look this up by asking R <code>?par</code>)?</em></p>
+<p><strong>Answer</strong>: The par function allows an R user to look at the graphical parameters that control how graphs are displayed. In the case of the par(mfrow=c(3,1)) function, we are able to not only look at the graphical parameters, but control them so that we can decide how many subplots we want displayed.</p>
+<p><em>What can you learn from plotting the histograms together?</em></p>
+<p><strong>Answer</strong>: From plotting the histograms together, we can view a comparison of the distributions in relation to each other, examining skew and quartile arrangement to see how distributions vary by crime type. On a more general note, plotting the histograms together allows us to see generally how frequency and distribution relationships among multiple variables interact, allowing a viewer a more clear image of the relationship between variables while still being able to view a more individualistic look at each histogram.</p>
 </div>
 <div id="problem-8" class="section level3">
 <h3>Problem 8</h3>
-<p>In the console below (not in text), type <code>install.packages("maps")</code> and press Enter, and then type <code>install.packages("ggplot2")</code> and press Enter. This will install the packages so you can load the libraries.</p>
-<p>Run this code:</p>
-<pre class="r"><code>library(dplyr)
-dat$state &lt;- tolower(rownames(USArrests))
-State &lt;- dat$state
-rename(dat, State = state)
-library(maps) 
+<p><em>In the console below (not in text), type <code>install.packages("maps")</code> and press Enter, and then type <code>install.packages("ggplot2")</code> and press Enter. This will install the packages so you can load the libraries.</em></p>
+<p><em>Run this code:</em></p>
+<pre class="r"><code>library(maps) 
 library(ggplot2) 
 
 ggplot(dat, aes(map_id=state, fill=Murder)) + 
   geom_map(map=map_data(&quot;state&quot;)) + 
   expand_limits(x=map_data(&quot;state&quot;)$long, y=map_data(&quot;state&quot;)$lat)</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-9-1.png" width="720" /></p>
 <p>What does this code do? Explain what each line is doing.</p>
-<p>Answer: ggplot is the most basic implementation of any data visualization in R. In this instance, the first line of code is filling out the basic information of the data visual by specifying the variables which are involved in the plot. The second line of code employs the maps package and ggplot2 package to choose specifically to create a mapping of the selected variables, using states as the selected implementation of the map. The third line employs the expand_limit function in order to ensure that the limits of the visualization include a single value for all aspects of the plot, implying what should be included in the scale.</p>
+<p><strong>Answer</strong>: ggplot is the most basic implementation of any data visualization in R. In this instance, the first line of code is filling out the basic information of the data visual by specifying the variables which are involved in the plot. The second line of code employs the maps package and ggplot2 package to choose specifically to create a mapping of the selected variables, using states as the selected implementation of the map. The third line employs the expand_limit function in order to ensure that the limits of the visualization include a single value for all aspects of the plot, implying what should be included in the scale.</p>
 <p><span class="math display">\[\\[2in]\]</span></p>
 </div>
 </div>
