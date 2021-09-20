@@ -144,7 +144,7 @@ ggplot(dat, aes(map_id=state, fill=Murder)) +
   expand_limits(x=map_data("state")$long, y=map_data("state")$lat)
 ```
 
-What does this code do? Explain what each line is doing.
+_What does this code do? Explain what each line is doing._
 
 **Answer**: ggplot is the most basic implementation of any data visualization in R. In this instance, the first line of code is filling out the basic information of the data visual by specifying the variables which are involved in the plot. The second line of code employs the maps package and ggplot2 package to choose specifically to create a mapping of the selected variables, using states as the selected implementation of the map. The third line employs the expand_limit function in order to ensure that the limits of the visualization include a single value for all aspects of the plot, implying what should be included in the scale.
 
