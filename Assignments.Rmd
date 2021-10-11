@@ -150,7 +150,7 @@ _What does this code do? Explain what each line is doing._
 
 $$\\[2in]$$
 
-#Assignment 2
+# Assignment 2
 
 Instructions: Copy your code, paste it into a Word document, and turn it into Canvas. You can turn in a .docx or .pdf file. Show any EDA (graphical or non-graphical) you have used to come to this conclusion.
 
@@ -288,7 +288,7 @@ sum(dat$speakengl == 3 & dat$irsex == 2)
 
 
 
-#Exam 1
+# Exam 1
 
 # Instructions
 
