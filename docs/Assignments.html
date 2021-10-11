@@ -506,9 +506,8 @@ hist(dat$iralcage, col = &#39;red&#39;, ylab = &#39;Frequency&#39;, xlab = &#39;
 <h2>Problem 5: Sexual attraction</h2>
 <pre class="r"><code>library(ggplot2)</code></pre>
 </div>
-</div>
-<div id="what-does-the-distribution-of-sexual-attraction-look-like-is-this-what-you-expected" class="section level1">
-<h1>What does the distribution of sexual attraction look like? Is this what you expected?</h1>
+<div id="what-does-the-distribution-of-sexual-attraction-look-like-is-this-what-you-expected" class="section level2">
+<h2>What does the distribution of sexual attraction look like? Is this what you expected?</h2>
 <pre class="r"><code>hist(dat$sexatract)</code></pre>
 <p><img src="Assignments_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
 <pre class="r"><code>summary(dat$sexatract)</code></pre>
@@ -524,8 +523,8 @@ hist(dat$iralcage, col = &#39;red&#39;, ylab = &#39;Frequency&#39;, xlab = &#39;
 <li>While I do not feel this is truly representative of the United States, there are many people who may feel uncomfortable correctly identifying sexual preference on a survey used by government organizations and regarding personal information (even if it is later encoded).</li>
 </ul>
 </div>
-<div id="what-is-the-distribution-of-sexual-attraction-by-gender" class="section level1">
-<h1>What is the distribution of sexual attraction by gender?</h1>
+<div id="what-is-the-distribution-of-sexual-attraction-by-gender" class="section level2">
+<h2>What is the distribution of sexual attraction by gender?</h2>
 <pre class="r"><code>genatt &lt;- table(dat$irsex, dat$sexatract)
 barplot(genatt,
         main = &quot;Stacked barchart&quot;,
@@ -575,11 +574,11 @@ barplot(genatt,
 <li>This means that, from this very limited data set, there is a higher number of male English speakers.</li>
 </ul>
 </div>
+</div>
 <div id="exam-1" class="section level1">
 <h1>Exam 1</h1>
-</div>
-<div id="instructions" class="section level1">
-<h1>Instructions</h1>
+<div id="instructions" class="section level2">
+<h2>Instructions</h2>
 <ol style="list-style-type: lower-alpha">
 <li><p>Create a folder in your computer (a good place would be under Crim 250, Exams).</p></li>
 <li><p>Download the dataset from the Canvas website (fatal-police-shootings-data.csv) onto that folder, and save your Exam 1.Rmd file in the same folder.</p></li>
@@ -588,8 +587,8 @@ barplot(genatt,
 </ol>
 <pre class="r"><code>dat &lt;- read.csv(&quot;~/Documents/GitHub/SophieCRIM250/fatal-police-shootings-data.csv&quot;)</code></pre>
 </div>
-<div id="problem-1-10-points" class="section level1">
-<h1>Problem 1 (10 points)</h1>
+<div id="problem-1-10-points" class="section level2">
+<h2>Problem 1 (10 points)</h2>
 <ol style="list-style-type: lower-alpha">
 <li>Describe the dataset. This is the source: <a href="https://github.com/washingtonpost/data-police-shootings" class="uri">https://github.com/washingtonpost/data-police-shootings</a> . Write two sentences (max.) about this.</li>
 </ol>
@@ -722,8 +721,8 @@ armeddat</code></pre>
 ##                                1</code></pre>
 <p><strong>In the armed variable, I was most surprised to see that people were “armed” with a pitchfork (very medieval), a pen (???), and an air conditioner.</strong></p>
 </div>
-<div id="problem-2-10-points" class="section level1">
-<h1>Problem 2 (10 points)</h1>
+<div id="problem-2-10-points" class="section level2">
+<h2>Problem 2 (10 points)</h2>
 <ol style="list-style-type: lower-alpha">
 <li>Describe the age distribution of the sample. Is this what you would expect to see?</li>
 </ol>
@@ -746,8 +745,8 @@ armeddat</code></pre>
 ##    3  293 6298</code></pre>
 <p><strong>I do find this surprising. Given that there is a fairly predictable distribution of ages in this data set, you would assume there be an equally as predictable distribution of gender. However, knowing what we know about fatal shootings by police in the United States, the narrative portrayed by police officers often follows the line of not-being-confident-in-a-lack-of-threat-from-the-victim. While this narrative is incredibly frustrating, it does align with the uneven distribution of men and women in this event because women often are portrayed as being a lower threat level than men in general.</strong></p>
 </div>
-<div id="problem-3-10-points" class="section level1">
-<h1>Problem 3 (10 points)</h1>
+<div id="problem-3-10-points" class="section level2">
+<h2>Problem 3 (10 points)</h2>
 <ol style="list-style-type: lower-alpha">
 <li>How many police officers had a body camera, according to news reports? What proportion is this of all the incidents in the data? Are you surprised that it is so high or low?</li>
 </ol>
@@ -773,8 +772,8 @@ armeddat</code></pre>
 <pre><code>## [1] 0.2885957</code></pre>
 <p><strong>The victim was fleeing in 1058 of the incidents (either by car or on foot: “other” answers and not included answers on this were excluded due to lack of information). This is 28.860% of the data set. This is not surprising given what we know about police brutality in the United States, but it is very concerning. This means that over 70% of victims who were shot fatally by police were not fleeing.</strong></p>
 </div>
-<div id="problem-4-10-points---answer-only-one-of-these-a-or-b." class="section level1">
-<h1>Problem 4 (10 points) - Answer only one of these (a or b).</h1>
+<div id="problem-4-10-points---answer-only-one-of-these-a-or-b." class="section level2">
+<h2>Problem 4 (10 points) - Answer only one of these (a or b).</h2>
 <ol style="list-style-type: lower-alpha">
 <li>Describe the relationship between the variables “body camera” and “flee” using a stacked barplot. What can you conclude from this relationship?</li>
 </ol>
@@ -791,8 +790,8 @@ barplot(counts, col=c(&quot;red&quot;, &quot;blue&quot;), legend=TRUE, xlab=&quo
 <p><em>Hint 2: Also, if you are unsure about the syntax for boxplot, run ?boxplot in R and see some examples at the bottom of the documentation. This is usually a good way to look up the syntax of R code. You can also Google it.</em></p>
 <p><strong>Your answer here.</strong></p>
 </div>
-<div id="extra-credit-10-points" class="section level1">
-<h1>Extra credit (10 points)</h1>
+<div id="extra-credit-10-points" class="section level2">
+<h2>Extra credit (10 points)</h2>
 <ol style="list-style-type: lower-alpha">
 <li>What does this code tell us?</li>
 </ol>
@@ -808,6 +807,7 @@ head(mydates)
 <li>Regarding missing values in problem 4, do you see any? If so, do you think that’s all that’s missing from the data?</li>
 </ol>
 <p><strong>There is visibly missing data in the flee variable. This is likely not all the data that is missing from the data set because it is not rare for data to be missing in such a large data set like this.</strong></p>
+</div>
 </div>
 
 

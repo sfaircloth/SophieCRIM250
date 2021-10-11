@@ -234,7 +234,7 @@ hist(dat$iralcage, col = 'red', ylab = 'Frequency', xlab = 'Age category', main 
 ```{r}
 library(ggplot2)
 ```
-# What does the distribution of sexual attraction look like? Is this what you expected?
+## What does the distribution of sexual attraction look like? Is this what you expected?
 ```{r}
 hist(dat$sexatract)
 summary(dat$sexatract)
@@ -244,7 +244,7 @@ table(dat$sexatract)
 - This is not a necessarily surprising result, considering there is generally a strong heterosexual representation in the United States, especially on representative surveys.
 - While I do not feel this is truly representative of the United States, there are many people who may feel uncomfortable correctly identifying sexual preference on a survey used by government organizations and regarding personal information (even if it is later encoded).
 
-# What is the distribution of sexual attraction by gender? 
+## What is the distribution of sexual attraction by gender? 
 ```{r}
 genatt <- table(dat$irsex, dat$sexatract)
 barplot(genatt,
@@ -290,7 +290,7 @@ sum(dat$speakengl == 3 & dat$irsex == 2)
 
 # Exam 1
 
-# Instructions
+## Instructions
 
 a. Create a folder in your computer (a good place would be under Crim 250, Exams). 
 
@@ -304,7 +304,7 @@ dat <- read.csv("~/Documents/GitHub/SophieCRIM250/fatal-police-shootings-data.cs
 ```
 
 
-# Problem 1 (10 points)
+## Problem 1 (10 points)
 
 a. Describe the dataset. This is the source: https://github.com/washingtonpost/data-police-shootings . Write two sentences (max.) about this.
 
@@ -334,7 +334,7 @@ armeddat
 
 __In the armed variable, I was most surprised to see that people were "armed" with a pitchfork (very medieval), a pen (???), and an air conditioner.__
 
-# Problem 2 (10 points)
+## Problem 2 (10 points)
 
 a. Describe the age distribution of the sample. Is this what you would expect to see?
 ```{r}
@@ -358,7 +358,7 @@ table(dat$gender)
 __I do find this surprising. Given that there is a fairly predictable distribution of ages in this data set, you would assume there be an equally as predictable distribution of gender. However, knowing what we know about fatal shootings by police in the United States, the narrative portrayed by police officers often follows the line of not-being-confident-in-a-lack-of-threat-from-the-victim. While this narrative is incredibly frustrating, it does align with the uneven distribution of men and women in this event because women often are portrayed as being a lower threat level than men in general.__
 
 
-# Problem 3 (10 points)
+## Problem 3 (10 points)
 
 a. How many police officers had a body camera, according to news reports? What proportion is this of all the incidents in the data? Are you surprised that it is so high or low?
 
@@ -382,7 +382,7 @@ __The victim was fleeing in 1058 of the incidents (either by car or on foot: "ot
 
 
 
-# Problem 4 (10 points) -  Answer only one of these (a or b).
+## Problem 4 (10 points) -  Answer only one of these (a or b).
 
 a. Describe the relationship between the variables "body camera" and "flee" using a stacked barplot. What can you conclude from this relationship? 
 
@@ -416,7 +416,7 @@ __Your answer here.__
 
 
 
-# Extra credit (10 points)
+## Extra credit (10 points)
 
 a. What does this code tell us? 
 
