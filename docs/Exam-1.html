@@ -9,9 +9,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
+<meta name="author" content="Sophie Faircloth" />
 
+<meta name="date" content="2021-10-04" />
 
-<title>Assignments</title>
+<title>Exam 1</title>
 
 <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -29,9 +31,6 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
-<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
-<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -221,69 +220,6 @@ $(document).ready(function () {
 
 
 
-<style type="text/css">
-
-#TOC {
-  margin: 25px 0px 20px 0px;
-}
-@media (max-width: 768px) {
-#TOC {
-  position: relative;
-  width: 100%;
-}
-}
-
-@media print {
-.toc-content {
-  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
-  float: right;
-}
-}
-
-.toc-content {
-  padding-left: 30px;
-  padding-right: 40px;
-}
-
-div.main-container {
-  max-width: 1200px;
-}
-
-div.tocify {
-  width: 20%;
-  max-width: 260px;
-  max-height: 85%;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  div.tocify {
-    width: 25%;
-  }
-}
-
-@media (max-width: 767px) {
-  div.tocify {
-    width: 100%;
-    max-width: none;
-  }
-}
-
-.tocify ul, .tocify li {
-  line-height: 20px;
-}
-
-.tocify-subheader .tocify-item {
-  font-size: 0.90em;
-}
-
-.tocify .list-group-item {
-  border-radius: 0px;
-}
-
-
-</style>
-
-
 
 </head>
 
@@ -291,16 +227,6 @@ div.tocify {
 
 
 <div class="container-fluid main-container">
-
-
-<!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row">
-<div class="col-xs-12 col-sm-4 col-md-3">
-<div id="TOC" class="tocify">
-</div>
-</div>
-
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -338,242 +264,13 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Assignments</h1>
+<h1 class="title toc-ignore">Exam 1</h1>
+<h4 class="author">Sophie Faircloth</h4>
+<h4 class="date">10/04/2021</h4>
 
 </div>
 
 
-<p>I want you to submit your assignment as a PDF, so I can keep a record of what the code looked like that day. I also want you to include your answers on your personal GitHub website. This will be good practice for editing your website and it will help you produce something you can keep after the class is over.</p>
-<ol style="list-style-type: decimal">
-<li><p>Download the Assignment1.Rmd file from Canvas. You can use this as a template for writing your answers. It’s the same as what you can see on my website in the Assignments tab. Once we’re done with this I’ll edit the text on the website to include the solutions.</p></li>
-<li><p>On RStudio, open a new R script in RStudio (File &gt; New File &gt; R Script). This is where you can test out your R code. You’ll write your R commands and draw plots here.</p></li>
-<li><p>Once you have finalized your code, copy and paste your results into this template (Assignment 1.Rmd). For example, if you produced a plot as the solution to one of the problems, you can copy and paste the R code in R markdown by using the <code>``{r} ```</code> command. Answer the questions in full sentences and Save.</p></li>
-<li><p>Produce a PDF file with your answers. To do this, knit to PDF (use Knit button at the top of RStudio), locate the PDF file in your docs folder (it’s in the same folder as the Rproj), and submit that on on Canvas in Assignment 1.</p></li>
-<li><p>Build Website, go to GitHub desktop, commit and push. Now your solutions should be on your website as well.</p></li>
-</ol>
-<div id="assignment-1" class="section level1">
-<h1>Assignment 1</h1>
-<p><em>This assignment is due on Canvas on Monday 9/20 before class, at 10:15 am. Include the name of anyone with whom you collaborated at the top of the assignment.</em></p>
-<div id="problem-1" class="section level3">
-<h3>Problem 1</h3>
-<p><em>Install the datasets package on the console below using <code>install.packages("datasets")</code>. Now load the library.</em></p>
-<pre class="r"><code>library(datasets)</code></pre>
-<p><em>Load the USArrests dataset and rename it <code>dat</code>. Note that this dataset comes with R, in the package datasets, so there’s no need to load data from your computer. Why is it useful to rename the dataset?</em></p>
-<p><strong>Answer</strong>: Well, we want to replicate analyses. That’s why it’s nice to rename data.</p>
-<pre class="r"><code>dat &lt;- USArrests</code></pre>
-</div>
-<div id="problem-2" class="section level3">
-<h3>Problem 2</h3>
-<p><em>Use this command to make the state names into a new variable called State. </em></p>
-<pre class="r"><code>library(dplyr)
-dat$state &lt;- tolower(rownames(USArrests))</code></pre>
-<p><em>I used the dplyr package in order to rename this variable. I am sure there are other ways to do this but I used old reliable!</em></p>
-<p><em>This dataset has the state names as row names, so we just want to make them into a new variable. We also make them all lower case, because that will help us draw a map later - the map function requires the states to be lower case.</em></p>
-<p><em>List the variables contained in the dataset <code>USArrests</code>.</em></p>
-<pre class="r"><code>names(dat)</code></pre>
-<pre><code>## [1] &quot;Murder&quot;   &quot;Assault&quot;  &quot;UrbanPop&quot; &quot;Rape&quot;     &quot;state&quot;</code></pre>
-<p><strong>Answer</strong>: The four variables are Murder, Assault, UrbanPop, and Rape.</p>
-</div>
-<div id="problem-3" class="section level3">
-<h3>Problem 3</h3>
-<p><em>What type of variable (from the DVB chapter) is <code>Murder</code>? </em> <strong>Answer</strong>: quantitative variable</p>
-<p><em>What R Type of variable is it?</em></p>
-<pre class="r"><code>typeof(dat$Murder)</code></pre>
-<pre><code>## [1] &quot;double&quot;</code></pre>
-<p><strong>Answer</strong>: double</p>
-</div>
-<div id="problem-4" class="section level3">
-<h3>Problem 4</h3>
-<p><em>What information is contained in this dataset, in general? What do the numbers mean? </em></p>
-<p><strong>Answer</strong>: The information in this dataset is a set of the number of arrests for different violent crimes in the United States, as divided by state. The numbers represent the numeric value of arrests per 100,000 residents for assault, murder, and rape in each of the 50 US states, also providing the percent of the population living in urban areas (UrbanPop).</p>
-</div>
-<div id="problem-5" class="section level3">
-<h3>Problem 5</h3>
-<p><em>Draw a histogram of <code>Murder</code> with proper labels and title.</em></p>
-<pre class="r"><code>hist(dat$Murder, col = &#39;red&#39;, ylab = &#39;Frequency&#39;, xlab = &#39;Murder Arrests per 100,000 residents&#39;, main = &#39;Histogram of Murder Arrests in the US&#39;, sub = &#39;(by state)&#39;)</code></pre>
-<p><img src="Assignments_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
-</div>
-<div id="problem-6" class="section level3">
-<h3>Problem 6</h3>
-<p><em>Please summarize <code>Murder</code> quantitatively. What are its mean and median? What is the difference between mean and median? What is a quartile, and why do you think R gives you the 1st Qu. and 3rd Qu.?</em></p>
-<pre class="r"><code>summary(dat$Murder)</code></pre>
-<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##   0.800   4.075   7.250   7.788  11.250  17.400</code></pre>
-<p><strong>Answer</strong>: The mean of the Murder variable is 7.788 (murder arrests per 100,000 residents of a state). The median is 7.250 (murder arrests per 100,000 residents of a state). The difference between these two values quantitatively is 0.538. The difference qualitatively is that the mean represents the average number of murder arrests per 100,000 residents of all US states while the median is the middle value of the data set, showing the data has a slight right skew. A quartile isdivides the dataset into four parts, with Q1 being the median of the lower half of the dataset and Q3 being the median of the upper half of the data set. R gives you this information because quartiles can be helpful in determining where a specific data point falls in the set; for example, if a value for “Murders” is greater than Q3, 11.250, we can more reasonably assume that this state has an exceptionally high murder rate in comparison to other states in the US. If a state has a value for “Murders” that is less than 4.075, we can more reasonably assume that this state is relatively safer than other US states!</p>
-</div>
-<div id="problem-7" class="section level3">
-<h3>Problem 7</h3>
-<p><em>Repeat the same steps you followed for <code>Murder</code>, for the variables <code>Assault</code> and <code>Rape</code>. Now plot all three histograms together. You can do this by using the command <code>par(mfrow=c(3,1))</code> and then plotting each of the three. </em></p>
-<pre class="r"><code>hist(dat$Assault, col = &#39;red&#39;, ylab = &#39;Frequency&#39;, xlab = &#39;Assault Arrests per 100,000 residents&#39;, main = &#39;Histogram of Assault Arrests in the US&#39;, sub = &#39;(by state)&#39;)</code></pre>
-<p><img src="Assignments_files/figure-html/unnamed-chunk-8-1.png" width="480" /></p>
-<pre class="r"><code>summary(dat$Assault)</code></pre>
-<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##    45.0   109.0   159.0   170.8   249.0   337.0</code></pre>
-<pre class="r"><code>hist(dat$Rape, col = &#39;red&#39;, ylab = &#39;Frequency&#39;, xlab = &#39;Rape Arrests per 100,000 residents&#39;, main = &#39;Histogram of Rape Arrests in the US&#39;, sub = &#39;(by state)&#39;)</code></pre>
-<p><img src="Assignments_files/figure-html/unnamed-chunk-8-2.png" width="480" /></p>
-<pre class="r"><code>summary(dat$Rape)</code></pre>
-<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##    7.30   15.07   20.10   21.23   26.18   46.00</code></pre>
-<pre class="r"><code>par(mfrow=c(3,1))
-hist(dat$Murder, col = &#39;red&#39;, ylab = &#39;Frequency&#39;, xlab = &#39;Murder Arrests per 100,000 residents&#39;, main = &#39;Histogram of Murder Arrests in the US&#39;, sub = &#39;(by state)&#39;)
-hist(dat$Assault, col = &#39;red&#39;, ylab = &#39;Frequency&#39;, xlab = &#39;Assault Arrests per 100,000 residents&#39;, main = &#39;Histogram of Assault Arrests in the US&#39;, sub = &#39;(by state)&#39;)
-summary(dat$Assault)</code></pre>
-<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##    45.0   109.0   159.0   170.8   249.0   337.0</code></pre>
-<pre class="r"><code>hist(dat$Rape, col = &#39;red&#39;, ylab = &#39;Frequency&#39;, xlab = &#39;Rape Arrests per 100,000 residents&#39;, main = &#39;Histogram of Rape Arrests in the US&#39;, sub = &#39;(by state)&#39;)</code></pre>
-<p><img src="Assignments_files/figure-html/unnamed-chunk-8-3.png" width="480" /></p>
-<p><em>What does the command par do, in your own words (you can look this up by asking R <code>?par</code>)?</em></p>
-<p><strong>Answer</strong>: The par function allows an R user to look at the graphical parameters that control how graphs are displayed. In the case of the par(mfrow=c(3,1)) function, we are able to not only look at the graphical parameters, but control them so that we can decide how many subplots we want displayed.</p>
-<p><em>What can you learn from plotting the histograms together?</em></p>
-<p><strong>Answer</strong>: From plotting the histograms together, we can view a comparison of the distributions in relation to each other, examining skew and quartile arrangement to see how distributions vary by crime type. On a more general note, plotting the histograms together allows us to see generally how frequency and distribution relationships among multiple variables interact, allowing a viewer a more clear image of the relationship between variables while still being able to view a more individualistic look at each histogram.</p>
-</div>
-<div id="problem-8" class="section level3">
-<h3>Problem 8</h3>
-<p><em>In the console below (not in text), type <code>install.packages("maps")</code> and press Enter, and then type <code>install.packages("ggplot2")</code> and press Enter. This will install the packages so you can load the libraries.</em></p>
-<p><em>Run this code:</em></p>
-<pre class="r"><code>library(maps) 
-library(ggplot2) 
-
-ggplot(dat, aes(map_id=state, fill=Murder)) + 
-  geom_map(map=map_data(&quot;state&quot;)) + 
-  expand_limits(x=map_data(&quot;state&quot;)$long, y=map_data(&quot;state&quot;)$lat)</code></pre>
-<p><img src="Assignments_files/figure-html/unnamed-chunk-9-1.png" width="720" /></p>
-<p><em>What does this code do? Explain what each line is doing.</em></p>
-<p><strong>Answer</strong>: ggplot is the most basic implementation of any data visualization in R. In this instance, the first line of code is filling out the basic information of the data visual by specifying the variables which are involved in the plot. The second line of code employs the maps package and ggplot2 package to choose specifically to create a mapping of the selected variables, using states as the selected implementation of the map. The third line employs the expand_limit function in order to ensure that the limits of the visualization include a single value for all aspects of the plot, implying what should be included in the scale.</p>
-<p><span class="math display">\[\\[2in]\]</span></p>
-<p>#Assignment 2</p>
-<p>Instructions: Copy your code, paste it into a Word document, and turn it into Canvas. You can turn in a .docx or .pdf file. Show any EDA (graphical or non-graphical) you have used to come to this conclusion.</p>
-</div>
-<div id="problem-1-load-data" class="section level2">
-<h2>Problem 1: Load data</h2>
-<p>Set your working directory to the folder where you downloaded the data.</p>
-<pre class="r"><code>setwd(&quot;~/Documents/GitHub/SophieCRIM250&quot;)</code></pre>
-<p>Read the data</p>
-<pre class="r"><code>dat &lt;- read.csv(file = &#39;dat.nsduh.small.1.csv&#39;)</code></pre>
-<p>What are the dimensions of the dataset?</p>
-<pre class="r"><code>names(dat)</code></pre>
-<pre><code>## [1] &quot;mjage&quot;     &quot;cigage&quot;    &quot;iralcage&quot;  &quot;age2&quot;      &quot;sexatract&quot; &quot;speakengl&quot;
-## [7] &quot;irsex&quot;</code></pre>
-<pre class="r"><code>dim(dat)</code></pre>
-<pre><code>## [1] 171   7</code></pre>
-<ul>
-<li>The dimensions are 171 x 7</li>
-</ul>
-</div>
-<div id="problem-2-variables" class="section level2">
-<h2>Problem 2: Variables</h2>
-<p>Describe the variables in the dataset. - mjage is a variable that denotes how old someone was the first time they used marijuana or hashish - cigage is a variable that denotes how old someone was when they first started smoking cigarettes every day - iralcage is a variable that denotes how old someone was when they first tried alcohol, numbers greater than 900 implying never used or lack of answer - age2 is a variable that splits people up into groups based on respondent age - sexatract is a variable that splits people into groups based on sexual attraction, each number denoting a different sexual preference - speakengl is a variable that splits people into groups based off of their english literacy - irsex is a variable that splits people into two different groups based on a binary gender system, 1 being male and 2 being female</p>
-<p>What is this dataset about? Who collected the data, what kind of sample is it, and what was the purpose of generating the data? - This dataset is about the health and drug use statistics of the United States. - This data is from the National Survey on Drug Use and Health, conducted by The Substance Abuse and Mental Health Services Administration in the US Department of Health and Human Services. - This is a random sample. - The data was generated for the sake of government agencies, private organizations, individual researchers, and the public at large for a number of different purposes. - This data is used mainly to provide more information on substance use and demographic statistics in the United States.</p>
-</div>
-<div id="problem-3-age-and-gender" class="section level2">
-<h2>Problem 3: Age and gender</h2>
-<p>What is the age distribution of the sample like? Make sure you read the codebook to know what the variable values mean.</p>
-<pre class="r"><code>hist(dat$age2)</code></pre>
-<p><img src="Assignments_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
-<pre class="r"><code>summary(dat$age2)</code></pre>
-<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##    4.00   13.00   15.00   13.98   15.00   17.00</code></pre>
-<ul>
-<li>The age distribution is left skewed, with a mean of 13.98 (representing ages 26-29) and median of 15 (representing ages 35-49). # Do you think this age distribution representative of the US population? Why or why not?</li>
-<li>I do feel like this sample is representative. The distribution of ages in the age set are misleading; the ages of 18-49 (as represented by groups 7-15) are the majority of the sample, which is consistent with the most recent US Census. # Is the sample balanced in terms of gender? If not, are there more females or males?</li>
-</ul>
-<pre class="r"><code>summary(dat$irsex)</code></pre>
-<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##   1.000   1.000   1.000   1.468   2.000   2.000</code></pre>
-<ul>
-<li>This sample is fairly balanced in terms of gender. The mean for the irsex variable is 1.468, meaning the sample is fairly balanced in terms of sex. # Use this code to draw a stacked bar plot to view the relationship between sex and age. What can you conclude from this plot?</li>
-</ul>
-<pre class="r"><code>tab.agesex &lt;- table(dat$irsex, dat$age2)
-barplot(tab.agesex,
-        main = &quot;Stacked barchart&quot;,
-        xlab = &quot;Age category&quot;, ylab = &quot;Frequency&quot;,
-        legend.text = rownames(tab.agesex),
-        beside = FALSE) # Stacked bars (default)</code></pre>
-<p><img src="Assignments_files/figure-html/unnamed-chunk-15-1.png" width="672" /> - This plot demonstrates that the distribution is fairly balanced in age, with the majority of participants on either tail of the data being mainly males.</p>
-</div>
-<div id="problem-4-substance-use" class="section level2">
-<h2>Problem 4: Substance use</h2>
-<p>For which of the three substances included in the dataset (marijuana, alcohol, and cigarettes) do individuals tend to use the substance earlier?</p>
-<pre class="r"><code>par(mfrow=c(3,1))
-hist(dat$mjage, col = &#39;red&#39;, ylab = &#39;Frequency&#39;, xlab = &#39;Age category&#39;, main = &#39;Histogram of Marijuana Usage&#39;)
-hist(dat$cigage , col = &#39;red&#39;, ylab = &#39;Frequency&#39;, xlab = &#39;Age category&#39;, main = &#39;Histogram of Cigarette Usage&#39;)
-hist(dat$iralcage, col = &#39;red&#39;, ylab = &#39;Frequency&#39;, xlab = &#39;Age category&#39;, main = &#39;Histogram of Alcohol Consumption&#39;)</code></pre>
-<p><img src="Assignments_files/figure-html/unnamed-chunk-16-1.png" width="672" /> - Individuals tend to use marijuana at the youngest age out of the three substances.</p>
-</div>
-<div id="problem-5-sexual-attraction" class="section level2">
-<h2>Problem 5: Sexual attraction</h2>
-<pre class="r"><code>library(ggplot2)</code></pre>
-</div>
-</div>
-<div id="what-does-the-distribution-of-sexual-attraction-look-like-is-this-what-you-expected" class="section level1">
-<h1>What does the distribution of sexual attraction look like? Is this what you expected?</h1>
-<pre class="r"><code>hist(dat$sexatract)</code></pre>
-<p><img src="Assignments_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
-<pre class="r"><code>summary(dat$sexatract)</code></pre>
-<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##    1.00    1.00    1.00    3.07    1.00   99.00</code></pre>
-<pre class="r"><code>table(dat$sexatract)</code></pre>
-<pre><code>## 
-##   1   2   3   4   5   6  99 
-## 136  16   9   3   3   1   3</code></pre>
-<ul>
-<li>According to the numeric system for sexual attraction, this gives the distribution a strong right skew.</li>
-<li>This is not a necessarily surprising result, considering there is generally a strong heterosexual representation in the United States, especially on representative surveys.</li>
-<li>While I do not feel this is truly representative of the United States, there are many people who may feel uncomfortable correctly identifying sexual preference on a survey used by government organizations and regarding personal information (even if it is later encoded).</li>
-</ul>
-</div>
-<div id="what-is-the-distribution-of-sexual-attraction-by-gender" class="section level1">
-<h1>What is the distribution of sexual attraction by gender?</h1>
-<pre class="r"><code>genatt &lt;- table(dat$irsex, dat$sexatract)
-barplot(genatt,
-        main = &quot;Stacked barchart&quot;,
-        xlab = &quot;Gender&quot;, ylab = &quot;Frequency&quot;,
-        legend.text = rownames(genatt),
-        beside = FALSE) # Stacked bars (default)</code></pre>
-<p><img src="Assignments_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
-<pre class="r"><code>sum(dat$sexatract == 1 &amp; dat$irsex == 1)</code></pre>
-<pre><code>## [1] 82</code></pre>
-<pre class="r"><code>- 82</code></pre>
-<pre><code>## [1] -82</code></pre>
-<pre class="r"><code>sum(dat$sexatract == 1 &amp; dat$irsex == 2)</code></pre>
-<pre><code>## [1] 54</code></pre>
-<pre class="r"><code>- 54</code></pre>
-<pre><code>## [1] -54</code></pre>
-<ul>
-<li>The distribution of sexual attraction is highly populated by those who identified (via the codebook) as only being attracted to the opposite gender.</li>
-<li>A smaller number of women identify as being heterosexual than men, thought this could be slightly biased due to a smaller sample size of women. ## Problem 6: English speaking</li>
-</ul>
-<p>What does the distribution of English speaking look like in the sample? Is this what you might expect for a random sample of the US population? summary(dat<span class="math inline">\(speakengl) table(dat\)</span>speakengl) - Majority of the sample are English speakers, with 169 of the 171 respondents self-identifying as speaking English well or very well and only two respondents not speaking English well. - This is not what I would expect from a random sample of the US, but makes sense in the fact that this is a survey administered in English, probably leading to some sampling bias in a high yield of English speakers. Are there more English speaker females or males?</p>
-<pre class="r"><code>sum(dat$speakengl == 1 &amp; dat$irsex == 1)</code></pre>
-<pre><code>## [1] 84</code></pre>
-<pre class="r"><code>- 84</code></pre>
-<pre><code>## [1] -84</code></pre>
-<pre class="r"><code>sum(dat$speakengl == 1 &amp; dat$irsex == 2)</code></pre>
-<pre><code>## [1] 77</code></pre>
-<pre class="r"><code>- 77</code></pre>
-<pre><code>## [1] -77</code></pre>
-<pre class="r"><code>sum(dat$speakengl == 2 &amp; dat$irsex == 1)</code></pre>
-<pre><code>## [1] 7</code></pre>
-<pre class="r"><code>- 7</code></pre>
-<pre><code>## [1] -7</code></pre>
-<pre class="r"><code>sum(dat$speakengl == 2 &amp; dat$irsex == 2)</code></pre>
-<pre><code>## [1] 1</code></pre>
-<pre class="r"><code>- 1</code></pre>
-<pre><code>## [1] -1</code></pre>
-<pre class="r"><code>sum(dat$speakengl == 3 &amp; dat$irsex == 1)</code></pre>
-<pre><code>## [1] 0</code></pre>
-<pre class="r"><code>- 0</code></pre>
-<pre><code>## [1] 0</code></pre>
-<pre class="r"><code>sum(dat$speakengl == 3 &amp; dat$irsex == 2)</code></pre>
-<pre><code>## [1] 2</code></pre>
-<pre class="r"><code>- 2</code></pre>
-<pre><code>## [1] -2</code></pre>
-<ul>
-<li>Assuming that we say that “not an English speaker” is characterized by someone self-assessing themselves as speaking English “not well,” there is a higher number of female non-English speakers.</li>
-<li>This means that, from this very limited data set, there is a higher number of male English speakers.</li>
-</ul>
-<p>#Exam 1</p>
-</div>
 <div id="instructions" class="section level1">
 <h1>Instructions</h1>
 <ol style="list-style-type: lower-alpha">
@@ -724,7 +421,7 @@ armeddat</code></pre>
 <li>Describe the age distribution of the sample. Is this what you would expect to see?</li>
 </ol>
 <pre class="r"><code>hist(dat$age)</code></pre>
-<p><img src="Assignments_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+<p><img src="Exam-1_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <p><strong>The distribution shows a right skew to the ages of victims in recorded fatal shootings. I feel like this is fairly predictable, as the average age in the US is 38, and we know that fatal shootings often occur in over-policed low-income areas where the majority of people who are out and about are the working class of these areas, putting majority of their ages around 20-40 years old.</strong></p>
 <ol start="2" style="list-style-type: lower-alpha">
 <li>To understand the center of the age distribution, would you use a mean or a median, and why? Find the one you picked.</li>
@@ -778,7 +475,7 @@ armeddat</code></pre>
 <p><em>Hint 2: Also, if you are unsure about the syntax for barplot, run ?barplot in R and see some examples at the bottom of the documentation. This is usually a good way to look up the syntax of R code. You can also Google it.</em></p>
 <pre class="r"><code>counts &lt;- table(dat$body_camera, dat$flee)
 barplot(counts, col=c(&quot;red&quot;, &quot;blue&quot;), legend=TRUE, xlab=&quot;Flee&quot;, ylab=&quot;Frequency&quot;)</code></pre>
-<p><img src="Assignments_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
+<p><img src="Exam-1_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <p><strong>From this relationship, we can see that there is an even proportion of body cam presence across all flee categories, demonstrating that the presence of a body cam does not seem to affect whether or not someone in this study fled or not. Though there is a section in the distribution that is unlabelled due to the flee variable being unmarked in these instances, even this variable demonstrates an even distribution.</strong></p>
 <ol start="2" style="list-style-type: lower-alpha">
 <li>Describe the relationship between age and race by using a boxplot. What can you conclude from this relationship?</li>
@@ -808,8 +505,6 @@ head(mydates)
 
 
 
-</div>
-</div>
 
 </div>
 
@@ -842,35 +537,6 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
-<script>
-$(document).ready(function ()  {
-
-    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
-    $('.unlisted.unnumbered').addClass('toc-ignore')
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
