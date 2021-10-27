@@ -809,6 +809,60 @@ head(mydates)
 <p><strong>There is visibly missing data in the flee variable. This is likely not all the data that is missing from the data set because it is not rare for data to be missing in such a large data set like this.</strong></p>
 </div>
 </div>
+<div id="assignment-3" class="section level1">
+<h1>Assignment 3</h1>
+<p>This assignment is due on Canvas on Wednesday 10/27/2021 before class, at 10:15 am. Include the name of anyone with whom you collaborated at the top of the assignment.</p>
+<p>Submit your responses as either an HTML file or a PDF file on Canvas. Also, please upload it to your website.</p>
+<p>Save the file (found on Canvas) crime_simple.txt to the same folder as this file (your Rmd file for Assignment 3).</p>
+<p>Load the data.</p>
+<pre class="r"><code>library(readr)
+library(knitr)
+dat.crime &lt;- read_delim(&quot;crime_simple.txt&quot;, delim = &quot;\t&quot;)</code></pre>
+<pre><code>## Rows: 47 Columns: 14</code></pre>
+<pre><code>## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;\t&quot;
+## dbl (14): R, Age, S, Ed, Ex0, Ex1, LF, M, N, NW, U1, U2, W, X</code></pre>
+<pre><code>## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<p>This is a dataset from a textbook by Brian S. Everitt about crime in the US in 1960. The data originate from the Uniform Crime Report of the FBI and other government sources. The data for 47 states of the USA are given.</p>
+<p>Here is the codebook:</p>
+<p>R: Crime rate: # of offenses reported to police per million population</p>
+<p>Age: The number of males of age 14-24 per 1000 population</p>
+<p>S: Indicator variable for Southern states (0 = No, 1 = Yes)</p>
+<p>Ed: Mean of years of schooling x 10 for persons of age 25 or older</p>
+<p>Ex0: 1960 per capita expenditure on police by state and local government</p>
+<p>Ex1: 1959 per capita expenditure on police by state and local government</p>
+<p>LF: Labor force participation rate per 1000 civilian urban males age 14-24</p>
+<p>M: The number of males per 1000 females</p>
+<p>N: State population size in hundred thousands</p>
+<p>NW: The number of non-whites per 1000 population</p>
+<p>U1: Unemployment rate of urban males per 1000 of age 14-24</p>
+<p>U2: Unemployment rate of urban males per 1000 of age 35-39</p>
+<p>W: Median value of transferable goods and assets or family income in tens of $</p>
+<p>X: The number of families per 1000 earning below 1/2 the median income</p>
+<p>We are interested in checking whether the reported crime rate (# of offenses reported to police per million population) and the average education (mean number of years of schooling for persons of age 25 or older) are related.</p>
+<ol style="list-style-type: decimal">
+<li>How many observations are there in the dataset? To what does each observation correspond?</li>
+</ol>
+<pre class="r"><code>library(dplyr)
+count(dat.crime)</code></pre>
+<pre><code>## # A tibble: 1 × 1
+##       n
+##   &lt;int&gt;
+## 1    47</code></pre>
+<p><strong>There are 47 observations in the dataset. The observations correspond to the different rows, aka different states.</strong></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Draw a scatterplot of the two variables. Calculate the correlation between the two variables. Can you come up with an explanation for this relationship?</li>
+</ol>
+<pre class="r"><code>library(datasets)
+plot(dat.crime$Ed,dat.crime$R,  main=&quot;Relationship between Reported Crime Rate and Average Education for 47 States&quot;,
+    xlab=&quot;Average Education (mean number of years of schooling for persons of age 25 or older)&quot;, ylab=&quot;Crime Rate (# of offenses reported to police per million population)&quot;)</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-35-1.png" width="576" /></p>
+<pre class="r"><code>x &lt;- cor(dat.crime$R, dat.crime$Ed)
+x</code></pre>
+<pre><code>## [1] 0.3228349</code></pre>
+</div>
 
 
 
