@@ -862,6 +862,89 @@ plot(dat.crime$Ed,dat.crime$R,  main=&quot;Relationship between Reported Crime R
 <pre class="r"><code>x &lt;- cor(dat.crime$R, dat.crime$Ed)
 x</code></pre>
 <pre><code>## [1] 0.3228349</code></pre>
+<p><strong>I cannot come up with an explanation for this relationship on first impression. The correlation of these two variables is 0.3228349, meaning that there is a fairly weak correlation. Because there are so many other factors in this dataset, we can assume that there is likely another factor that correlates more highly to the reported crime rate, but this low of a correlation does not allow us to make any causal inferences.</strong></p>
+<ol start="3" style="list-style-type: decimal">
+<li>Regress reported crime rate (y) on average education (x) and call this linear model <code>crime.lm</code> and write the summary of the regression by using this code, which makes it look a little nicer <code>{r, eval=FALSE} kable(summary(crime.lm)$coef, digits = 2)</code>.</li>
+</ol>
+<pre class="r"><code># Remember to remove eval=FALSE above!
+
+dat.crime$R.c = scale(dat.crime$R, center=TRUE, scale=FALSE)
+crime.lm &lt;- lm(formula = Ed ~ R.c, data = dat.crime) 
+kable(summary(crime.lm)$coef, digits = 2)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Estimate</th>
+<th align="right">Std. Error</th>
+<th align="right">t value</th>
+<th align="right">Pr(&gt;|t|)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="right">105.64</td>
+<td align="right">1.56</td>
+<td align="right">67.65</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="even">
+<td align="left">R.c</td>
+<td align="right">0.09</td>
+<td align="right">0.04</td>
+<td align="right">2.29</td>
+<td align="right">0.03</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>summary(crime.lm)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = Ed ~ R.c, data = dat.crime)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -18.020  -8.441   1.528   8.200  16.596 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 105.63830    1.56148  67.653   &lt;2e-16 ***
+## R.c           0.09338    0.04081   2.288   0.0269 *  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 10.7 on 45 degrees of freedom
+## Multiple R-squared:  0.1042, Adjusted R-squared:  0.08432 
+## F-statistic: 5.236 on 1 and 45 DF,  p-value: 0.02688</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Are the four assumptions of linear regression satisfied? To answer this, draw the relevant plots. (Write a maximum of one sentence per assumption.)</li>
+</ol>
+<pre class="r"><code># plot 1 &amp; plot 2, residuals vs x
+plot(dat.crime$R.c, crime.lm$residuals, ylim=c(-15,15), main=&quot;Residuals vs. x&quot;, xlab=&quot;x, Scaled Crime Rates&quot;, ylab=&quot;Residuals&quot;)
+abline(h = 0, lty=&quot;dashed&quot;)</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
+<pre class="r"><code># plot 3
+plot(crime.lm, which=3)</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-37-2.png" width="672" /></p>
+<pre class="r"><code># plot 4, qq and outlier condition
+plot(crime.lm, which=2)</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-37-3.png" width="672" /></p>
+<pre class="r"><code>plot(crime.lm, which=5)</code></pre>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-37-4.png" width="672" /></p>
+<p><strong>The four assumptions are as follows: linearity, independence, equal variance, and normal population. The first assumption - linearity - is not satisfied because the first plot of the residuals vs x does not have a horizontal direction. The second assumption - independence - is satisfied because the plot of residuals vs x does not display any distinct patterns. The third assumption - equal variance - is satisfied because the flat line shows that the errors are of constant variance. The fourth assumption - normal population - is not satisfied because the qq plot is heavily tailed, meaning it does not follow the normal model well.</strong></p>
+<ol start="5" style="list-style-type: decimal">
+<li>Is the relationship between reported crime and average education statistically significant? Report the estimated coefficient of the slope, the standard error, and the p-value. What does it mean for the relationship to be statistically significant?</li>
+</ol>
+<p><strong>The estimated coefficient is 0.09. The standard error is 0.04. The p-value is 0.02688. This means that this relationship is statistically significant, as the p-value is less than 0.05. If the relationship is statistically significant, this means that there is a high likelihood that the observance is not wrong or random (I use this word carefully) chance.</strong></p>
+<ol start="6" style="list-style-type: decimal">
+<li>How are reported crime and average education related? In other words, for every unit increase in average education, how does reported crime rate change (per million) per state?</li>
+</ol>
+<p><strong>For every unit increase in average education, the reported crime rate increases by 0.09 units, meaning that the reported crime rate increases by 0.09 offenses reported to police per million population.</strong></p>
+<ol start="7" style="list-style-type: decimal">
+<li>Can you conclude that if individuals were to receive more education, then crime will be reported more often? Why or why not?</li>
+</ol>
+<p><strong>We cannot conclude this from the dataset. While it appears there is a statistically significant correlation, this does not mean we can assume causation. While the variables correlate to each other, this is not conducive of a causal relationship.</strong></p>
 </div>
 
 

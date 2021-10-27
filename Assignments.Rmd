@@ -510,3 +510,45 @@ plot(dat.crime$Ed,dat.crime$R,  main="Relationship between Reported Crime Rate a
 x <- cor(dat.crime$R, dat.crime$Ed)
 x
 ```
+
+__I cannot come up with an explanation for this relationship on first impression. The correlation of these two variables is 0.3228349, meaning that there is a fairly weak correlation. Because there are so many other factors in this dataset, we can assume that there is likely another factor that correlates more highly to the reported crime rate, but this low of a correlation does not allow us to make any causal inferences.__
+
+3. Regress reported crime rate (y) on average education (x) and call this linear model `crime.lm` and write the summary of the regression by using this code, which makes it look a little nicer `{r, eval=FALSE} kable(summary(crime.lm)$coef, digits = 2)`.
+
+```{r} 
+# Remember to remove eval=FALSE above!
+
+dat.crime$R.c = scale(dat.crime$R, center=TRUE, scale=FALSE)
+crime.lm <- lm(formula = Ed ~ R.c, data = dat.crime) 
+kable(summary(crime.lm)$coef, digits = 2)
+summary(crime.lm)
+```
+
+4. Are the four assumptions of linear regression satisfied? To answer this, draw the relevant plots. (Write a maximum of one sentence per assumption.)
+
+```{r} 
+# plot 1 & plot 2, residuals vs x
+plot(dat.crime$R.c, crime.lm$residuals, ylim=c(-15,15), main="Residuals vs. x", xlab="x, Scaled Crime Rates", ylab="Residuals")
+abline(h = 0, lty="dashed")
+# plot 3
+plot(crime.lm, which=3)
+# plot 4, qq and outlier condition
+plot(crime.lm, which=2)
+plot(crime.lm, which=5)
+```
+
+__The four assumptions are as follows: linearity, independence, equal variance, and normal population. The first assumption - linearity - is not satisfied because the first plot of the residuals vs x does not have a horizontal direction. The second assumption - independence - is satisfied because the plot of residuals vs x does not display any distinct patterns. The third assumption - equal variance - is satisfied because the flat line shows that the errors are of constant variance. The fourth assumption - normal population - is not satisfied because the qq plot is heavily tailed, meaning it does not follow the normal model well.__
+
+5. Is the relationship between reported crime and average education statistically significant? Report the estimated coefficient of the slope, the standard error, and the p-value. What does it mean for the relationship to be statistically significant?
+
+__The estimated coefficient is 0.09. The standard error is 0.04. The p-value is 0.02688. This means that this relationship is statistically significant, as the p-value is less than 0.05. If the relationship is statistically significant, this means that there is a high likelihood that the observance is not wrong or random (I use this word carefully) chance.__
+
+6. How are reported crime and average education related? In other words, for every unit increase in average education, how does reported crime rate change (per million) per state?
+
+__For every unit increase in average education, the reported crime rate increases by 0.09 units, meaning that the reported crime rate increases by 0.09 offenses reported to police per million population.__
+
+7. Can you conclude that if individuals were to receive more education, then crime will be reported more often? Why or why not?
+
+__We cannot conclude this from the dataset. While it appears there is a statistically significant correlation, this does not mean we can assume causation. While the variables correlate to each other, this is not conducive of a causal relationship.__
+
+
