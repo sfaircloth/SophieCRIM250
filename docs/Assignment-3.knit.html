@@ -278,12 +278,12 @@ $(document).ready(function () {
 library(knitr)
 dat.crime &lt;- read_delim(&quot;crime_simple.txt&quot;, delim = &quot;\t&quot;)</code></pre>
 <pre><code>## Rows: 47 Columns: 14</code></pre>
-<pre><code>## ── Column specification ────────────────────────────────────────────────────────
+<pre><code>## -- Column specification --------------------------------------------------------
 ## Delimiter: &quot;\t&quot;
 ## dbl (14): R, Age, S, Ed, Ex0, Ex1, LF, M, N, NW, U1, U2, W, X</code></pre>
 <pre><code>## 
-## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+## i Use `spec()` to retrieve the full column specification for this data.
+## i Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <p>This is a dataset from a textbook by Brian S. Everitt about crime in the US in 1960. The data originate from the Uniform Crime Report of the FBI and other government sources. The data for 47 states of the USA are given.</p>
 <p>Here is the codebook:</p>
 <p>R: Crime rate: # of offenses reported to police per million population</p>
@@ -304,9 +304,17 @@ dat.crime &lt;- read_delim(&quot;crime_simple.txt&quot;, delim = &quot;\t&quot;)
 <ol style="list-style-type: decimal">
 <li>How many observations are there in the dataset? To what does each observation correspond?</li>
 </ol>
-<pre class="r"><code>library(dplyr)
-count(dat.crime)</code></pre>
-<pre><code>## # A tibble: 1 × 1
+<pre class="r"><code>library(dplyr)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<pre class="r"><code>count(dat.crime)</code></pre>
+<pre><code>## # A tibble: 1 x 1
 ##       n
 ##   &lt;int&gt;
 ## 1    47</code></pre>
@@ -317,7 +325,7 @@ count(dat.crime)</code></pre>
 <pre class="r"><code>library(datasets)
 plot(dat.crime$Ed,dat.crime$R,  main=&quot;Relationship between Reported Crime Rate and Average Education for 47 States&quot;,
     xlab=&quot;Average Education (mean number of years of schooling for persons of age 25 or older)&quot;, ylab=&quot;Crime Rate (# of offenses reported to police per million population)&quot;)</code></pre>
-<p><img src="Assignment-3_files/figure-html/unnamed-chunk-3-1.png" width="576" /></p>
+<p><embed src="Assignment-3_files/figure-latex/unnamed-chunk-3-1.pdf" /><!-- --></p>
 <pre class="r"><code>x &lt;- cor(dat.crime$R, dat.crime$Ed)
 x</code></pre>
 <pre><code>## [1] 0.3228349</code></pre>
@@ -355,15 +363,15 @@ summary(crime.lm)</code></pre>
 <pre class="r"><code># plot 1 &amp; plot 2, residuals vs x
 plot(dat.crime$Ed, crime.lm$residuals, ylim=c(-15,15), main=&quot;Residuals vs. x&quot;, xlab=&quot;x, Scaled Average Education&quot;, ylab=&quot;Residuals&quot;)
 abline(h = 0, lty=&quot;dashed&quot;)</code></pre>
-<p><img src="Assignment-3_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p><embed src="Assignment-3_files/figure-latex/unnamed-chunk-5-1.pdf" /><!-- --></p>
 <pre class="r"><code># plot 3
 plot(crime.lm, which=3)</code></pre>
-<p><img src="Assignment-3_files/figure-html/unnamed-chunk-5-2.png" width="672" /></p>
+<p><embed src="Assignment-3_files/figure-latex/unnamed-chunk-5-2.pdf" /><!-- --></p>
 <pre class="r"><code># plot 4, qq and outlier condition
 plot(crime.lm, which=2)</code></pre>
-<p><img src="Assignment-3_files/figure-html/unnamed-chunk-5-3.png" width="672" /></p>
+<p><embed src="Assignment-3_files/figure-latex/unnamed-chunk-5-3.pdf" /><!-- --></p>
 <pre class="r"><code>plot(crime.lm, which=5)</code></pre>
-<p><img src="Assignment-3_files/figure-html/unnamed-chunk-5-4.png" width="672" /></p>
+<p><embed src="Assignment-3_files/figure-latex/unnamed-chunk-5-4.pdf" /><!-- --></p>
 <p><strong>The four assumptions are as follows: linearity, independence, equal variance, and normal population. The first assumption - linearity - is satisfied because the first plot of the residuals vs x has a straight line of plots. The second assumption - independence - is satisfied because the plot of residuals vs x does not display any distinct patterns. The third assumption - equal variance - is satisfied because the flat line shows that the errors are of constant variance. The fourth assumption - normal population - is debatably not satisfied because the qq plot is heavily tailed, meaning it does not follow the normal model well.</strong></p>
 <ol start="5" style="list-style-type: decimal">
 <li>Is the relationship between reported crime and average education statistically significant? Report the estimated coefficient of the slope, the standard error, and the p-value. What does it mean for the relationship to be statistically significant?</li>
