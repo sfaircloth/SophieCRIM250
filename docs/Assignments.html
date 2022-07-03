@@ -372,8 +372,16 @@ div.tocify {
 <div id="problem-2" class="section level3">
 <h3>Problem 2</h3>
 <p><em>Use this command to make the state names into a new variable called State. </em></p>
-<pre class="r"><code>library(dplyr)
-dat$state &lt;- tolower(rownames(USArrests))</code></pre>
+<pre class="r"><code>library(dplyr)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<pre class="r"><code>dat$state &lt;- tolower(rownames(USArrests))</code></pre>
 <p><em>I used the dplyr package in order to rename this variable. I am sure there are other ways to do this but I used old reliable!</em></p>
 <p><em>This dataset has the state names as row names, so we just want to make them into a new variable. We also make them all lower case, because that will help us draw a map later - the map function requires the states to be lower case.</em></p>
 <p><em>List the variables contained in the dataset <code>USArrests</code>.</em></p>

@@ -1,0 +1,35 @@
+---
+title: "Current Research"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    collapsed: false
+    number_sections: false
+    toc_depth: 1
+---
+
+
+I am currently working on an independent research project in the Cultural Evolution of Language lab on the Interpretation of Unexpected Redundancy in Communicative Interaction with Inthat Boonpongmanee. 
+
+### Project Description
+
+Several important linguistic properties have been shown to develop through two-person interactions. Previous work had demonstrated that two properties of communication systems (arbitrariness and systematicity) developed most quickly when a conversational pair could easily construct common ground. These experiments used Pictionary-
+like games to probe linguistic properties without the confounds of participants’ previous knowledge of languages. Additionally, other researchers had proposed that an important part of building common ground is that interlocutors understand transmissions as meaningful signals. This work on recognizing signalhood is related to Grice’s four maxims of communication, one of which posits that all communications are maximally relevant. Motivated by this body of work, we proposed to investigate communicators’ preference for interpreting a new signal as either a response to noise or a statement on the hyper/hyponym relationship between referents.
+
+## Conference Presentations
+
+### [PURM Research Expo, 2021](https://presentations.curf.upenn.edu/poster/common-ground-and-redundancy-communicative-interaction)
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/6WZxN7tku0Q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+Faircloth, S., Boonpongmanee, I., & Roberts, G. (2021). Common ground and redundancy in communicative interaction. Poster presented at the Center for Undergraduate Research and Fellowships Fall Research Expo, University of Pennsylvania.
+
+### [Emory Undergraduate Linguistics Conference 3, 2022](http://linguistics.emory.edu/home/documents/conferences/undergraduate_conference_documents/EULC3_Schedule.pdf)
+
+Faircloth, S., Boonpong, I., & Roberts, G. (2022). Common ground and redundancy in communicative interaction. Poster presented at the Emory Undergraduate Linguistics Conference 3.
+
+### [Cornell Undergraduate Linguistics Colloquium 16, 2022](https://underlings.wixsite.com/culc16/schedule)
+
+Faircloth, S., Boonpongmanee, I., & Roberts, G. (2022). Common ground and redundancy in communicative interaction. Poster presented at the Cornell Undergraduate Linguistics Colloquium.
+

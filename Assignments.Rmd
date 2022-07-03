@@ -1,5 +1,5 @@
 ---
-title: "Assignments"
+title: "CRIM 250 Assignments"
 output:
   html_document:
     toc: true
