@@ -8,3 +8,13 @@ output:
     number_sections: false
     toc_depth: 1
 ---
+
+I am a [Research Peer Advisor](https://www.curf.upenn.edu/profile/faircloth-sophie) with the University of Pennsylvania's [Center for Undergraduate Research](https://www.curf.upenn.edu). 
+
+For anyone looking to get involved in research at the University of Pennsylvania, here are some links that might be useful!
+
+[The Penn Research Directory:](https://www.curf.upenn.edu/research-directory) this site displays all the current Principal Investigators and labs at Penn that are looking for student research assistants.
+
+[Tips for Contacting Penn Faculty:](https://www.curf.upenn.edu/research/find-mentor/contacting-faculty) this site provides some tips for reaching out to faculty on campus, whether it be cold-emailing or setting up meetings.
+
+[Anatomy of a Cover Letter:](https://www.evernote.com/shard/s586/sh/27f9de15-f7b8-4176-d704-5f32d643c6f2/66a42e12c5e3cc887b6cb86f9a3aebdc) this is my own anatomy for a cover letter I picked up over the years. This should give you a start when it comes to reaching out to PIs: a cover letter is everything!
