@@ -11,7 +11,7 @@ output:
 
 I am a [Research Peer Advisor](https://www.curf.upenn.edu/profile/faircloth-sophie) with the University of Pennsylvania's [Center for Undergraduate Research](https://www.curf.upenn.edu). 
 
-For anyone looking to get involved in research at the University of Pennsylvania, here are some links that might be useful!
+**For anyone looking to get involved in research at the University of Pennsylvania, here are some links that might be useful!**
 
 [The Penn Research Directory:](https://www.curf.upenn.edu/research-directory) this site displays all the current Principal Investigators and labs at Penn that are looking for student research assistants.
 
