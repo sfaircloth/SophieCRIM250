@@ -4,8 +4,10 @@ navbar:
   left:
     - text: "Home"
       href: index.html
-    - text: "Assignments"
+    - text: "Current Research"
+      href: Current.html
+    - text: "RPA Links"
+      href: RPA.html
+    - text: "CRIM250 Assignments"
       href: Assignments.html
-    - text: "Links"
-      href: Links.html
 output_dir: "docs"
