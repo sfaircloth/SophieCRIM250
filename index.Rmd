@@ -17,19 +17,19 @@ output: html_document
 <div class="row" style="padding-top: 30px;">
 <div class="col-sm-6">
 
-# **CRIM 250**
+# **Sophie Faircloth**
 
-## Hi all! 
+## Research Assistant and Student at the University of Pennsylvania
 
-This is my lab journal for CRIM 250 with Maria Cuellar. It is home to all my assignments and exams!
+I'm a student at the University of Pennsylvania working towards my Bachelors and Masters in Linguistics with a minor in Psychology. I currently work as a research assistant in the Cultural Evolution of Language lab with [Dr. Gareth Roberts](https://www.drgarethroberts.com), working on an independent research project with Inthat Boonpongmanee on the interpretation of sudden complexification and redundacy in novel language communication. 
+I'm a transcriber for the [Linguistic Data Consortium](https://www.ldc.upenn.edu).
+I'm also a research assistant in the Goodwin lab with Dr. Geoffrey Goodwin and a senior research assistant in the Wellbeing and Morality lab with Dr. Jessie Sun.
 
 
 </div>
 <div class="col-sm-6">
 
-### [CRIM 250: Statistics for the Social Sciences](https://crumplab.github.io)
 
-<a href = "https://crumplab.github.io">
-![](images/logo.png)
+![](https://www.curf.upenn.edu/sites/default/files/styles/resource_grid_320x215/public/faircloth.jpg?itok=MHKIBRuL&c=e76fe8821d285a1b83be307a64b537f8)
 </a>
 </div>
