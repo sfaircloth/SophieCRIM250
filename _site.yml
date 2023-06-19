@@ -8,6 +8,4 @@ navbar:
       href: Current.html
     - text: "RPA Links"
       href: RPA.html
-    - text: "CRIM250 Assignments"
-      href: Assignments.html
 output_dir: "docs"

@@ -13,7 +13,7 @@
 
 <title>Current Research</title>
 
-<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.20/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -63,6 +63,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -83,6 +84,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -140,11 +144,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -173,8 +181,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -182,16 +190,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -308,7 +309,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -325,9 +326,6 @@ div.tocify {
 </li>
 <li>
   <a href="RPA.html">RPA Links</a>
-</li>
-<li>
-  <a href="Assignments.html">CRIM250 Assignments</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -346,26 +344,55 @@ div.tocify {
 </div>
 
 
-<p>I am currently working on an independent research project in the Cultural Evolution of Language lab on the Interpretation of Unexpected Redundancy in Communicative Interaction with Inthat Boonpongmanee.</p>
+<p>I am currently working on an independent research project in the
+Cultural Evolution of Language lab on the Interpretation of Unexpected
+Redundancy in Communicative Interaction with Inthat Boonpongmanee.</p>
 <div id="project-description" class="section level3">
 <h3>Project Description</h3>
-<p>Several important linguistic properties have been shown to develop through two-person interactions. Previous work had demonstrated that two properties of communication systems (arbitrariness and systematicity) developed most quickly when a conversational pair could easily construct common ground. These experiments used Pictionary- like games to probe linguistic properties without the confounds of participants’ previous knowledge of languages. Additionally, other researchers had proposed that an important part of building common ground is that interlocutors understand transmissions as meaningful signals. This work on recognizing signalhood is related to Grice’s four maxims of communication, one of which posits that all communications are maximally relevant. Motivated by this body of work, we proposed to investigate communicators’ preference for interpreting a new signal as either a response to noise or a statement on the hyper/hyponym relationship between referents.</p>
+<p>Several important linguistic properties have been shown to develop
+through two-person interactions. Previous work had demonstrated that two
+properties of communication systems (arbitrariness and systematicity)
+developed most quickly when a conversational pair could easily construct
+common ground. These experiments used Pictionary- like games to probe
+linguistic properties without the confounds of participants’ previous
+knowledge of languages. Additionally, other researchers had proposed
+that an important part of building common ground is that interlocutors
+understand transmissions as meaningful signals. This work on recognizing
+signalhood is related to Grice’s four maxims of communication, one of
+which posits that all communications are maximally relevant. Motivated
+by this body of work, we proposed to investigate communicators’
+preference for interpreting a new signal as either a response to noise
+or a statement on the hyper/hyponym relationship between referents.</p>
 </div>
 <div id="conference-presentations" class="section level2">
 <h2>Conference Presentations</h2>
 <div id="purm-research-expo-2021" class="section level3">
-<h3><a href="https://presentations.curf.upenn.edu/poster/common-ground-and-redundancy-communicative-interaction">PURM Research Expo, 2021</a></h3>
+<h3><a
+href="https://presentations.curf.upenn.edu/poster/common-ground-and-redundancy-communicative-interaction">PURM
+Research Expo, 2021</a></h3>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/6WZxN7tku0Q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
 </iframe>
-<p>Faircloth, S., Boonpongmanee, I., &amp; Roberts, G. (2021). Common ground and redundancy in communicative interaction. Poster presented at the Center for Undergraduate Research and Fellowships Fall Research Expo, University of Pennsylvania.</p>
+<p>Faircloth, S., Boonpongmanee, I., &amp; Roberts, G. (2021). Common
+ground and redundancy in communicative interaction. Poster presented at
+the Center for Undergraduate Research and Fellowships Fall Research
+Expo, University of Pennsylvania.</p>
 </div>
-<div id="emory-undergraduate-linguistics-conference-3-2022" class="section level3">
-<h3><a href="http://linguistics.emory.edu/home/documents/conferences/undergraduate_conference_documents/EULC3_Schedule.pdf">Emory Undergraduate Linguistics Conference 3, 2022</a></h3>
-<p>Faircloth, S., Boonpong, I., &amp; Roberts, G. (2022). Common ground and redundancy in communicative interaction. Poster presented at the Emory Undergraduate Linguistics Conference 3.</p>
+<div id="emory-undergraduate-linguistics-conference-3-2022"
+class="section level3">
+<h3><a
+href="http://linguistics.emory.edu/home/documents/conferences/undergraduate_conference_documents/EULC3_Schedule.pdf">Emory
+Undergraduate Linguistics Conference 3, 2022</a></h3>
+<p>Faircloth, S., Boonpong, I., &amp; Roberts, G. (2022). Common ground
+and redundancy in communicative interaction. Poster presented at the
+Emory Undergraduate Linguistics Conference 3.</p>
 </div>
-<div id="cornell-undergraduate-linguistics-colloquium-16-2022" class="section level3">
-<h3><a href="https://underlings.wixsite.com/culc16/schedule">Cornell Undergraduate Linguistics Colloquium 16, 2022</a></h3>
-<p>Faircloth, S., Boonpongmanee, I., &amp; Roberts, G. (2022). Common ground and redundancy in communicative interaction. Poster presented at the Cornell Undergraduate Linguistics Colloquium.</p>
+<div id="cornell-undergraduate-linguistics-colloquium-16-2022"
+class="section level3">
+<h3><a href="https://underlings.wixsite.com/culc16/schedule">Cornell
+Undergraduate Linguistics Colloquium 16, 2022</a></h3>
+<p>Faircloth, S., Boonpongmanee, I., &amp; Roberts, G. (2022). Common
+ground and redundancy in communicative interaction. Poster presented at
+the Cornell Undergraduate Linguistics Colloquium.</p>
 </div>
 </div>
 

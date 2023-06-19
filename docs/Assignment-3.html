@@ -14,7 +14,7 @@
 
 <title>Assignment 3</title>
 
-<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.20/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -61,6 +61,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -81,6 +82,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -138,11 +142,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -171,8 +179,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -180,16 +188,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -233,7 +234,7 @@ $(document).ready(function () {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -250,9 +251,6 @@ $(document).ready(function () {
 </li>
 <li>
   <a href="RPA.html">RPA Links</a>
-</li>
-<li>
-  <a href="Assignments.html">CRIM250 Assignments</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -273,39 +271,57 @@ $(document).ready(function () {
 </div>
 
 
-<p>This assignment is due on Canvas on Wednesday 10/27/2021 before class, at 10:15 am. Include the name of anyone with whom you collaborated at the top of the assignment.</p>
-<p>Submit your responses as either an HTML file or a PDF file on Canvas. Also, please upload it to your website.</p>
-<p>Save the file (found on Canvas) crime_simple.txt to the same folder as this file (your Rmd file for Assignment 3).</p>
+<p>This assignment is due on Canvas on Wednesday 10/27/2021 before
+class, at 10:15 am. Include the name of anyone with whom you
+collaborated at the top of the assignment.</p>
+<p>Submit your responses as either an HTML file or a PDF file on Canvas.
+Also, please upload it to your website.</p>
+<p>Save the file (found on Canvas) crime_simple.txt to the same folder
+as this file (your Rmd file for Assignment 3).</p>
 <p>Load the data.</p>
 <pre class="r"><code>library(readr)
 library(knitr)
 dat.crime &lt;- read_delim(&quot;crime_simple.txt&quot;, delim = &quot;\t&quot;)</code></pre>
-<pre><code>## Rows: 47 Columns: 14</code></pre>
-<pre><code>## ── Column specification ────────────────────────────────────────────────────────
+<pre><code>## Rows: 47 Columns: 14
+## ── Column specification ─────────────────────────────────
 ## Delimiter: &quot;\t&quot;
-## dbl (14): R, Age, S, Ed, Ex0, Ex1, LF, M, N, NW, U1, U2, W, X</code></pre>
-<pre><code>## 
+## dbl (14): R, Age, S, Ed, Ex0, Ex1, LF, M, N, NW, U1, U2, W, X
+## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<p>This is a dataset from a textbook by Brian S. Everitt about crime in the US in 1960. The data originate from the Uniform Crime Report of the FBI and other government sources. The data for 47 states of the USA are given.</p>
+<p>This is a dataset from a textbook by Brian S. Everitt about crime in
+the US in 1960. The data originate from the Uniform Crime Report of the
+FBI and other government sources. The data for 47 states of the USA are
+given.</p>
 <p>Here is the codebook:</p>
-<p>R: Crime rate: # of offenses reported to police per million population</p>
+<p>R: Crime rate: # of offenses reported to police per million
+population</p>
 <p>Age: The number of males of age 14-24 per 1000 population</p>
 <p>S: Indicator variable for Southern states (0 = No, 1 = Yes)</p>
-<p>Ed: Mean of years of schooling x 10 for persons of age 25 or older</p>
-<p>Ex0: 1960 per capita expenditure on police by state and local government</p>
-<p>Ex1: 1959 per capita expenditure on police by state and local government</p>
-<p>LF: Labor force participation rate per 1000 civilian urban males age 14-24</p>
+<p>Ed: Mean of years of schooling x 10 for persons of age 25 or
+older</p>
+<p>Ex0: 1960 per capita expenditure on police by state and local
+government</p>
+<p>Ex1: 1959 per capita expenditure on police by state and local
+government</p>
+<p>LF: Labor force participation rate per 1000 civilian urban males age
+14-24</p>
 <p>M: The number of males per 1000 females</p>
 <p>N: State population size in hundred thousands</p>
 <p>NW: The number of non-whites per 1000 population</p>
 <p>U1: Unemployment rate of urban males per 1000 of age 14-24</p>
 <p>U2: Unemployment rate of urban males per 1000 of age 35-39</p>
-<p>W: Median value of transferable goods and assets or family income in tens of $</p>
-<p>X: The number of families per 1000 earning below 1/2 the median income</p>
-<p>We are interested in checking whether the reported crime rate (# of offenses reported to police per million population) and the average education (mean number of years of schooling for persons of age 25 or older) are related.</p>
+<p>W: Median value of transferable goods and assets or family income in
+tens of $</p>
+<p>X: The number of families per 1000 earning below 1/2 the median
+income</p>
+<p>We are interested in checking whether the reported crime rate (# of
+offenses reported to police per million population) and the average
+education (mean number of years of schooling for persons of age 25 or
+older) are related.</p>
 <ol style="list-style-type: decimal">
-<li>How many observations are there in the dataset? To what does each observation correspond?</li>
+<li>How many observations are there in the dataset? To what does each
+observation correspond?</li>
 </ol>
 <pre class="r"><code>library(dplyr)
 count(dat.crime)</code></pre>
@@ -313,9 +329,12 @@ count(dat.crime)</code></pre>
 ##       n
 ##   &lt;int&gt;
 ## 1    47</code></pre>
-<p><strong>There are 47 observations in the dataset. The observations correspond to the different rows, aka different states.</strong></p>
+<p><strong>There are 47 observations in the dataset. The observations
+correspond to the different rows, aka different states.</strong></p>
 <ol start="2" style="list-style-type: decimal">
-<li>Draw a scatterplot of the two variables. Calculate the correlation between the two variables. Can you come up with an explanation for this relationship?</li>
+<li>Draw a scatterplot of the two variables. Calculate the correlation
+between the two variables. Can you come up with an explanation for this
+relationship?</li>
 </ol>
 <pre class="r"><code>library(datasets)
 plot(dat.crime$Ed,dat.crime$R,  main=&quot;Relationship between Reported Crime Rate and Average Education for 47 States&quot;,
@@ -324,9 +343,18 @@ plot(dat.crime$Ed,dat.crime$R,  main=&quot;Relationship between Reported Crime R
 <pre class="r"><code>x &lt;- cor(dat.crime$R, dat.crime$Ed)
 x</code></pre>
 <pre><code>## [1] 0.3228349</code></pre>
-<p><strong>I cannot come up with an explanation for this relationship on first impression. The correlation of these two variables is 0.3228349, meaning that there is a fairly weak correlation. Because there are so many other factors in this dataset, we can assume that there is likely another factor that correlates more highly to the reported crime rate, but this low of a correlation does not allow us to make any causal inferences.</strong></p>
+<p><strong>I cannot come up with an explanation for this relationship on
+first impression. The correlation of these two variables is 0.3228349,
+meaning that there is a fairly weak correlation. Because there are so
+many other factors in this dataset, we can assume that there is likely
+another factor that correlates more highly to the reported crime rate,
+but this low of a correlation does not allow us to make any causal
+inferences.</strong></p>
 <ol start="3" style="list-style-type: decimal">
-<li>Regress reported crime rate (y) on average education (x) and call this linear model <code>crime.lm</code> and write the summary of the regression by using this code, which makes it look a little nicer <code>{r, eval=FALSE} kable(summary(crime.lm)$coef, digits = 2)</code>.</li>
+<li>Regress reported crime rate (y) on average education (x) and call
+this linear model <code>crime.lm</code> and write the summary of the
+regression by using this code, which makes it look a little nicer
+<code>{r, eval=FALSE} kable(summary(crime.lm)$coef, digits = 2)</code>.</li>
 </ol>
 <pre class="r"><code># Remember to remove eval=FALSE above!
 
@@ -353,7 +381,9 @@ summary(crime.lm)</code></pre>
 ## Multiple R-squared:  0.1042, Adjusted R-squared:  0.08432 
 ## F-statistic: 5.236 on 1 and 45 DF,  p-value: 0.02688</code></pre>
 <ol start="4" style="list-style-type: decimal">
-<li>Are the four assumptions of linear regression satisfied? To answer this, draw the relevant plots. (Write a maximum of one sentence per assumption.)</li>
+<li>Are the four assumptions of linear regression satisfied? To answer
+this, draw the relevant plots. (Write a maximum of one sentence per
+assumption.)</li>
 </ol>
 <pre class="r"><code># plot 1 &amp; plot 2, residuals vs x
 plot(dat.crime$Ed, crime.lm$residuals, ylim=c(-15,15), main=&quot;Residuals vs. x&quot;, xlab=&quot;x, Scaled Average Education&quot;, ylab=&quot;Residuals&quot;)
@@ -367,19 +397,45 @@ plot(crime.lm, which=2)</code></pre>
 <p><img src="Assignment-3_files/figure-html/unnamed-chunk-5-3.png" width="672" /></p>
 <pre class="r"><code>plot(crime.lm, which=5)</code></pre>
 <p><img src="Assignment-3_files/figure-html/unnamed-chunk-5-4.png" width="672" /></p>
-<p><strong>The four assumptions are as follows: linearity, independence, equal variance, and normal population. The first assumption - linearity - is satisfied because the first plot of the residuals vs x has a straight line of plots. The second assumption - independence - is satisfied because the plot of residuals vs x does not display any distinct patterns. The third assumption - equal variance - is satisfied because the flat line shows that the errors are of constant variance. The fourth assumption - normal population - is debatably not satisfied because the qq plot is heavily tailed, meaning it does not follow the normal model well.</strong></p>
+<p><strong>The four assumptions are as follows: linearity, independence,
+equal variance, and normal population. The first assumption - linearity
+- is satisfied because the first plot of the residuals vs x has a
+straight line of plots. The second assumption - independence - is
+satisfied because the plot of residuals vs x does not display any
+distinct patterns. The third assumption - equal variance - is satisfied
+because the flat line shows that the errors are of constant variance.
+The fourth assumption - normal population - is debatably not satisfied
+because the qq plot is heavily tailed, meaning it does not follow the
+normal model well.</strong></p>
 <ol start="5" style="list-style-type: decimal">
-<li>Is the relationship between reported crime and average education statistically significant? Report the estimated coefficient of the slope, the standard error, and the p-value. What does it mean for the relationship to be statistically significant?</li>
+<li>Is the relationship between reported crime and average education
+statistically significant? Report the estimated coefficient of the
+slope, the standard error, and the p-value. What does it mean for the
+relationship to be statistically significant?</li>
 </ol>
-<p><strong>The estimated coefficient is 0.09. The standard error is 0.04. The p-value is 0.02688. This means that this relationship is statistically significant, as the p-value is less than 0.05. If the relationship is statistically significant, this means that there is a high likelihood that the observance is not wrong or random (I use this word carefully) chance.</strong></p>
+<p><strong>The estimated coefficient is 0.09. The standard error is
+0.04. The p-value is 0.02688. This means that this relationship is
+statistically significant, as the p-value is less than 0.05. If the
+relationship is statistically significant, this means that there is a
+high likelihood that the observance is not wrong or random (I use this
+word carefully) chance.</strong></p>
 <ol start="6" style="list-style-type: decimal">
-<li>How are reported crime and average education related? In other words, for every unit increase in average education, how does reported crime rate change (per million) per state?</li>
+<li>How are reported crime and average education related? In other
+words, for every unit increase in average education, how does reported
+crime rate change (per million) per state?</li>
 </ol>
-<p><strong>For every unit increase in average education, the reported crime rate increases by 0.09 units, meaning that the reported crime rate increases by 0.09 offenses reported to police per million population.</strong></p>
+<p><strong>For every unit increase in average education, the reported
+crime rate increases by 0.09 units, meaning that the reported crime rate
+increases by 0.09 offenses reported to police per million
+population.</strong></p>
 <ol start="7" style="list-style-type: decimal">
-<li>Can you conclude that if individuals were to receive more education, then crime will be reported more often? Why or why not?</li>
+<li>Can you conclude that if individuals were to receive more education,
+then crime will be reported more often? Why or why not?</li>
 </ol>
-<p><strong>We cannot conclude this from the dataset. While it appears there is a statistically significant correlation, this does not mean we can assume causation. While the variables correlate to each other, this is not conducive of a causal relationship.</strong></p>
+<p><strong>We cannot conclude this from the dataset. While it appears
+there is a statistically significant correlation, this does not mean we
+can assume causation. While the variables correlate to each other, this
+is not conducive of a causal relationship.</strong></p>
 
 
 

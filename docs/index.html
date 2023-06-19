@@ -13,7 +13,7 @@
 
 <title>SophieFaircloth</title>
 
-<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.20/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -60,6 +60,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -80,6 +81,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -137,11 +141,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -170,8 +178,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -179,16 +187,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -232,7 +233,7 @@ $(document).ready(function () {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -249,9 +250,6 @@ $(document).ready(function () {
 </li>
 <li>
   <a href="RPA.html">RPA Links</a>
-</li>
-<li>
-  <a href="Assignments.html">CRIM250 Assignments</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -283,17 +281,31 @@ $(document).ready(function () {
 <div class="row" style="padding-top: 30px;">
 <div id="sophie-faircloth" class="section level1 col-sm-6">
 <h1><strong>Sophie Faircloth</strong></h1>
-<div id="research-assistant-and-student-at-the-university-of-pennsylvania" class="section level3">
-<h3><em>Research Assistant and Student at the University of Pennsylvania</em></h3>
-<p>I’m a student at the University of Pennsylvania working towards my Bachelors and Masters in Linguistics with a minor in Psychology.</p>
-<p>I currently work as a research assistant in the Cultural Evolution of Language lab with <a href="https://www.drgarethroberts.com">Dr. Gareth Roberts</a>, working on an independent research project with Inthat Boonpongmanee on the interpretation of sudden complexification and redundacy in novel language communication.</p>
-<p>I’m a transcriber for the <a href="https://www.ldc.upenn.edu">Linguistic Data Consortium</a>.</p>
-<p>I’m also a research assistant in the Goodwin lab with Dr. Geoffrey Goodwin and a senior research assistant in the Wellbeing and Morality lab with Dr. Jessie Sun.</p>
-<p>Here is my <a href="https://acrobat.adobe.com/link/track?uri=urn:aaid:scds:US:e7bb674d-5b82-4594-af3e-d943576e8d40">CV</a>.</p>
+<div
+id="research-assistant-and-student-at-the-university-of-pennsylvania"
+class="section level3">
+<h3><em>Research Assistant and Student at the University of
+Pennsylvania</em></h3>
+<p>I’m a student at the University of Pennsylvania working towards my
+Bachelors and Masters in Linguistics with a minor in Psychology.</p>
+<p>I currently work as a research assistant in the Cultural Evolution of
+Language lab with <a href="https://www.drgarethroberts.com">Dr. Gareth
+Roberts</a>, working on an independent research project with Inthat
+Boonpongmanee on the interpretation of sudden complexification and
+redundacy in novel language communication.</p>
+<p>I’m a transcriber for the <a
+href="https://www.ldc.upenn.edu">Linguistic Data Consortium</a>.</p>
+<p>I’m also a research assistant in the Goodwin lab with Dr. Geoffrey
+Goodwin and a senior research assistant in the Wellbeing and Morality
+lab with Dr. Jessie Sun.</p>
+<p>Here is my <a
+href="https://acrobat.adobe.com/link/track?uri=urn:aaid:scds:US:e7bb674d-5b82-4594-af3e-d943576e8d40">CV</a>.</p>
 </div>
 </div>
 <div class="col-sm-6">
-<p><img src="https://www.curf.upenn.edu/sites/default/files/styles/resource_grid_320x215/public/faircloth.jpg?itok=MHKIBRuL&amp;c=e76fe8821d285a1b83be307a64b537f8" /> </a></p>
+<p><img
+src="https://www.curf.upenn.edu/sites/default/files/styles/resource_grid_320x215/public/faircloth.jpg?itok=MHKIBRuL&amp;c=e76fe8821d285a1b83be307a64b537f8" />
+</a></p>
 </div>
 
 

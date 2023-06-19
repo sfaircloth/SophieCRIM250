@@ -15,7 +15,7 @@
 
 <title>CRIM 250 Final Project</title>
 
-<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.20/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -65,6 +65,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -85,6 +86,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -142,11 +146,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -175,8 +183,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -184,16 +192,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -310,7 +311,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -328,9 +329,6 @@ div.tocify {
 <li>
   <a href="RPA.html">RPA Links</a>
 </li>
-<li>
-  <a href="Assignments.html">CRIM250 Assignments</a>
-</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -344,54 +342,81 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">CRIM 250 Final Project</h1>
-<h4 class="author">Brianna Fisher, Sophie Faircloth, Anna Sophia Lotman, Hannah Wassermann</h4>
+<h4 class="author">Brianna Fisher, Sophie Faircloth, Anna Sophia Lotman,
+Hannah Wassermann</h4>
 <h4 class="date">11/27/2021</h4>
 
 </div>
 
 
-<p>I want you to submit your assignment as a PDF, so I can keep a record of what the code looked like that day. I also want you to include your answers on your personal GitHub website. This will be good practice for editing your website and it will help you produce something you can keep after the class is over.</p>
+<p>I want you to submit your assignment as a PDF, so I can keep a record
+of what the code looked like that day. I also want you to include your
+answers on your personal GitHub website. This will be good practice for
+editing your website and it will help you produce something you can keep
+after the class is over.</p>
 <ol style="list-style-type: decimal">
-<li><p>Download the Assignment1.Rmd file from Canvas. You can use this as a template for writing your answers. It’s the same as what you can see on my website in the Assignments tab. Once we’re done with this I’ll edit the text on the website to include the solutions.</p></li>
-<li><p>On RStudio, open a new R script in RStudio (File &gt; New File &gt; R Script). This is where you can test out your R code. You’ll write your R commands and draw plots here.</p></li>
-<li><p>Once you have finalized your code, copy and paste your results into this template (Assignment 1.Rmd). For example, if you produced a plot as the solution to one of the problems, you can copy and paste the R code in R markdown by using the <code>``{r} ```</code> command. Answer the questions in full sentences and Save.</p></li>
-<li><p>Produce a PDF file with your answers. To do this, knit to PDF (use Knit button at the top of RStudio), locate the PDF file in your docs folder (it’s in the same folder as the Rproj), and submit that on on Canvas in Assignment 1.</p></li>
-<li><p>Build Website, go to GitHub desktop, commit and push. Now your solutions should be on your website as well.</p></li>
+<li><p>Download the Assignment1.Rmd file from Canvas. You can use this
+as a template for writing your answers. It’s the same as what you can
+see on my website in the Assignments tab. Once we’re done with this I’ll
+edit the text on the website to include the solutions.</p></li>
+<li><p>On RStudio, open a new R script in RStudio (File &gt; New File
+&gt; R Script). This is where you can test out your R code. You’ll write
+your R commands and draw plots here.</p></li>
+<li><p>Once you have finalized your code, copy and paste your results
+into this template (Assignment 1.Rmd). For example, if you produced a
+plot as the solution to one of the problems, you can copy and paste the
+R code in R markdown by using the <code>``{r} ```</code> command. Answer
+the questions in full sentences and Save.</p></li>
+<li><p>Produce a PDF file with your answers. To do this, knit to PDF
+(use Knit button at the top of RStudio), locate the PDF file in your
+docs folder (it’s in the same folder as the Rproj), and submit that on
+on Canvas in Assignment 1.</p></li>
+<li><p>Build Website, go to GitHub desktop, commit and push. Now your
+solutions should be on your website as well.</p></li>
 </ol>
 <div id="assignment-1" class="section level1">
 <h1>Assignment 1</h1>
-<p><em>This assignment is due on Canvas on Monday 9/20 before class, at 10:15 am. Include the name of anyone with whom you collaborated at the top of the assignment.</em></p>
+<p><em>This assignment is due on Canvas on Monday 9/20 before class, at
+10:15 am. Include the name of anyone with whom you collaborated at the
+top of the assignment.</em></p>
 <div id="problem-1" class="section level3">
 <h3>Problem 1</h3>
-<p><em>Install the datasets package on the console below using <code>install.packages("datasets")</code>. Now load the library.</em></p>
+<p><em>Install the datasets package on the console below using
+<code>install.packages("datasets")</code>. Now load the
+library.</em></p>
 <pre class="r"><code>library(datasets)</code></pre>
-<p><em>Load the USArrests dataset and rename it <code>dat</code>. Note that this dataset comes with R, in the package datasets, so there’s no need to load data from your computer. Why is it useful to rename the dataset?</em></p>
-<p><strong>Answer</strong>: Well, we want to replicate analyses. That’s why it’s nice to rename data.</p>
+<p><em>Load the USArrests dataset and rename it <code>dat</code>. Note
+that this dataset comes with R, in the package datasets, so there’s no
+need to load data from your computer. Why is it useful to rename the
+dataset?</em></p>
+<p><strong>Answer</strong>: Well, we want to replicate analyses. That’s
+why it’s nice to rename data.</p>
 <pre class="r"><code>dat &lt;- USArrests</code></pre>
 </div>
 <div id="problem-2" class="section level3">
 <h3>Problem 2</h3>
-<p><em>Use this command to make the state names into a new variable called State. </em></p>
-<pre class="r"><code>library(dplyr)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;dplyr&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:stats&#39;:
-## 
-##     filter, lag</code></pre>
-<pre><code>## The following objects are masked from &#39;package:base&#39;:
-## 
-##     intersect, setdiff, setequal, union</code></pre>
-<pre class="r"><code>dat$state &lt;- tolower(rownames(USArrests))</code></pre>
-<p><em>I used the dplyr package in order to rename this variable. I am sure there are other ways to do this but I used old reliable!</em></p>
-<p><em>This dataset has the state names as row names, so we just want to make them into a new variable. We also make them all lower case, because that will help us draw a map later - the map function requires the states to be lower case.</em></p>
-<p><em>List the variables contained in the dataset <code>USArrests</code>.</em></p>
+<p><em>Use this command to make the state names into a new variable
+called State. </em></p>
+<pre class="r"><code>library(dplyr)
+dat$state &lt;- tolower(rownames(USArrests))</code></pre>
+<p><em>I used the dplyr package in order to rename this variable. I am
+sure there are other ways to do this but I used old reliable!</em></p>
+<p><em>This dataset has the state names as row names, so we just want to
+make them into a new variable. We also make them all lower case, because
+that will help us draw a map later - the map function requires the
+states to be lower case.</em></p>
+<p><em>List the variables contained in the dataset
+<code>USArrests</code>.</em></p>
 <pre class="r"><code>names(dat)</code></pre>
 <pre><code>## [1] &quot;Murder&quot;   &quot;Assault&quot;  &quot;UrbanPop&quot; &quot;Rape&quot;     &quot;state&quot;</code></pre>
-<p><strong>Answer</strong>: The four variables are Murder, Assault, UrbanPop, and Rape.</p>
+<p><strong>Answer</strong>: The four variables are Murder, Assault,
+UrbanPop, and Rape.</p>
 </div>
 <div id="problem-3" class="section level3">
 <h3>Problem 3</h3>
-<p><em>What type of variable (from the DVB chapter) is <code>Murder</code>? </em> <strong>Answer</strong>: quantitative variable</p>
+<p><em>What type of variable (from the DVB chapter) is
+<code>Murder</code>? </em> <strong>Answer</strong>: quantitative
+variable</p>
 <p><em>What R Type of variable is it?</em></p>
 <pre class="r"><code>typeof(dat$Murder)</code></pre>
 <pre><code>## [1] &quot;double&quot;</code></pre>
@@ -399,26 +424,56 @@ div.tocify {
 </div>
 <div id="problem-4" class="section level3">
 <h3>Problem 4</h3>
-<p><em>What information is contained in this dataset, in general? What do the numbers mean? </em></p>
-<p><strong>Answer</strong>: The information in this dataset is a set of the number of arrests for different violent crimes in the United States, as divided by state. The numbers represent the numeric value of arrests per 100,000 residents for assault, murder, and rape in each of the 50 US states, also providing the percent of the population living in urban areas (UrbanPop).</p>
+<p><em>What information is contained in this dataset, in general? What
+do the numbers mean? </em></p>
+<p><strong>Answer</strong>: The information in this dataset is a set of
+the number of arrests for different violent crimes in the United States,
+as divided by state. The numbers represent the numeric value of arrests
+per 100,000 residents for assault, murder, and rape in each of the 50 US
+states, also providing the percent of the population living in urban
+areas (UrbanPop).</p>
 </div>
 <div id="problem-5" class="section level3">
 <h3>Problem 5</h3>
-<p><em>Draw a histogram of <code>Murder</code> with proper labels and title.</em></p>
+<p><em>Draw a histogram of <code>Murder</code> with proper labels and
+title.</em></p>
 <pre class="r"><code>hist(dat$Murder, col = &#39;red&#39;, ylab = &#39;Frequency&#39;, xlab = &#39;Murder Arrests per 100,000 residents&#39;, main = &#39;Histogram of Murder Arrests in the US&#39;, sub = &#39;(by state)&#39;)</code></pre>
 <p><img src="Assignments_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 </div>
 <div id="problem-6" class="section level3">
 <h3>Problem 6</h3>
-<p><em>Please summarize <code>Murder</code> quantitatively. What are its mean and median? What is the difference between mean and median? What is a quartile, and why do you think R gives you the 1st Qu. and 3rd Qu.?</em></p>
+<p><em>Please summarize <code>Murder</code> quantitatively. What are its
+mean and median? What is the difference between mean and median? What is
+a quartile, and why do you think R gives you the 1st Qu. and 3rd
+Qu.?</em></p>
 <pre class="r"><code>summary(dat$Murder)</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##   0.800   4.075   7.250   7.788  11.250  17.400</code></pre>
-<p><strong>Answer</strong>: The mean of the Murder variable is 7.788 (murder arrests per 100,000 residents of a state). The median is 7.250 (murder arrests per 100,000 residents of a state). The difference between these two values quantitatively is 0.538. The difference qualitatively is that the mean represents the average number of murder arrests per 100,000 residents of all US states while the median is the middle value of the data set, showing the data has a slight right skew. A quartile isdivides the dataset into four parts, with Q1 being the median of the lower half of the dataset and Q3 being the median of the upper half of the data set. R gives you this information because quartiles can be helpful in determining where a specific data point falls in the set; for example, if a value for “Murders” is greater than Q3, 11.250, we can more reasonably assume that this state has an exceptionally high murder rate in comparison to other states in the US. If a state has a value for “Murders” that is less than 4.075, we can more reasonably assume that this state is relatively safer than other US states!</p>
+<p><strong>Answer</strong>: The mean of the Murder variable is 7.788
+(murder arrests per 100,000 residents of a state). The median is 7.250
+(murder arrests per 100,000 residents of a state). The difference
+between these two values quantitatively is 0.538. The difference
+qualitatively is that the mean represents the average number of murder
+arrests per 100,000 residents of all US states while the median is the
+middle value of the data set, showing the data has a slight right skew.
+A quartile isdivides the dataset into four parts, with Q1 being the
+median of the lower half of the dataset and Q3 being the median of the
+upper half of the data set. R gives you this information because
+quartiles can be helpful in determining where a specific data point
+falls in the set; for example, if a value for “Murders” is greater than
+Q3, 11.250, we can more reasonably assume that this state has an
+exceptionally high murder rate in comparison to other states in the US.
+If a state has a value for “Murders” that is less than 4.075, we can
+more reasonably assume that this state is relatively safer than other US
+states!</p>
 </div>
 <div id="problem-7" class="section level3">
 <h3>Problem 7</h3>
-<p><em>Repeat the same steps you followed for <code>Murder</code>, for the variables <code>Assault</code> and <code>Rape</code>. Now plot all three histograms together. You can do this by using the command <code>par(mfrow=c(3,1))</code> and then plotting each of the three. </em></p>
+<p><em>Repeat the same steps you followed for <code>Murder</code>, for
+the variables <code>Assault</code> and <code>Rape</code>. Now plot all
+three histograms together. You can do this by using the command
+<code>par(mfrow=c(3,1))</code> and then plotting each of the three.
+</em></p>
 <pre class="r"><code>hist(dat$Assault, col = &#39;red&#39;, ylab = &#39;Frequency&#39;, xlab = &#39;Assault Arrests per 100,000 residents&#39;, main = &#39;Histogram of Assault Arrests in the US&#39;, sub = &#39;(by state)&#39;)</code></pre>
 <p><img src="Assignments_files/figure-html/unnamed-chunk-8-1.png" width="480" /></p>
 <pre class="r"><code>summary(dat$Assault)</code></pre>
@@ -437,14 +492,30 @@ summary(dat$Assault)</code></pre>
 ##    45.0   109.0   159.0   170.8   249.0   337.0</code></pre>
 <pre class="r"><code>hist(dat$Rape, col = &#39;red&#39;, ylab = &#39;Frequency&#39;, xlab = &#39;Rape Arrests per 100,000 residents&#39;, main = &#39;Histogram of Rape Arrests in the US&#39;, sub = &#39;(by state)&#39;)</code></pre>
 <p><img src="Assignments_files/figure-html/unnamed-chunk-8-3.png" width="480" /></p>
-<p><em>What does the command par do, in your own words (you can look this up by asking R <code>?par</code>)?</em></p>
-<p><strong>Answer</strong>: The par function allows an R user to look at the graphical parameters that control how graphs are displayed. In the case of the par(mfrow=c(3,1)) function, we are able to not only look at the graphical parameters, but control them so that we can decide how many subplots we want displayed.</p>
-<p><em>What can you learn from plotting the histograms together?</em></p>
-<p><strong>Answer</strong>: From plotting the histograms together, we can view a comparison of the distributions in relation to each other, examining skew and quartile arrangement to see how distributions vary by crime type. On a more general note, plotting the histograms together allows us to see generally how frequency and distribution relationships among multiple variables interact, allowing a viewer a more clear image of the relationship between variables while still being able to view a more individualistic look at each histogram.</p>
+<p><em>What does the command par do, in your own words (you can look
+this up by asking R <code>?par</code>)?</em></p>
+<p><strong>Answer</strong>: The par function allows an R user to look at
+the graphical parameters that control how graphs are displayed. In the
+case of the par(mfrow=c(3,1)) function, we are able to not only look at
+the graphical parameters, but control them so that we can decide how
+many subplots we want displayed.</p>
+<p><em>What can you learn from plotting the histograms
+together?</em></p>
+<p><strong>Answer</strong>: From plotting the histograms together, we
+can view a comparison of the distributions in relation to each other,
+examining skew and quartile arrangement to see how distributions vary by
+crime type. On a more general note, plotting the histograms together
+allows us to see generally how frequency and distribution relationships
+among multiple variables interact, allowing a viewer a more clear image
+of the relationship between variables while still being able to view a
+more individualistic look at each histogram.</p>
 </div>
 <div id="problem-8" class="section level3">
 <h3>Problem 8</h3>
-<p><em>In the console below (not in text), type <code>install.packages("maps")</code> and press Enter, and then type <code>install.packages("ggplot2")</code> and press Enter. This will install the packages so you can load the libraries.</em></p>
+<p><em>In the console below (not in text), type
+<code>install.packages("maps")</code> and press Enter, and then type
+<code>install.packages("ggplot2")</code> and press Enter. This will
+install the packages so you can load the libraries.</em></p>
 <p><em>Run this code:</em></p>
 <pre class="r"><code>library(maps) 
 library(ggplot2) 
@@ -454,16 +525,29 @@ ggplot(dat, aes(map_id=state, fill=Murder)) +
   expand_limits(x=map_data(&quot;state&quot;)$long, y=map_data(&quot;state&quot;)$lat)</code></pre>
 <p><img src="Assignments_files/figure-html/unnamed-chunk-9-1.png" width="720" /></p>
 <p><em>What does this code do? Explain what each line is doing.</em></p>
-<p><strong>Answer</strong>: ggplot is the most basic implementation of any data visualization in R. In this instance, the first line of code is filling out the basic information of the data visual by specifying the variables which are involved in the plot. The second line of code employs the maps package and ggplot2 package to choose specifically to create a mapping of the selected variables, using states as the selected implementation of the map. The third line employs the expand_limit function in order to ensure that the limits of the visualization include a single value for all aspects of the plot, implying what should be included in the scale.</p>
+<p><strong>Answer</strong>: ggplot is the most basic implementation of
+any data visualization in R. In this instance, the first line of code is
+filling out the basic information of the data visual by specifying the
+variables which are involved in the plot. The second line of code
+employs the maps package and ggplot2 package to choose specifically to
+create a mapping of the selected variables, using states as the selected
+implementation of the map. The third line employs the expand_limit
+function in order to ensure that the limits of the visualization include
+a single value for all aspects of the plot, implying what should be
+included in the scale.</p>
 <p><span class="math display">\[\\[2in]\]</span></p>
 </div>
 </div>
 <div id="assignment-2" class="section level1">
 <h1>Assignment 2</h1>
-<p>Instructions: Copy your code, paste it into a Word document, and turn it into Canvas. You can turn in a .docx or .pdf file. Show any EDA (graphical or non-graphical) you have used to come to this conclusion.</p>
+<p>Instructions: Copy your code, paste it into a Word document, and turn
+it into Canvas. You can turn in a .docx or .pdf file. Show any EDA
+(graphical or non-graphical) you have used to come to this
+conclusion.</p>
 <div id="problem-1-load-data" class="section level2">
 <h2>Problem 1: Load data</h2>
-<p>Set your working directory to the folder where you downloaded the data.</p>
+<p>Set your working directory to the folder where you downloaded the
+data.</p>
 <pre class="r"><code>setwd(&quot;~/Documents/GitHub/SophieCRIM250&quot;)</code></pre>
 <p>Read the data</p>
 <pre class="r"><code>dat &lt;- read.csv(file = &#39;dat.nsduh.small.1.csv&#39;)</code></pre>
@@ -479,26 +563,60 @@ ggplot(dat, aes(map_id=state, fill=Murder)) +
 </div>
 <div id="problem-2-variables" class="section level2">
 <h2>Problem 2: Variables</h2>
-<p>Describe the variables in the dataset. - mjage is a variable that denotes how old someone was the first time they used marijuana or hashish - cigage is a variable that denotes how old someone was when they first started smoking cigarettes every day - iralcage is a variable that denotes how old someone was when they first tried alcohol, numbers greater than 900 implying never used or lack of answer - age2 is a variable that splits people up into groups based on respondent age - sexatract is a variable that splits people into groups based on sexual attraction, each number denoting a different sexual preference - speakengl is a variable that splits people into groups based off of their english literacy - irsex is a variable that splits people into two different groups based on a binary gender system, 1 being male and 2 being female</p>
-<p>What is this dataset about? Who collected the data, what kind of sample is it, and what was the purpose of generating the data? - This dataset is about the health and drug use statistics of the United States. - This data is from the National Survey on Drug Use and Health, conducted by The Substance Abuse and Mental Health Services Administration in the US Department of Health and Human Services. - This is a random sample. - The data was generated for the sake of government agencies, private organizations, individual researchers, and the public at large for a number of different purposes. - This data is used mainly to provide more information on substance use and demographic statistics in the United States.</p>
+<p>Describe the variables in the dataset. - mjage is a variable that
+denotes how old someone was the first time they used marijuana or
+hashish - cigage is a variable that denotes how old someone was when
+they first started smoking cigarettes every day - iralcage is a variable
+that denotes how old someone was when they first tried alcohol, numbers
+greater than 900 implying never used or lack of answer - age2 is a
+variable that splits people up into groups based on respondent age -
+sexatract is a variable that splits people into groups based on sexual
+attraction, each number denoting a different sexual preference -
+speakengl is a variable that splits people into groups based off of
+their english literacy - irsex is a variable that splits people into two
+different groups based on a binary gender system, 1 being male and 2
+being female</p>
+<p>What is this dataset about? Who collected the data, what kind of
+sample is it, and what was the purpose of generating the data? - This
+dataset is about the health and drug use statistics of the United
+States. - This data is from the National Survey on Drug Use and Health,
+conducted by The Substance Abuse and Mental Health Services
+Administration in the US Department of Health and Human Services. - This
+is a random sample. - The data was generated for the sake of government
+agencies, private organizations, individual researchers, and the public
+at large for a number of different purposes. - This data is used mainly
+to provide more information on substance use and demographic statistics
+in the United States.</p>
 </div>
 <div id="problem-3-age-and-gender" class="section level2">
 <h2>Problem 3: Age and gender</h2>
-<p>What is the age distribution of the sample like? Make sure you read the codebook to know what the variable values mean.</p>
+<p>What is the age distribution of the sample like? Make sure you read
+the codebook to know what the variable values mean.</p>
 <pre class="r"><code>hist(dat$age2)</code></pre>
 <p><img src="Assignments_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 <pre class="r"><code>summary(dat$age2)</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##    4.00   13.00   15.00   13.98   15.00   17.00</code></pre>
 <ul>
-<li>The age distribution is left skewed, with a mean of 13.98 (representing ages 26-29) and median of 15 (representing ages 35-49). # Do you think this age distribution representative of the US population? Why or why not?</li>
-<li>I do feel like this sample is representative. The distribution of ages in the age set are misleading; the ages of 18-49 (as represented by groups 7-15) are the majority of the sample, which is consistent with the most recent US Census. # Is the sample balanced in terms of gender? If not, are there more females or males?</li>
+<li>The age distribution is left skewed, with a mean of 13.98
+(representing ages 26-29) and median of 15 (representing ages 35-49). #
+Do you think this age distribution representative of the US population?
+Why or why not?</li>
+<li>I do feel like this sample is representative. The distribution of
+ages in the age set are misleading; the ages of 18-49 (as represented by
+groups 7-15) are the majority of the sample, which is consistent with
+the most recent US Census. # Is the sample balanced in terms of gender?
+If not, are there more females or males?</li>
 </ul>
 <pre class="r"><code>summary(dat$irsex)</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##   1.000   1.000   1.000   1.468   2.000   2.000</code></pre>
 <ul>
-<li>This sample is fairly balanced in terms of gender. The mean for the irsex variable is 1.468, meaning the sample is fairly balanced in terms of sex. # Use this code to draw a stacked bar plot to view the relationship between sex and age. What can you conclude from this plot?</li>
+<li>This sample is fairly balanced in terms of gender. The mean for the
+irsex variable is 1.468, meaning the sample is fairly balanced in terms
+of sex. # Use this code to draw a stacked bar plot to view the
+relationship between sex and age. What can you conclude from this
+plot?</li>
 </ul>
 <pre class="r"><code>tab.agesex &lt;- table(dat$irsex, dat$age2)
 barplot(tab.agesex,
@@ -506,23 +624,33 @@ barplot(tab.agesex,
         xlab = &quot;Age category&quot;, ylab = &quot;Frequency&quot;,
         legend.text = rownames(tab.agesex),
         beside = FALSE) # Stacked bars (default)</code></pre>
-<p><img src="Assignments_files/figure-html/unnamed-chunk-15-1.png" width="672" /> - This plot demonstrates that the distribution is fairly balanced in age, with the majority of participants on either tail of the data being mainly males.</p>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-15-1.png" width="672" />
+- This plot demonstrates that the distribution is fairly balanced in
+age, with the majority of participants on either tail of the data being
+mainly males.</p>
 </div>
 <div id="problem-4-substance-use" class="section level2">
 <h2>Problem 4: Substance use</h2>
-<p>For which of the three substances included in the dataset (marijuana, alcohol, and cigarettes) do individuals tend to use the substance earlier?</p>
+<p>For which of the three substances included in the dataset (marijuana,
+alcohol, and cigarettes) do individuals tend to use the substance
+earlier?</p>
 <pre class="r"><code>par(mfrow=c(3,1))
 hist(dat$mjage, col = &#39;red&#39;, ylab = &#39;Frequency&#39;, xlab = &#39;Age category&#39;, main = &#39;Histogram of Marijuana Usage&#39;)
 hist(dat$cigage , col = &#39;red&#39;, ylab = &#39;Frequency&#39;, xlab = &#39;Age category&#39;, main = &#39;Histogram of Cigarette Usage&#39;)
 hist(dat$iralcage, col = &#39;red&#39;, ylab = &#39;Frequency&#39;, xlab = &#39;Age category&#39;, main = &#39;Histogram of Alcohol Consumption&#39;)</code></pre>
-<p><img src="Assignments_files/figure-html/unnamed-chunk-16-1.png" width="672" /> - Individuals tend to use marijuana at the youngest age out of the three substances.</p>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-16-1.png" width="672" />
+- Individuals tend to use marijuana at the youngest age out of the three
+substances.</p>
 </div>
 <div id="problem-5-sexual-attraction" class="section level2">
 <h2>Problem 5: Sexual attraction</h2>
 <pre class="r"><code>library(ggplot2)</code></pre>
 </div>
-<div id="what-does-the-distribution-of-sexual-attraction-look-like-is-this-what-you-expected" class="section level2">
-<h2>What does the distribution of sexual attraction look like? Is this what you expected?</h2>
+<div
+id="what-does-the-distribution-of-sexual-attraction-look-like-is-this-what-you-expected"
+class="section level2">
+<h2>What does the distribution of sexual attraction look like? Is this
+what you expected?</h2>
 <pre class="r"><code>hist(dat$sexatract)</code></pre>
 <p><img src="Assignments_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
 <pre class="r"><code>summary(dat$sexatract)</code></pre>
@@ -533,12 +661,20 @@ hist(dat$iralcage, col = &#39;red&#39;, ylab = &#39;Frequency&#39;, xlab = &#39;
 ##   1   2   3   4   5   6  99 
 ## 136  16   9   3   3   1   3</code></pre>
 <ul>
-<li>According to the numeric system for sexual attraction, this gives the distribution a strong right skew.</li>
-<li>This is not a necessarily surprising result, considering there is generally a strong heterosexual representation in the United States, especially on representative surveys.</li>
-<li>While I do not feel this is truly representative of the United States, there are many people who may feel uncomfortable correctly identifying sexual preference on a survey used by government organizations and regarding personal information (even if it is later encoded).</li>
+<li>According to the numeric system for sexual attraction, this gives
+the distribution a strong right skew.</li>
+<li>This is not a necessarily surprising result, considering there is
+generally a strong heterosexual representation in the United States,
+especially on representative surveys.</li>
+<li>While I do not feel this is truly representative of the United
+States, there are many people who may feel uncomfortable correctly
+identifying sexual preference on a survey used by government
+organizations and regarding personal information (even if it is later
+encoded).</li>
 </ul>
 </div>
-<div id="what-is-the-distribution-of-sexual-attraction-by-gender" class="section level2">
+<div id="what-is-the-distribution-of-sexual-attraction-by-gender"
+class="section level2">
 <h2>What is the distribution of sexual attraction by gender?</h2>
 <pre class="r"><code>genatt &lt;- table(dat$irsex, dat$sexatract)
 barplot(genatt,
@@ -556,10 +692,23 @@ barplot(genatt,
 <pre class="r"><code>- 54</code></pre>
 <pre><code>## [1] -54</code></pre>
 <ul>
-<li>The distribution of sexual attraction is highly populated by those who identified (via the codebook) as only being attracted to the opposite gender.</li>
-<li>A smaller number of women identify as being heterosexual than men, thought this could be slightly biased due to a smaller sample size of women. ## Problem 6: English speaking</li>
+<li>The distribution of sexual attraction is highly populated by those
+who identified (via the codebook) as only being attracted to the
+opposite gender.</li>
+<li>A smaller number of women identify as being heterosexual than men,
+thought this could be slightly biased due to a smaller sample size of
+women. ## Problem 6: English speaking</li>
 </ul>
-<p>What does the distribution of English speaking look like in the sample? Is this what you might expect for a random sample of the US population? summary(dat<span class="math inline">\(speakengl) table(dat\)</span>speakengl) - Majority of the sample are English speakers, with 169 of the 171 respondents self-identifying as speaking English well or very well and only two respondents not speaking English well. - This is not what I would expect from a random sample of the US, but makes sense in the fact that this is a survey administered in English, probably leading to some sampling bias in a high yield of English speakers. Are there more English speaker females or males?</p>
+<p>What does the distribution of English speaking look like in the
+sample? Is this what you might expect for a random sample of the US
+population? summary(dat<span class="math inline">\(speakengl)
+table(dat\)</span>speakengl) - Majority of the sample are English
+speakers, with 169 of the 171 respondents self-identifying as speaking
+English well or very well and only two respondents not speaking English
+well. - This is not what I would expect from a random sample of the US,
+but makes sense in the fact that this is a survey administered in
+English, probably leading to some sampling bias in a high yield of
+English speakers. Are there more English speaker females or males?</p>
 <pre class="r"><code>sum(dat$speakengl == 1 &amp; dat$irsex == 1)</code></pre>
 <pre><code>## [1] 84</code></pre>
 <pre class="r"><code>- 84</code></pre>
@@ -585,8 +734,11 @@ barplot(genatt,
 <pre class="r"><code>- 2</code></pre>
 <pre><code>## [1] -2</code></pre>
 <ul>
-<li>Assuming that we say that “not an English speaker” is characterized by someone self-assessing themselves as speaking English “not well,” there is a higher number of female non-English speakers.</li>
-<li>This means that, from this very limited data set, there is a higher number of male English speakers.</li>
+<li>Assuming that we say that “not an English speaker” is characterized
+by someone self-assessing themselves as speaking English “not well,”
+there is a higher number of female non-English speakers.</li>
+<li>This means that, from this very limited data set, there is a higher
+number of male English speakers.</li>
 </ul>
 </div>
 </div>
@@ -595,8 +747,11 @@ barplot(genatt,
 <div id="instructions" class="section level2">
 <h2>Instructions</h2>
 <ol style="list-style-type: lower-alpha">
-<li><p>Create a folder in your computer (a good place would be under Crim 250, Exams).</p></li>
-<li><p>Download the dataset from the Canvas website (fatal-police-shootings-data.csv) onto that folder, and save your Exam 1.Rmd file in the same folder.</p></li>
+<li><p>Create a folder in your computer (a good place would be under
+Crim 250, Exams).</p></li>
+<li><p>Download the dataset from the Canvas website
+(fatal-police-shootings-data.csv) onto that folder, and save your Exam
+1.Rmd file in the same folder.</p></li>
 <li><p>Download the README.md file. This is the codebook.</p></li>
 <li><p>Load the data into an R data frame.</p></li>
 </ol>
@@ -605,17 +760,26 @@ barplot(genatt,
 <div id="problem-1-10-points" class="section level2">
 <h2>Problem 1 (10 points)</h2>
 <ol style="list-style-type: lower-alpha">
-<li>Describe the dataset. This is the source: <a href="https://github.com/washingtonpost/data-police-shootings" class="uri">https://github.com/washingtonpost/data-police-shootings</a> . Write two sentences (max.) about this.</li>
+<li>Describe the dataset. This is the source: <a
+href="https://github.com/washingtonpost/data-police-shootings"
+class="uri">https://github.com/washingtonpost/data-police-shootings</a>
+. Write two sentences (max.) about this.</li>
 </ol>
-<p><strong>This data is a recording of fatal shootings by police officers in the line of duty since Jan. 1, 2015. This data, as recorded in the Washington Post database, is separated by circumstances under which the fatality ensued.</strong></p>
+<p><strong>This data is a recording of fatal shootings by police
+officers in the line of duty since Jan. 1, 2015. This data, as recorded
+in the Washington Post database, is separated by circumstances under
+which the fatality ensued.</strong></p>
 <ol start="2" style="list-style-type: lower-alpha">
 <li>How many observations are there in the data frame?</li>
 </ol>
 <pre class="r"><code>dim(dat)</code></pre>
 <pre><code>## [1] 6594   17</code></pre>
-<p><strong>There are 6594 observations in this data set, categorized by 17 different variables.</strong></p>
+<p><strong>There are 6594 observations in this data set, categorized by
+17 different variables.</strong></p>
 <ol start="3" style="list-style-type: lower-alpha">
-<li>Look at the names of the variables in the data frame. Describe what “body_camera”, “flee”, and “armed” represent, according to the codebook. Again, only write one sentence (max) per variable.</li>
+<li>Look at the names of the variables in the data frame. Describe what
+“body_camera”, “flee”, and “armed” represent, according to the codebook.
+Again, only write one sentence (max) per variable.</li>
 </ol>
 <pre class="r"><code>names(dat)</code></pre>
 <pre><code>##  [1] &quot;id&quot;                      &quot;name&quot;                   
@@ -627,9 +791,17 @@ barplot(genatt,
 ## [13] &quot;flee&quot;                    &quot;body_camera&quot;            
 ## [15] &quot;longitude&quot;               &quot;latitude&quot;               
 ## [17] &quot;is_geocoding_exact&quot;</code></pre>
-<p><strong>body_camera: This variable indicates whether or not the officer involved in the incident was wearing a body camera.</strong> <strong>flee: This variable indicates whether or not the victim appeared to be moving away from the officer at the time of the shooting, divided into three possibilities: fleeing in a car, fleeing on foot, not fleeing.</strong> <strong>armed: This variable indicates whether or not a victim was considered to be armed at the time of the shooting and if so, what they were armed with.</strong></p>
+<p><strong>body_camera: This variable indicates whether or not the
+officer involved in the incident was wearing a body camera.</strong>
+<strong>flee: This variable indicates whether or not the victim appeared
+to be moving away from the officer at the time of the shooting, divided
+into three possibilities: fleeing in a car, fleeing on foot, not
+fleeing.</strong> <strong>armed: This variable indicates whether or not
+a victim was considered to be armed at the time of the shooting and if
+so, what they were armed with.</strong></p>
 <ol start="4" style="list-style-type: lower-alpha">
-<li>What are three weapons that you are surprised to find in the “armed” variable? Make a table of the values in “armed” to see the options.</li>
+<li>What are three weapons that you are surprised to find in the “armed”
+variable? Make a table of the values in “armed” to see the options.</li>
 </ol>
 <pre class="r"><code>armeddat &lt;- table(dat$armed)
 armeddat</code></pre>
@@ -734,36 +906,62 @@ armeddat</code></pre>
 ##                                1                                1 
 ##                           wrench 
 ##                                1</code></pre>
-<p><strong>In the armed variable, I was most surprised to see that people were “armed” with a pitchfork (very medieval), a pen (???), and an air conditioner.</strong></p>
+<p><strong>In the armed variable, I was most surprised to see that
+people were “armed” with a pitchfork (very medieval), a pen (???), and
+an air conditioner.</strong></p>
 </div>
 <div id="problem-2-10-points" class="section level2">
 <h2>Problem 2 (10 points)</h2>
 <ol style="list-style-type: lower-alpha">
-<li>Describe the age distribution of the sample. Is this what you would expect to see?</li>
+<li>Describe the age distribution of the sample. Is this what you would
+expect to see?</li>
 </ol>
 <pre class="r"><code>hist(dat$age)</code></pre>
 <p><img src="Assignments_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
-<p><strong>The distribution shows a right skew to the ages of victims in recorded fatal shootings. I feel like this is fairly predictable, as the average age in the US is 38, and we know that fatal shootings often occur in over-policed low-income areas where the majority of people who are out and about are the working class of these areas, putting majority of their ages around 20-40 years old.</strong></p>
+<p><strong>The distribution shows a right skew to the ages of victims in
+recorded fatal shootings. I feel like this is fairly predictable, as the
+average age in the US is 38, and we know that fatal shootings often
+occur in over-policed low-income areas where the majority of people who
+are out and about are the working class of these areas, putting majority
+of their ages around 20-40 years old.</strong></p>
 <ol start="2" style="list-style-type: lower-alpha">
-<li>To understand the center of the age distribution, would you use a mean or a median, and why? Find the one you picked.</li>
+<li>To understand the center of the age distribution, would you use a
+mean or a median, and why? Find the one you picked.</li>
 </ol>
 <pre class="r"><code>summary(dat$age)</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
 ##    6.00   27.00   35.00   37.12   45.00   91.00     308</code></pre>
-<p><strong>I would use the median of the data. Because the data is skewed, the median is a better measure of central tendency than the mean as it is more representative of the sample given what we know about it’s distribution. The median is 35, as in 35 years old is the average age of someone involved in a fatal shooting in the United States at the hand of police.</strong></p>
+<p><strong>I would use the median of the data. Because the data is
+skewed, the median is a better measure of central tendency than the mean
+as it is more representative of the sample given what we know about it’s
+distribution. The median is 35, as in 35 years old is the average age of
+someone involved in a fatal shooting in the United States at the hand of
+police.</strong></p>
 <ol start="3" style="list-style-type: lower-alpha">
-<li>Describe the gender distribution of the sample. Do you find this surprising?</li>
+<li>Describe the gender distribution of the sample. Do you find this
+surprising?</li>
 </ol>
 <pre class="r"><code>table(dat$gender)</code></pre>
 <pre><code>## 
 ##         F    M 
 ##    3  293 6298</code></pre>
-<p><strong>I do find this surprising. Given that there is a fairly predictable distribution of ages in this data set, you would assume there be an equally as predictable distribution of gender. However, knowing what we know about fatal shootings by police in the United States, the narrative portrayed by police officers often follows the line of not-being-confident-in-a-lack-of-threat-from-the-victim. While this narrative is incredibly frustrating, it does align with the uneven distribution of men and women in this event because women often are portrayed as being a lower threat level than men in general.</strong></p>
+<p><strong>I do find this surprising. Given that there is a fairly
+predictable distribution of ages in this data set, you would assume
+there be an equally as predictable distribution of gender. However,
+knowing what we know about fatal shootings by police in the United
+States, the narrative portrayed by police officers often follows the
+line of not-being-confident-in-a-lack-of-threat-from-the-victim. While
+this narrative is incredibly frustrating, it does align with the uneven
+distribution of men and women in this event because women often are
+portrayed as being a lower threat level than men in
+general.</strong></p>
 </div>
 <div id="problem-3-10-points" class="section level2">
 <h2>Problem 3 (10 points)</h2>
 <ol style="list-style-type: lower-alpha">
-<li>How many police officers had a body camera, according to news reports? What proportion is this of all the incidents in the data? Are you surprised that it is so high or low?</li>
+<li>How many police officers had a body camera, according to news
+reports? What proportion is this of all the incidents in the data? Are
+you surprised that it is so high or low?</li>
 </ol>
 <pre class="r"><code>table(dat$body_camera)</code></pre>
 <pre><code>## 
@@ -773,9 +971,16 @@ armeddat</code></pre>
 <pre><code>## [1] 0.1380042</code></pre>
 <pre class="r"><code># prop.table(dat$body_camera)
 # would have to convert to numeric, can just get proportion via simple math</code></pre>
-<p><strong>According to the news, 910 of the officers had a body camera at the time of the incident. This is 13.800% of the incidents in this data. This proportion being so low is surprising to me because I thought that it was protocol as of the past few years for officers to wear body cameras when on duty. The fact that this statistic is so low is very concerning.</strong></p>
+<p><strong>According to the news, 910 of the officers had a body camera
+at the time of the incident. This is 13.800% of the incidents in this
+data. This proportion being so low is surprising to me because I thought
+that it was protocol as of the past few years for officers to wear body
+cameras when on duty. The fact that this statistic is so low is very
+concerning.</strong></p>
 <ol start="2" style="list-style-type: lower-alpha">
-<li>In how many of the incidents was the victim fleeing? What proportion is this of the total number of incidents in the data? Is this what you would expect?</li>
+<li>In how many of the incidents was the victim fleeing? What proportion
+is this of the total number of incidents in the data? Is this what you
+would expect?</li>
 </ol>
 <pre class="r"><code>table(dat$flee)</code></pre>
 <pre><code>## 
@@ -785,24 +990,49 @@ armeddat</code></pre>
 <pre><code>## [1] 1903</code></pre>
 <pre class="r"><code>1903/6594</code></pre>
 <pre><code>## [1] 0.2885957</code></pre>
-<p><strong>The victim was fleeing in 1058 of the incidents (either by car or on foot: “other” answers and not included answers on this were excluded due to lack of information). This is 28.860% of the data set. This is not surprising given what we know about police brutality in the United States, but it is very concerning. This means that over 70% of victims who were shot fatally by police were not fleeing.</strong></p>
+<p><strong>The victim was fleeing in 1058 of the incidents (either by
+car or on foot: “other” answers and not included answers on this were
+excluded due to lack of information). This is 28.860% of the data set.
+This is not surprising given what we know about police brutality in the
+United States, but it is very concerning. This means that over 70% of
+victims who were shot fatally by police were not fleeing.</strong></p>
 </div>
-<div id="problem-4-10-points---answer-only-one-of-these-a-or-b." class="section level2">
+<div id="problem-4-10-points---answer-only-one-of-these-a-or-b."
+class="section level2">
 <h2>Problem 4 (10 points) - Answer only one of these (a or b).</h2>
 <ol style="list-style-type: lower-alpha">
-<li>Describe the relationship between the variables “body camera” and “flee” using a stacked barplot. What can you conclude from this relationship?</li>
+<li>Describe the relationship between the variables “body camera” and
+“flee” using a stacked barplot. What can you conclude from this
+relationship?</li>
 </ol>
-<p><em>Hint 1: The categories along the x-axis are the options for “flee”, each bar contains information about whether the police officer had a body camera (vertically), and the height along the y-axis shows the frequency of that category).</em></p>
-<p><em>Hint 2: Also, if you are unsure about the syntax for barplot, run ?barplot in R and see some examples at the bottom of the documentation. This is usually a good way to look up the syntax of R code. You can also Google it.</em></p>
+<p><em>Hint 1: The categories along the x-axis are the options for
+“flee”, each bar contains information about whether the police officer
+had a body camera (vertically), and the height along the y-axis shows
+the frequency of that category).</em></p>
+<p><em>Hint 2: Also, if you are unsure about the syntax for barplot, run
+?barplot in R and see some examples at the bottom of the documentation.
+This is usually a good way to look up the syntax of R code. You can also
+Google it.</em></p>
 <pre class="r"><code>counts &lt;- table(dat$body_camera, dat$flee)
 barplot(counts, col=c(&quot;red&quot;, &quot;blue&quot;), legend=TRUE, xlab=&quot;Flee&quot;, ylab=&quot;Frequency&quot;)</code></pre>
 <p><img src="Assignments_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
-<p><strong>From this relationship, we can see that there is an even proportion of body cam presence across all flee categories, demonstrating that the presence of a body cam does not seem to affect whether or not someone in this study fled or not. Though there is a section in the distribution that is unlabelled due to the flee variable being unmarked in these instances, even this variable demonstrates an even distribution.</strong></p>
+<p><strong>From this relationship, we can see that there is an even
+proportion of body cam presence across all flee categories,
+demonstrating that the presence of a body cam does not seem to affect
+whether or not someone in this study fled or not. Though there is a
+section in the distribution that is unlabelled due to the flee variable
+being unmarked in these instances, even this variable demonstrates an
+even distribution.</strong></p>
 <ol start="2" style="list-style-type: lower-alpha">
-<li>Describe the relationship between age and race by using a boxplot. What can you conclude from this relationship?</li>
+<li>Describe the relationship between age and race by using a boxplot.
+What can you conclude from this relationship?</li>
 </ol>
-<p><em>Hint 1: The categories along the x-axis are the race categories and the height along the y-axis is age.</em></p>
-<p><em>Hint 2: Also, if you are unsure about the syntax for boxplot, run ?boxplot in R and see some examples at the bottom of the documentation. This is usually a good way to look up the syntax of R code. You can also Google it.</em></p>
+<p><em>Hint 1: The categories along the x-axis are the race categories
+and the height along the y-axis is age.</em></p>
+<p><em>Hint 2: Also, if you are unsure about the syntax for boxplot, run
+?boxplot in R and see some examples at the bottom of the documentation.
+This is usually a good way to look up the syntax of R code. You can also
+Google it.</em></p>
 <p><strong>Your answer here.</strong></p>
 </div>
 <div id="extra-credit-10-points" class="section level2">
@@ -813,52 +1043,87 @@ barplot(counts, col=c(&quot;red&quot;, &quot;blue&quot;), legend=TRUE, xlab=&quo
 <pre class="r"><code>mydates &lt;- as.Date(dat$date)
 head(mydates)
 (mydates[length(mydates)] - mydates[1])</code></pre>
-<p><strong>This code tells us the difference in time between the first and last recorded date in the data set.</strong></p>
+<p><strong>This code tells us the difference in time between the first
+and last recorded date in the data set.</strong></p>
 <ol start="2" style="list-style-type: lower-alpha">
-<li>On Friday, a new report was published that was described as follows by The Guardian: “More than half of US police killings are mislabelled or not reported, study finds.” Without reading this article now (due to limited time), why do you think police killings might be mislabelled or underreported?</li>
+<li>On Friday, a new report was published that was described as follows
+by The Guardian: “More than half of US police killings are mislabelled
+or not reported, study finds.” Without reading this article now (due to
+limited time), why do you think police killings might be mislabelled or
+underreported?</li>
 </ol>
-<p><strong>Unfortunately, the reach of the police department is seen in the representation of police killings in reportings. Because an accurate report of fatal shootings at the hands of police relies on a pure and fully not corrupted police force and governmental power, there would be several levels of responsibility that would have to be upheld to ensure that all incidents of fatal shootings by police would be reported accurately. As the article by The Guardian says, “The same government responsible for this violence is also responsible for reporting on it.”</strong></p>
+<p><strong>Unfortunately, the reach of the police department is seen in
+the representation of police killings in reportings. Because an accurate
+report of fatal shootings at the hands of police relies on a pure and
+fully not corrupted police force and governmental power, there would be
+several levels of responsibility that would have to be upheld to ensure
+that all incidents of fatal shootings by police would be reported
+accurately. As the article by The Guardian says, “The same government
+responsible for this violence is also responsible for reporting on
+it.”</strong></p>
 <ol start="3" style="list-style-type: lower-alpha">
-<li>Regarding missing values in problem 4, do you see any? If so, do you think that’s all that’s missing from the data?</li>
+<li>Regarding missing values in problem 4, do you see any? If so, do you
+think that’s all that’s missing from the data?</li>
 </ol>
-<p><strong>There is visibly missing data in the flee variable. This is likely not all the data that is missing from the data set because it is not rare for data to be missing in such a large data set like this.</strong></p>
+<p><strong>There is visibly missing data in the flee variable. This is
+likely not all the data that is missing from the data set because it is
+not rare for data to be missing in such a large data set like
+this.</strong></p>
 </div>
 </div>
 <div id="assignment-3" class="section level1">
 <h1>Assignment 3</h1>
-<p>This assignment is due on Canvas on Wednesday 10/27/2021 before class, at 10:15 am. Include the name of anyone with whom you collaborated at the top of the assignment.</p>
-<p>Submit your responses as either an HTML file or a PDF file on Canvas. Also, please upload it to your website.</p>
-<p>Save the file (found on Canvas) crime_simple.txt to the same folder as this file (your Rmd file for Assignment 3).</p>
+<p>This assignment is due on Canvas on Wednesday 10/27/2021 before
+class, at 10:15 am. Include the name of anyone with whom you
+collaborated at the top of the assignment.</p>
+<p>Submit your responses as either an HTML file or a PDF file on Canvas.
+Also, please upload it to your website.</p>
+<p>Save the file (found on Canvas) crime_simple.txt to the same folder
+as this file (your Rmd file for Assignment 3).</p>
 <p>Load the data.</p>
 <pre class="r"><code>library(readr)
 library(knitr)
 dat.crime &lt;- read_delim(&quot;~/Documents/GitHub/SophieCRIM250/crime_simple.txt&quot;, delim = &quot;\t&quot;)</code></pre>
-<pre><code>## Rows: 47 Columns: 14</code></pre>
-<pre><code>## ── Column specification ────────────────────────────────────────────────────────
+<pre><code>## Rows: 47 Columns: 14
+## ── Column specification ─────────────────────────────────
 ## Delimiter: &quot;\t&quot;
-## dbl (14): R, Age, S, Ed, Ex0, Ex1, LF, M, N, NW, U1, U2, W, X</code></pre>
-<pre><code>## 
+## dbl (14): R, Age, S, Ed, Ex0, Ex1, LF, M, N, NW, U1, U2, W, X
+## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<p>This is a dataset from a textbook by Brian S. Everitt about crime in the US in 1960. The data originate from the Uniform Crime Report of the FBI and other government sources. The data for 47 states of the USA are given.</p>
+<p>This is a dataset from a textbook by Brian S. Everitt about crime in
+the US in 1960. The data originate from the Uniform Crime Report of the
+FBI and other government sources. The data for 47 states of the USA are
+given.</p>
 <p>Here is the codebook:</p>
-<p>R: Crime rate: # of offenses reported to police per million population</p>
+<p>R: Crime rate: # of offenses reported to police per million
+population</p>
 <p>Age: The number of males of age 14-24 per 1000 population</p>
 <p>S: Indicator variable for Southern states (0 = No, 1 = Yes)</p>
-<p>Ed: Mean of years of schooling x 10 for persons of age 25 or older</p>
-<p>Ex0: 1960 per capita expenditure on police by state and local government</p>
-<p>Ex1: 1959 per capita expenditure on police by state and local government</p>
-<p>LF: Labor force participation rate per 1000 civilian urban males age 14-24</p>
+<p>Ed: Mean of years of schooling x 10 for persons of age 25 or
+older</p>
+<p>Ex0: 1960 per capita expenditure on police by state and local
+government</p>
+<p>Ex1: 1959 per capita expenditure on police by state and local
+government</p>
+<p>LF: Labor force participation rate per 1000 civilian urban males age
+14-24</p>
 <p>M: The number of males per 1000 females</p>
 <p>N: State population size in hundred thousands</p>
 <p>NW: The number of non-whites per 1000 population</p>
 <p>U1: Unemployment rate of urban males per 1000 of age 14-24</p>
 <p>U2: Unemployment rate of urban males per 1000 of age 35-39</p>
-<p>W: Median value of transferable goods and assets or family income in tens of $</p>
-<p>X: The number of families per 1000 earning below 1/2 the median income</p>
-<p>We are interested in checking whether the reported crime rate (# of offenses reported to police per million population) and the average education (mean number of years of schooling for persons of age 25 or older) are related.</p>
+<p>W: Median value of transferable goods and assets or family income in
+tens of $</p>
+<p>X: The number of families per 1000 earning below 1/2 the median
+income</p>
+<p>We are interested in checking whether the reported crime rate (# of
+offenses reported to police per million population) and the average
+education (mean number of years of schooling for persons of age 25 or
+older) are related.</p>
 <ol style="list-style-type: decimal">
-<li>How many observations are there in the dataset? To what does each observation correspond?</li>
+<li>How many observations are there in the dataset? To what does each
+observation correspond?</li>
 </ol>
 <pre class="r"><code>library(dplyr)
 count(dat.crime)</code></pre>
@@ -866,9 +1131,12 @@ count(dat.crime)</code></pre>
 ##       n
 ##   &lt;int&gt;
 ## 1    47</code></pre>
-<p><strong>There are 47 observations in the dataset. The observations correspond to the different rows, aka different states.</strong></p>
+<p><strong>There are 47 observations in the dataset. The observations
+correspond to the different rows, aka different states.</strong></p>
 <ol start="2" style="list-style-type: decimal">
-<li>Draw a scatterplot of the two variables. Calculate the correlation between the two variables. Can you come up with an explanation for this relationship?</li>
+<li>Draw a scatterplot of the two variables. Calculate the correlation
+between the two variables. Can you come up with an explanation for this
+relationship?</li>
 </ol>
 <pre class="r"><code>library(datasets)
 plot(dat.crime$Ed,dat.crime$R,  main=&quot;Relationship between Reported Crime Rate and Average Education for 47 States&quot;,
@@ -877,9 +1145,18 @@ plot(dat.crime$Ed,dat.crime$R,  main=&quot;Relationship between Reported Crime R
 <pre class="r"><code>x &lt;- cor(dat.crime$R, dat.crime$Ed)
 x</code></pre>
 <pre><code>## [1] 0.3228349</code></pre>
-<p><strong>I cannot come up with an explanation for this relationship on first impression. The correlation of these two variables is 0.3228349, meaning that there is a fairly weak correlation. Because there are so many other factors in this dataset, we can assume that there is likely another factor that correlates more highly to the reported crime rate, but this low of a correlation does not allow us to make any causal inferences.</strong></p>
+<p><strong>I cannot come up with an explanation for this relationship on
+first impression. The correlation of these two variables is 0.3228349,
+meaning that there is a fairly weak correlation. Because there are so
+many other factors in this dataset, we can assume that there is likely
+another factor that correlates more highly to the reported crime rate,
+but this low of a correlation does not allow us to make any causal
+inferences.</strong></p>
 <ol start="3" style="list-style-type: decimal">
-<li>Regress reported crime rate (y) on average education (x) and call this linear model <code>crime.lm</code> and write the summary of the regression by using this code, which makes it look a little nicer <code>{r, eval=FALSE} kable(summary(crime.lm)$coef, digits = 2)</code>.</li>
+<li>Regress reported crime rate (y) on average education (x) and call
+this linear model <code>crime.lm</code> and write the summary of the
+regression by using this code, which makes it look a little nicer
+<code>{r, eval=FALSE} kable(summary(crime.lm)$coef, digits = 2)</code>.</li>
 </ol>
 <pre class="r"><code># Remember to remove eval=FALSE above!
 
@@ -933,7 +1210,9 @@ kable(summary(crime.lm)$coef, digits = 2)</code></pre>
 ## Multiple R-squared:  0.1042, Adjusted R-squared:  0.08432 
 ## F-statistic: 5.236 on 1 and 45 DF,  p-value: 0.02688</code></pre>
 <ol start="4" style="list-style-type: decimal">
-<li>Are the four assumptions of linear regression satisfied? To answer this, draw the relevant plots. (Write a maximum of one sentence per assumption.)</li>
+<li>Are the four assumptions of linear regression satisfied? To answer
+this, draw the relevant plots. (Write a maximum of one sentence per
+assumption.)</li>
 </ol>
 <pre class="r"><code># plot 1 &amp; plot 2, residuals vs x
 plot(dat.crime$R.c, crime.lm$residuals, ylim=c(-15,15), main=&quot;Residuals vs. x&quot;, xlab=&quot;x, Scaled Crime Rates&quot;, ylab=&quot;Residuals&quot;)
@@ -947,36 +1226,73 @@ plot(crime.lm, which=2)</code></pre>
 <p><img src="Assignments_files/figure-html/unnamed-chunk-37-3.png" width="672" /></p>
 <pre class="r"><code>plot(crime.lm, which=5)</code></pre>
 <p><img src="Assignments_files/figure-html/unnamed-chunk-37-4.png" width="672" /></p>
-<p><strong>The four assumptions are as follows: linearity, independence, equal variance, and normal population. The first assumption - linearity - is not satisfied because the first plot of the residuals vs x does not have a horizontal direction. The second assumption - independence - is satisfied because the plot of residuals vs x does not display any distinct patterns. The third assumption - equal variance - is satisfied because the flat line shows that the errors are of constant variance. The fourth assumption - normal population - is not satisfied because the qq plot is heavily tailed, meaning it does not follow the normal model well.</strong></p>
+<p><strong>The four assumptions are as follows: linearity, independence,
+equal variance, and normal population. The first assumption - linearity
+- is not satisfied because the first plot of the residuals vs x does not
+have a horizontal direction. The second assumption - independence - is
+satisfied because the plot of residuals vs x does not display any
+distinct patterns. The third assumption - equal variance - is satisfied
+because the flat line shows that the errors are of constant variance.
+The fourth assumption - normal population - is not satisfied because the
+qq plot is heavily tailed, meaning it does not follow the normal model
+well.</strong></p>
 <ol start="5" style="list-style-type: decimal">
-<li>Is the relationship between reported crime and average education statistically significant? Report the estimated coefficient of the slope, the standard error, and the p-value. What does it mean for the relationship to be statistically significant?</li>
+<li>Is the relationship between reported crime and average education
+statistically significant? Report the estimated coefficient of the
+slope, the standard error, and the p-value. What does it mean for the
+relationship to be statistically significant?</li>
 </ol>
-<p><strong>The estimated coefficient is 0.09. The standard error is 0.04. The p-value is 0.02688. This means that this relationship is statistically significant, as the p-value is less than 0.05. If the relationship is statistically significant, this means that there is a high likelihood that the observance is not wrong or random (I use this word carefully) chance.</strong></p>
+<p><strong>The estimated coefficient is 0.09. The standard error is
+0.04. The p-value is 0.02688. This means that this relationship is
+statistically significant, as the p-value is less than 0.05. If the
+relationship is statistically significant, this means that there is a
+high likelihood that the observance is not wrong or random (I use this
+word carefully) chance.</strong></p>
 <ol start="6" style="list-style-type: decimal">
-<li>How are reported crime and average education related? In other words, for every unit increase in average education, how does reported crime rate change (per million) per state?</li>
+<li>How are reported crime and average education related? In other
+words, for every unit increase in average education, how does reported
+crime rate change (per million) per state?</li>
 </ol>
-<p><strong>For every unit increase in average education, the reported crime rate increases by 0.09 units, meaning that the reported crime rate increases by 0.09 offenses reported to police per million population.</strong></p>
+<p><strong>For every unit increase in average education, the reported
+crime rate increases by 0.09 units, meaning that the reported crime rate
+increases by 0.09 offenses reported to police per million
+population.</strong></p>
 <ol start="7" style="list-style-type: decimal">
-<li>Can you conclude that if individuals were to receive more education, then crime will be reported more often? Why or why not?</li>
+<li>Can you conclude that if individuals were to receive more education,
+then crime will be reported more often? Why or why not?</li>
 </ol>
-<p><strong>We cannot conclude this from the dataset. While it appears there is a statistically significant correlation, this does not mean we can assume causation. While the variables correlate to each other, this is not conducive of a causal relationship.</strong></p>
+<p><strong>We cannot conclude this from the dataset. While it appears
+there is a statistically significant correlation, this does not mean we
+can assume causation. While the variables correlate to each other, this
+is not conducive of a causal relationship.</strong></p>
 </div>
 <div id="exam-2" class="section level1">
 <h1>Exam 2</h1>
 <ol style="list-style-type: lower-alpha">
-<li><p>Create a folder in your computer (a good place would be under Crim 250, Exams).</p></li>
-<li><p>Download the dataset from the Canvas website (sim.data.csv) onto that folder, and save your Exam 2.Rmd file in the same folder.</p></li>
-<li><p>Data description: This dataset provides (simulated) data about 200 police departments in one year. It contains information about the funding received by the department as well as incidents of police brutality. Suppose this dataset (sim.data.csv) was collected by researchers to answer this question: <strong>“Does having more funding in a police department lead to fewer incidents of police brutality?”</strong></p></li>
+<li><p>Create a folder in your computer (a good place would be under
+Crim 250, Exams).</p></li>
+<li><p>Download the dataset from the Canvas website (sim.data.csv) onto
+that folder, and save your Exam 2.Rmd file in the same folder.</p></li>
+<li><p>Data description: This dataset provides (simulated) data about
+200 police departments in one year. It contains information about the
+funding received by the department as well as incidents of police
+brutality. Suppose this dataset (sim.data.csv) was collected by
+researchers to answer this question: <strong>“Does having more funding
+in a police department lead to fewer incidents of police
+brutality?”</strong></p></li>
 <li><p>Codebook:</p></li>
 </ol>
 <ul>
-<li>funds: How much funding the police department received in that year in millions of dollars.</li>
-<li>po.brut: How many incidents of police brutality were reported by the department that year.</li>
+<li>funds: How much funding the police department received in that year
+in millions of dollars.</li>
+<li>po.brut: How many incidents of police brutality were reported by the
+department that year.</li>
 <li>po.dept.code: Police department code</li>
 </ul>
 <div id="problem-1-eda-10-points" class="section level2">
 <h2>Problem 1: EDA (10 points)</h2>
-<p>Describe the dataset and variables. Perform exploratory data analysis for the two variables of interest: funds and po.brut.</p>
+<p>Describe the dataset and variables. Perform exploratory data analysis
+for the two variables of interest: funds and po.brut.</p>
 <pre class="r"><code>dat &lt;- read.csv(file = &#39;sim.data.csv&#39;)
 dim(dat)</code></pre>
 <pre><code>## [1] 200   3</code></pre>
@@ -988,12 +1304,21 @@ dim(dat)</code></pre>
 <pre class="r"><code>summary(dat$po.brut)</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##    0.00   14.00   19.00   18.14   22.00   29.00</code></pre>
-<p><strong>The dataset consists of 200 observations (rows) of three different variables (columns). This dataset contains simulated data on 200 police departments in year, providing information on their funding received and police brutality rates. The variable funds refers to the amount of funding received by the police department in a year in millions of dollars. The variable po.brut refers to how many instances of police brutality were reported in the department for the same year..</strong></p>
+<p><strong>The dataset consists of 200 observations (rows) of three
+different variables (columns). This dataset contains simulated data on
+200 police departments in year, providing information on their funding
+received and police brutality rates. The variable funds refers to the
+amount of funding received by the police department in a year in
+millions of dollars. The variable po.brut refers to how many instances
+of police brutality were reported in the department for the same
+year..</strong></p>
 </div>
 <div id="problem-2-linear-regression-30-points" class="section level2">
 <h2>Problem 2: Linear regression (30 points)</h2>
 <ol style="list-style-type: lower-alpha">
-<li>Perform a simple linear regression to answer the question of interest. To do this, name your linear model “reg.output” and write the summary of the regression by using “summary(reg.output)”.</li>
+<li>Perform a simple linear regression to answer the question of
+interest. To do this, name your linear model “reg.output” and write the
+summary of the regression by using “summary(reg.output)”.</li>
 </ol>
 <pre class="r"><code># Remember to remove eval=FALSE!!
 library(datasets)
@@ -1018,13 +1343,25 @@ summary(reg.output)</code></pre>
 ## Residual standard error: 0.9464 on 198 degrees of freedom
 ## Multiple R-squared:  0.9712, Adjusted R-squared:  0.971 
 ## F-statistic:  6666 on 1 and 198 DF,  p-value: &lt; 2.2e-16</code></pre>
-<p><strong>Does having more funding in a police department lead to fewer incidents of police brutality? The linear regression of these two variables leads us to believe that there is a strong possibility that there is a correlation between funding in a police department and instances of police brutality. It is unclear yet whether this is a causal relationship or not.</strong></p>
+<p><strong>Does having more funding in a police department lead to fewer
+incidents of police brutality? The linear regression of these two
+variables leads us to believe that there is a strong possibility that
+there is a correlation between funding in a police department and
+instances of police brutality. It is unclear yet whether this is a
+causal relationship or not.</strong></p>
 <ol start="2" style="list-style-type: lower-alpha">
-<li>Report the estimated coefficient, standard error, and p-value of the slope. Is the relationship between funds and incidents statistically significant? Explain.</li>
+<li>Report the estimated coefficient, standard error, and p-value of the
+slope. Is the relationship between funds and incidents statistically
+significant? Explain.</li>
 </ol>
-<p><strong>The estimated coefficient is -2.6455. The standard error is 0.0324. The p-value is &lt;2e-16. This relationship is very obviously statistically significant, as the p-value is significantly less than 0.05.</strong></p>
+<p><strong>The estimated coefficient is -2.6455. The standard error is
+0.0324. The p-value is &lt;2e-16. This relationship is very obviously
+statistically significant, as the p-value is significantly less than
+0.05.</strong></p>
 <ol start="3" style="list-style-type: lower-alpha">
-<li>Draw a scatterplot of po.brut (x-axis) and funds (y-axis). Right below your plot command, use abline to draw the fitted regression line, like this:</li>
+<li>Draw a scatterplot of po.brut (x-axis) and funds (y-axis). Right
+below your plot command, use abline to draw the fitted regression line,
+like this:</li>
 </ol>
 <pre class="r"><code># Remember to remove eval=FALSE!!
 
@@ -1032,10 +1369,16 @@ library(datasets)
 plot(dat$funds, dat$po.brut,  main=&quot;Relationship between Police Department Funding and Reports of Police Brutality&quot;,
     xlab=&quot;Funding (millions of dollars per year)&quot;, ylab=&quot;Reported Instances of Police Brutality per year&quot;)
 abline(reg.output, col = &quot;red&quot;, lwd=2)</code></pre>
-<p><img src="Assignments_files/figure-html/unnamed-chunk-40-1.png" width="384" /> Does the line look like a good fit? Why or why not?</p>
-<p><strong>This line does look like a good fit. The plot generally follows the plots on the line, accounting for the curvature of the scatter plot in its slope.</strong></p>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-40-1.png" width="384" />
+Does the line look like a good fit? Why or why not?</p>
+<p><strong>This line does look like a good fit. The plot generally
+follows the plots on the line, accounting for the curvature of the
+scatter plot in its slope.</strong></p>
 <ol start="4" style="list-style-type: lower-alpha">
-<li>Are the four assumptions of linear regression satisfied? To answer this, draw the relevant plots. (Write a maximum of one sentence per assumption.) If not, what might you try to do to improve this (if you had more time)?</li>
+<li>Are the four assumptions of linear regression satisfied? To answer
+this, draw the relevant plots. (Write a maximum of one sentence per
+assumption.) If not, what might you try to do to improve this (if you
+had more time)?</li>
 </ol>
 <pre class="r"><code># plot 1 &amp; plot 2, residuals vs x
 plot(dat$funds, dat$po.brut, ylim=c(-15,15), main=&quot;Residuals vs. x&quot;, xlab=&quot;x, Funding (millions of dollars per year)&quot;, ylab=&quot;Residuals&quot;)
@@ -1048,362 +1391,722 @@ plot(reg.output, which=3)</code></pre>
 plot(reg.output, which=2)</code></pre>
 <p><img src="Assignments_files/figure-html/unnamed-chunk-41-3.png" width="384" /></p>
 <pre class="r"><code>plot(reg.output, which=5)</code></pre>
-<p><img src="Assignments_files/figure-html/unnamed-chunk-41-4.png" width="384" /> <strong>The four assumptions are as follows: linearity, independence, equal variance, and normal population. The first assumption - linearity - is satisfied because the first plot of the residuals vs x has a straight line of plots. The second assumption - independence - is satisfied because the plot of residuals vs x does not display any distinct patterns. The third assumption - equal variance - is not satisfied because the lack of a flat line shows that the errors are not of constant variance. The fourth assumption - normal population - is debatably not satisfied because the residuals vs leverage plot shows that there are no influential cases because all cases are well inside of Cook’s distance lines.</strong></p>
+<p><img src="Assignments_files/figure-html/unnamed-chunk-41-4.png" width="384" />
+<strong>The four assumptions are as follows: linearity, independence,
+equal variance, and normal population. The first assumption - linearity
+- is satisfied because the first plot of the residuals vs x has a
+straight line of plots. The second assumption - independence - is
+satisfied because the plot of residuals vs x does not display any
+distinct patterns. The third assumption - equal variance - is not
+satisfied because the lack of a flat line shows that the errors are not
+of constant variance. The fourth assumption - normal population - is
+debatably not satisfied because the residuals vs leverage plot shows
+that there are no influential cases because all cases are well inside of
+Cook’s distance lines.</strong></p>
 <ol start="5" style="list-style-type: lower-alpha">
 <li>Answer the question of interest based on your analysis.</li>
 </ol>
-<p><strong>Given the information we have, despite it being questionable whether or not all assumptions of linear regression are satisfied, we can assume that there is a strong correlation between reports of police brutality and funding received by a police department. Because there is such a statistically significant p-value of the dataset, we are able to determine that there is a relationship between these two variables. However, we can not determine that there is a causal relationship between the two because the four assumptions of linear regression are not met - this means we cannot rely as heavily on our linear model’s causality prediction.</strong></p>
+<p><strong>Given the information we have, despite it being questionable
+whether or not all assumptions of linear regression are satisfied, we
+can assume that there is a strong correlation between reports of police
+brutality and funding received by a police department. Because there is
+such a statistically significant p-value of the dataset, we are able to
+determine that there is a relationship between these two variables.
+However, we can not determine that there is a causal relationship
+between the two because the four assumptions of linear regression are
+not met - this means we cannot rely as heavily on our linear model’s
+causality prediction.</strong></p>
 </div>
 <div id="problem-3-data-ethics-10-points" class="section level2">
 <h2>Problem 3: Data ethics (10 points)</h2>
-<p>Describe the dataset. Considering our lecture on data ethics, what concerns do you have about the dataset? Once you perform your analysis to answer the question of interest using this dataset, what concerns might you have about the results?</p>
-<p><strong>The dataset consists of 200 observations (rows) of three different variables (columns). This dataset contains simulated data on 200 police departments in year, providing information on their funding received and police brutality rates. From our data ethics checklist, I worry that this dataset does not satisfy our fairness question of “Have we studied and understood possible sources of bias in our data?” This dataset is dealing with a sensitive topic - police brutality. We discussed during our ethics lecture that even AIs which are designed to do crime-related analysis have inherent biases based off of previous biased information. This dataset does not take into account the fact that there is the possibility that the location of the police department could also play a large role in the instances of police brutality, maybe more so than funding. We know that police brutality happens disproportionately in underrepresented minority neighborhoods. This dataset does not acknowledge this highly likely bias, a factor which could conflate the relationship between the two variables in question.</strong></p>
+<p>Describe the dataset. Considering our lecture on data ethics, what
+concerns do you have about the dataset? Once you perform your analysis
+to answer the question of interest using this dataset, what concerns
+might you have about the results?</p>
+<p><strong>The dataset consists of 200 observations (rows) of three
+different variables (columns). This dataset contains simulated data on
+200 police departments in year, providing information on their funding
+received and police brutality rates. From our data ethics checklist, I
+worry that this dataset does not satisfy our fairness question of “Have
+we studied and understood possible sources of bias in our data?” This
+dataset is dealing with a sensitive topic - police brutality. We
+discussed during our ethics lecture that even AIs which are designed to
+do crime-related analysis have inherent biases based off of previous
+biased information. This dataset does not take into account the fact
+that there is the possibility that the location of the police department
+could also play a large role in the instances of police brutality, maybe
+more so than funding. We know that police brutality happens
+disproportionately in underrepresented minority neighborhoods. This
+dataset does not acknowledge this highly likely bias, a factor which
+could conflate the relationship between the two variables in
+question.</strong></p>
 </div>
 </div>
 <div id="assignment-4" class="section level1">
 <h1>Assignment 4</h1>
 <div id="pt-1" class="section level2">
 <h2>3 (pt 1)</h2>
-<div id="loading-the-library-of-tidyverse-where-the-tidyverse-package-is-stored-to-access-ggplot" class="section level4">
-<h4>loading the library of tidyverse where the tidyverse package is stored to access ggplot</h4>
+<div
+id="loading-the-library-of-tidyverse-where-the-tidyverse-package-is-stored-to-access-ggplot"
+class="section level4">
+<h4>loading the library of tidyverse where the tidyverse package is
+stored to access ggplot</h4>
 <p>library(tidyverse)</p>
 </div>
-<div id="installing-the-package-so-one-can-reload-it-after-every-session" class="section level4">
+<div
+id="installing-the-package-so-one-can-reload-it-after-every-session"
+class="section level4">
 <h4>installing the package so one can reload it after every session</h4>
 <p>install.packages(“tidyverse”)</p>
 </div>
-<div id="calling-mpg-dataframe-a-data-frame-is-a-rectangular-collection-of-variables-in-the-columns-and-observations-in-the-rows.-mpg-contains-observations-collected-by-the-us-environmental-protection-agency-on-38-models-of-cars." class="section level4">
-<h4>calling mpg dataframe A data frame is a rectangular collection of variables (in the columns) and observations (in the rows). mpg contains observations collected by the US Environmental Protection Agency on 38 models of cars.</h4>
+<div
+id="calling-mpg-dataframe-a-data-frame-is-a-rectangular-collection-of-variables-in-the-columns-and-observations-in-the-rows.-mpg-contains-observations-collected-by-the-us-environmental-protection-agency-on-38-models-of-cars."
+class="section level4">
+<h4>calling mpg dataframe A data frame is a rectangular collection of
+variables (in the columns) and observations (in the rows). mpg contains
+observations collected by the US Environmental Protection Agency on 38
+models of cars.</h4>
 </div>
-<div id="mapping-a-gg-scatterplot-that-maps-cars-engine-size-against-fuel-efficiency" class="section level4">
-<h4>mapping a gg scatterplot that maps car’s engine size against fuel efficiency</h4>
+<div
+id="mapping-a-gg-scatterplot-that-maps-cars-engine-size-against-fuel-efficiency"
+class="section level4">
+<h4>mapping a gg scatterplot that maps car’s engine size against fuel
+efficiency</h4>
 </div>
-<div id="shows-a-negative-relationship-between-x-and-y-variables" class="section level4">
+<div id="shows-a-negative-relationship-between-x-and-y-variables"
+class="section level4">
 <h4>shows a negative relationship between x and y variables</h4>
-<p>ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy))</p>
+<p>ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y =
+hwy))</p>
 </div>
-<div id="creating-a-reusable-template-for-making-graphs-with-ggplot2" class="section level4">
+<div id="creating-a-reusable-template-for-making-graphs-with-ggplot2"
+class="section level4">
 <h4>creating a reusable template for making graphs with ggplot2</h4>
-<p>ggplot(data = <DATA>) + <GEOM_FUNCTION>(mapping = aes(<MAPPINGS>))</p>
+<p>ggplot(data = <DATA>) + <GEOM_FUNCTION>(mapping =
+aes(<MAPPINGS>))</p>
 </div>
-<div id="mapping-aesthetics-in-your-plot-to-the-variables-in-the-dataset-maps-class-to-color-aesthetic" class="section level4">
-<h4>mapping aesthetics in your plot to the variables in the dataset, maps class to color aesthetic</h4>
-<p>ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy, color = class))</p>
+<div
+id="mapping-aesthetics-in-your-plot-to-the-variables-in-the-dataset-maps-class-to-color-aesthetic"
+class="section level4">
+<h4>mapping aesthetics in your plot to the variables in the dataset,
+maps class to color aesthetic</h4>
+<p>ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy,
+color = class))</p>
 </div>
 <div id="mapping-class-against-size-aesthetic" class="section level4">
 <h4>mapping class against size aesthetic</h4>
-<p>ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy, size = class))</p>
+<p>ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy,
+size = class))</p>
 </div>
-<div id="mapping-class-to-the-alpha-aesthetic-which-controls-the-transparency-of-the-points-or-to-the-shape-aesthetic-which-controls-the-shape-of-the-points" class="section level4">
-<h4>mapping class to the alpha aesthetic, which controls the transparency of the points, or to the shape aesthetic, which controls the shape of the points</h4>
+<div
+id="mapping-class-to-the-alpha-aesthetic-which-controls-the-transparency-of-the-points-or-to-the-shape-aesthetic-which-controls-the-shape-of-the-points"
+class="section level4">
+<h4>mapping class to the alpha aesthetic, which controls the
+transparency of the points, or to the shape aesthetic, which controls
+the shape of the points</h4>
 </div>
 <div id="left" class="section level4">
 <h4>left</h4>
-<p>ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy, alpha = class))</p>
+<p>ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy,
+alpha = class))</p>
 </div>
 <div id="right" class="section level4">
 <h4>right</h4>
-<p>ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy, shape = class))</p>
+<p>ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy,
+shape = class))</p>
 </div>
-<div id="setting-aesthetic-properties-of-geom-manually-making-all-of-the-points-blue" class="section level4">
-<h4>setting aesthetic properties of geom manually, making all of the points blue</h4>
-<p>ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy), color = “blue”)</p>
+<div
+id="setting-aesthetic-properties-of-geom-manually-making-all-of-the-points-blue"
+class="section level4">
+<h4>setting aesthetic properties of geom manually, making all of the
+points blue</h4>
+<p>ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy),
+color = “blue”)</p>
 </div>
-<div id="missed-parentheses-so-the-point-do-not-come-out-blue" class="section level4">
+<div id="missed-parentheses-so-the-point-do-not-come-out-blue"
+class="section level4">
 <h4>missed parentheses so the point do not come out blue</h4>
-<p>ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy, color = “blue”))</p>
+<p>ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy,
+color = “blue”))</p>
 </div>
-<div id="plus-sign-must-come-at-the-end-of-the-line-not-the-beginning" class="section level4">
+<div id="plus-sign-must-come-at-the-end-of-the-line-not-the-beginning"
+class="section level4">
 <h4>plus sign must come at the end of the line not the beginning</h4>
-<p>ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy))</p>
+<p>ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y =
+hwy))</p>
 </div>
-<div id="facetting-plot-by-a-single-variable.-first-argument-is-a-formula-followed-by-followed-by-variable-name-where-formula-is-the-name-of-a-data-structure-in-r-the-variable-that-is-passed-to-facet_wrap-should-be-discrete" class="section level4">
-<h4>facetting plot by a single variable. First argument is a formula, followed by ~ followed by variable name where formula is the name of a data structure in R/ The variable that is passed to facet_wrap should be discrete</h4>
-<p>ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy)) + facet_wrap(~ class, nrow = 2)</p>
+<div
+id="facetting-plot-by-a-single-variable.-first-argument-is-a-formula-followed-by-followed-by-variable-name-where-formula-is-the-name-of-a-data-structure-in-r-the-variable-that-is-passed-to-facet_wrap-should-be-discrete"
+class="section level4">
+<h4>facetting plot by a single variable. First argument is a formula,
+followed by ~ followed by variable name where formula is the name of a
+data structure in R/ The variable that is passed to facet_wrap should be
+discrete</h4>
+<p>ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy)) +
+facet_wrap(~ class, nrow = 2)</p>
 </div>
-<div id="facetting-your-plot-on-the-combination-of-two-variables-add-facet_grid-to-your-plot-call.-the-first-argument-of-facet_grid-is-also-a-formula.-this-time-the-formula-should-contain-two-variable-names-separated-by-a-.-the-empty-grids-show-that-there-is-no-data-attributed-to-this-specific-variable" class="section level4">
-<h4>Facetting your plot on the combination of two variables, add facet_grid() to your plot call. The first argument of facet_grid() is also a formula. This time the formula should contain two variable names separated by a ~. The empty grids show that there is no data attributed to this specific variable</h4>
-<p>ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy)) + facet_grid(drv ~ cyl)</p>
+<div
+id="facetting-your-plot-on-the-combination-of-two-variables-add-facet_grid-to-your-plot-call.-the-first-argument-of-facet_grid-is-also-a-formula.-this-time-the-formula-should-contain-two-variable-names-separated-by-a-.-the-empty-grids-show-that-there-is-no-data-attributed-to-this-specific-variable"
+class="section level4">
+<h4>Facetting your plot on the combination of two variables, add
+facet_grid() to your plot call. The first argument of facet_grid() is
+also a formula. This time the formula should contain two variable names
+separated by a ~. The empty grids show that there is no data attributed
+to this specific variable</h4>
+<p>ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy)) +
+facet_grid(drv ~ cyl)</p>
 </div>
-<div id="code-creates-4-facet-columns-that-are-generated-by-the-.-the-data-maps-engine-size-against-fuel-efficiency" class="section level4">
-<h4>Code creates 4 facet columns that are generated by the “.” The data maps engine size against fuel efficiency</h4>
-<p>ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy)) + facet_grid(drv ~ .) ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy)) + facet_grid(. ~ cyl)</p>
+<div
+id="code-creates-4-facet-columns-that-are-generated-by-the-.-the-data-maps-engine-size-against-fuel-efficiency"
+class="section level4">
+<h4>Code creates 4 facet columns that are generated by the “.” The data
+maps engine size against fuel efficiency</h4>
+<p>ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy)) +
+facet_grid(drv ~ .) ggplot(data = mpg) + geom_point(mapping = aes(x =
+displ, y = hwy)) + facet_grid(. ~ cyl)</p>
 </div>
-<div id="facets-columns-and-rows-of-each-type-of-car-variable-engine-size-against-fuel-efficiency" class="section level4">
-<h4>facets columns and rows of each type of car variable, engine size against fuel efficiency</h4>
-<p>ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy)) + facet_wrap(~ class, nrow = 2)</p>
+<div
+id="facets-columns-and-rows-of-each-type-of-car-variable-engine-size-against-fuel-efficiency"
+class="section level4">
+<h4>facets columns and rows of each type of car variable, engine size
+against fuel efficiency</h4>
+<p>ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy)) +
+facet_wrap(~ class, nrow = 2)</p>
 </div>
 <div id="point-geom-representation-of-the-data" class="section level4">
 <h4>point geom representation of the data</h4>
 </div>
 <div id="left-1" class="section level4">
 <h4>left</h4>
-<p>ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy))</p>
+<p>ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y =
+hwy))</p>
 </div>
-<div id="right-smooth-geom-representation-of-the-data" class="section level4">
+<div id="right-smooth-geom-representation-of-the-data"
+class="section level4">
 <h4>right smooth geom representation of the data</h4>
-<p>ggplot(data = mpg) + geom_smooth(mapping = aes(x = displ, y = hwy))</p>
+<p>ggplot(data = mpg) + geom_smooth(mapping = aes(x = displ, y =
+hwy))</p>
 </div>
-<div id="drawing-a-different-line-with-a-different-linetype-for-each-unique-value-of-the-variable-that-you-map-to-linetype." class="section level4">
-<h4>drawing a different line, with a different linetype, for each unique value of the variable that you map to linetype.</h4>
-<p>ggplot(data = mpg) + geom_smooth(mapping = aes(x = displ, y = hwy, linetype = drv))</p>
+<div
+id="drawing-a-different-line-with-a-different-linetype-for-each-unique-value-of-the-variable-that-you-map-to-linetype."
+class="section level4">
+<h4>drawing a different line, with a different linetype, for each unique
+value of the variable that you map to linetype.</h4>
+<p>ggplot(data = mpg) + geom_smooth(mapping = aes(x = displ, y = hwy,
+linetype = drv))</p>
 </div>
-<div id="geom-smooth-uses-a-single-geometric-object-to-display-multiple-rows-of-data." class="section level4">
-<h4>geom smooth uses a single geometric object to display multiple rows of data.</h4>
+<div
+id="geom-smooth-uses-a-single-geometric-object-to-display-multiple-rows-of-data."
+class="section level4">
+<h4>geom smooth uses a single geometric object to display multiple rows
+of data.</h4>
 </div>
-<div id="setting-the-group-aesthetic-to-a-categorical-variable-to-draw-multiple-objects." class="section level4">
-<h4>Setting the group aesthetic to a categorical variable to draw multiple objects.</h4>
+<div
+id="setting-the-group-aesthetic-to-a-categorical-variable-to-draw-multiple-objects."
+class="section level4">
+<h4>Setting the group aesthetic to a categorical variable to draw
+multiple objects.</h4>
 </div>
-<div id="ggplot2-draws-a-separate-object-for-each-unique-value-of-the-grouping-variable." class="section level4">
-<h4>ggplot2 draws a separate object for each unique value of the grouping variable.</h4>
+<div
+id="ggplot2-draws-a-separate-object-for-each-unique-value-of-the-grouping-variable."
+class="section level4">
+<h4>ggplot2 draws a separate object for each unique value of the
+grouping variable.</h4>
 </div>
-<div id="in-practice-ggplot2-will-automatically-group-the-data-for-these-geoms-whenever-you-map-an-aesthetic-to-a-discrete-variable-linetype-example" class="section level4">
-<h4>In practice, ggplot2 will automatically group the data for these geoms whenever you map an aesthetic to a discrete variable (linetype example)</h4>
-<p>ggplot(data = mpg) + geom_smooth(mapping = aes(x = displ, y = hwy))</p>
-<p>ggplot(data = mpg) + geom_smooth(mapping = aes(x = displ, y = hwy, group = drv))</p>
-<p>ggplot(data = mpg) + geom_smooth( mapping = aes(x = displ, y = hwy, color = drv), show.legend = FALSE )</p>
+<div
+id="in-practice-ggplot2-will-automatically-group-the-data-for-these-geoms-whenever-you-map-an-aesthetic-to-a-discrete-variable-linetype-example"
+class="section level4">
+<h4>In practice, ggplot2 will automatically group the data for these
+geoms whenever you map an aesthetic to a discrete variable (linetype
+example)</h4>
+<p>ggplot(data = mpg) + geom_smooth(mapping = aes(x = displ, y =
+hwy))</p>
+<p>ggplot(data = mpg) + geom_smooth(mapping = aes(x = displ, y = hwy,
+group = drv))</p>
+<p>ggplot(data = mpg) + geom_smooth( mapping = aes(x = displ, y = hwy,
+color = drv), show.legend = FALSE )</p>
 </div>
-<div id="displaying-multiple-geoms-in-the-same-plot-by-adding-multiple-geom-functions-to-ggplot" class="section level4">
-<h4>displaying multiple geoms in the same plot by adding multiple geom functions to ggplot</h4>
-<p>ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy)) + geom_smooth(mapping = aes(x = displ, y = hwy))</p>
+<div
+id="displaying-multiple-geoms-in-the-same-plot-by-adding-multiple-geom-functions-to-ggplot"
+class="section level4">
+<h4>displaying multiple geoms in the same plot by adding multiple geom
+functions to ggplot</h4>
+<p>ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy)) +
+geom_smooth(mapping = aes(x = displ, y = hwy))</p>
 </div>
-<div id="avoiding-duplication-of-variables-by-passing-a-set-of-mappings-to-ggplot" class="section level4">
-<h4>Avoiding duplication of variables by passing a set of mappings to ggplot()</h4>
-<p>ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + geom_point() + geom_smooth()</p>
+<div
+id="avoiding-duplication-of-variables-by-passing-a-set-of-mappings-to-ggplot"
+class="section level4">
+<h4>Avoiding duplication of variables by passing a set of mappings to
+ggplot()</h4>
+<p>ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + geom_point()
++ geom_smooth()</p>
 </div>
-<div id="placing-mappings-in-a-geom-function-ggplot2-treats-them-as-local-mappings-for-the-layer.-uses-these-mappings-to-extend-or-overwrite-the-global-mappings-for-that-layer-only.-this-makes-it-possible-to-display-different-aesthetics-in-different-layers." class="section level4">
-<h4>Placing mappings in a geom function, ggplot2 treats them as local mappings for the layer. Uses these mappings to extend or overwrite the global mappings for that layer only. This makes it possible to display different aesthetics in different layers.</h4>
-<p>ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + geom_point(mapping = aes(color = class)) + geom_smooth()</p>
+<div
+id="placing-mappings-in-a-geom-function-ggplot2-treats-them-as-local-mappings-for-the-layer.-uses-these-mappings-to-extend-or-overwrite-the-global-mappings-for-that-layer-only.-this-makes-it-possible-to-display-different-aesthetics-in-different-layers."
+class="section level4">
+<h4>Placing mappings in a geom function, ggplot2 treats them as local
+mappings for the layer. Uses these mappings to extend or overwrite the
+global mappings for that layer only. This makes it possible to display
+different aesthetics in different layers.</h4>
+<p>ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+geom_point(mapping = aes(color = class)) + geom_smooth()</p>
 </div>
-<div id="smooth-line-displays-just-a-subset-of-the-mpg-dataset-the-subcompact-cars." class="section level4">
-<h4>smooth line displays just a subset of the mpg dataset, the subcompact cars.</h4>
+<div
+id="smooth-line-displays-just-a-subset-of-the-mpg-dataset-the-subcompact-cars."
+class="section level4">
+<h4>smooth line displays just a subset of the mpg dataset, the
+subcompact cars.</h4>
 </div>
-<div id="local-data-argument-in-geom_smooth-overrides-the-global-data-argument-in-ggplot-for-that-layer-only." class="section level4">
-<h4>local data argument in geom_smooth() overrides the global data argument in ggplot() for that layer only.</h4>
-<p>ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + geom_point(mapping = aes(color = class)) + geom_smooth(data = filter(mpg, class == “subcompact”), se = FALSE)</p>
+<div
+id="local-data-argument-in-geom_smooth-overrides-the-global-data-argument-in-ggplot-for-that-layer-only."
+class="section level4">
+<h4>local data argument in geom_smooth() overrides the global data
+argument in ggplot() for that layer only.</h4>
+<p>ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+geom_point(mapping = aes(color = class)) + geom_smooth(data =
+filter(mpg, class == “subcompact”), se = FALSE)</p>
 </div>
-<div id="point-plot-with-smooth-line-mapping-separated-by-color" class="section level4">
+<div id="point-plot-with-smooth-line-mapping-separated-by-color"
+class="section level4">
 <h4>Point plot with smooth line mapping separated by color</h4>
-<p>ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) + geom_point() + geom_smooth(se = FALSE)</p>
+<p>ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) +
+geom_point() + geom_smooth(se = FALSE)</p>
 </div>
-<div id="same-graph-by-avoiding-duplication-of-variables-by-passing-in-the-mapping-function" class="section level4">
-<h4>Same graph by avoiding duplication of variables by passing in the mapping function</h4>
-<p>ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + geom_point() + geom_smooth()</p>
-<p>ggplot() + geom_point(data = mpg, mapping = aes(x = displ, y = hwy)) + geom_smooth(data = mpg, mapping = aes(x = displ, y = hwy))</p>
+<div
+id="same-graph-by-avoiding-duplication-of-variables-by-passing-in-the-mapping-function"
+class="section level4">
+<h4>Same graph by avoiding duplication of variables by passing in the
+mapping function</h4>
+<p>ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + geom_point()
++ geom_smooth()</p>
+<p>ggplot() + geom_point(data = mpg, mapping = aes(x = displ, y = hwy))
++ geom_smooth(data = mpg, mapping = aes(x = displ, y = hwy))</p>
 </div>
-<div id="generates-bar-plot-of-the-diamonds-dataset-showing-that-more-diamonds-are-available-with-high-quality-cuts-than-with-low-quality-cuts" class="section level4">
-<h4>generates bar plot of the diamonds dataset showing that more diamonds are available with high quality cuts than with low quality cuts</h4>
+<div
+id="generates-bar-plot-of-the-diamonds-dataset-showing-that-more-diamonds-are-available-with-high-quality-cuts-than-with-low-quality-cuts"
+class="section level4">
+<h4>generates bar plot of the diamonds dataset showing that more
+diamonds are available with high quality cuts than with low quality
+cuts</h4>
 <p>ggplot(data = diamonds) + geom_bar(mapping = aes(x = cut))</p>
 </div>
-<div id="using-geoms-and-stats-interchangeably.-you-can-recreate-the-previous-plot-using-stat_count-instead-of-geom_bar" class="section level4">
-<h4>Using geoms and stats interchangeably. You can recreate the previous plot using stat_count() instead of geom_bar()</h4>
+<div
+id="using-geoms-and-stats-interchangeably.-you-can-recreate-the-previous-plot-using-stat_count-instead-of-geom_bar"
+class="section level4">
+<h4>Using geoms and stats interchangeably. You can recreate the previous
+plot using stat_count() instead of geom_bar()</h4>
 <p>ggplot(data = diamonds) + stat_count(mapping = aes(x = cut))</p>
 </div>
-<div id="overriding-the-default-stat.-change-the-stat-of-geom_bar-from-count-the-default-to-identity.-lets-one-map-the-height-of-the-bars-to-the-raw-values-of-a-y-variable" class="section level4">
-<h4>Overriding the default stat. change the stat of geom_bar() from count (the default) to identity. Lets one map the height of the bars to the raw values of a y variable</h4>
-<p>demo &lt;- tribble( ~cut, ~freq, “Fair”, 1610, “Good”, 4906, “Very Good”, 12082, “Premium”, 13791, “Ideal”, 21551 )</p>
-<p>ggplot(data = demo) + geom_bar(mapping = aes(x = cut, y = freq), stat = “identity”)</p>
+<div
+id="overriding-the-default-stat.-change-the-stat-of-geom_bar-from-count-the-default-to-identity.-lets-one-map-the-height-of-the-bars-to-the-raw-values-of-a-y-variable"
+class="section level4">
+<h4>Overriding the default stat. change the stat of geom_bar() from
+count (the default) to identity. Lets one map the height of the bars to
+the raw values of a y variable</h4>
+<p>demo &lt;- tribble( ~cut, ~freq, “Fair”, 1610, “Good”, 4906, “Very
+Good”, 12082, “Premium”, 13791, “Ideal”, 21551 )</p>
+<p>ggplot(data = demo) + geom_bar(mapping = aes(x = cut, y = freq), stat
+= “identity”)</p>
 </div>
-<div id="displaying-a-bar-chart-of-proportion-rather-than-count" class="section level4">
+<div id="displaying-a-bar-chart-of-proportion-rather-than-count"
+class="section level4">
 <h4>displaying a bar chart of proportion rather than count</h4>
-<p>ggplot(data = diamonds) + geom_bar(mapping = aes(x = cut, y = stat(prop), group = 1))</p>
+<p>ggplot(data = diamonds) + geom_bar(mapping = aes(x = cut, y =
+stat(prop), group = 1))</p>
 </div>
-<div id="summarises-the-y-values-for-each-unique-x-value-to-draw-attention-to-the-summary-that-youre-computing" class="section level4">
-<h4>summarises the y values for each unique x value, to draw attention to the summary that you’re computing</h4>
-<p>ggplot(data = diamonds) + stat_summary( mapping = aes(x = cut, y = depth), fun.min = min, fun.max = max, fun = median )</p>
+<div
+id="summarises-the-y-values-for-each-unique-x-value-to-draw-attention-to-the-summary-that-youre-computing"
+class="section level4">
+<h4>summarises the y values for each unique x value, to draw attention
+to the summary that you’re computing</h4>
+<p>ggplot(data = diamonds) + stat_summary( mapping = aes(x = cut, y =
+depth), fun.min = min, fun.max = max, fun = median )</p>
 </div>
-<div id="creates-proportion-bar-chart-that-is-color-coordinated-where-proportion-is-1-because-proportions-cannot-exceed-100" class="section level4">
-<h4>creates proportion bar chart that is color coordinated where proportion is = 1 because proportions cannot exceed 100%</h4>
-<p>ggplot(data = diamonds) + geom_bar(mapping = aes(x = cut, y = after_stat(prop))) ggplot(data = diamonds) + geom_bar(mapping = aes(x = cut, fill = color, y = after_stat(prop)))</p>
+<div
+id="creates-proportion-bar-chart-that-is-color-coordinated-where-proportion-is-1-because-proportions-cannot-exceed-100"
+class="section level4">
+<h4>creates proportion bar chart that is color coordinated where
+proportion is = 1 because proportions cannot exceed 100%</h4>
+<p>ggplot(data = diamonds) + geom_bar(mapping = aes(x = cut, y =
+after_stat(prop))) ggplot(data = diamonds) + geom_bar(mapping = aes(x =
+cut, fill = color, y = after_stat(prop)))</p>
 </div>
-<div id="coloring-bars-using-function-colour-and-fill" class="section level4">
+<div id="coloring-bars-using-function-colour-and-fill"
+class="section level4">
 <h4>Coloring bars using function colour and fill</h4>
-<p>ggplot(data = diamonds) + geom_bar(mapping = aes(x = cut, colour = cut)) ggplot(data = diamonds) + geom_bar(mapping = aes(x = cut, fill = cut))</p>
+<p>ggplot(data = diamonds) + geom_bar(mapping = aes(x = cut, colour =
+cut)) ggplot(data = diamonds) + geom_bar(mapping = aes(x = cut, fill =
+cut))</p>
 </div>
-<div id="map-the-fill-aesthetic-to-another-variable-like-clarity-the-bars-are-automatically-stacked.-each-colored-rectangle-represents-a-combination-of-cut-and-clarity" class="section level4">
-<h4>map the fill aesthetic to another variable, like clarity: the bars are automatically stacked. Each colored rectangle represents a combination of cut and clarity</h4>
-<p>ggplot(data = diamonds) + geom_bar(mapping = aes(x = cut, fill = clarity))</p>
+<div
+id="map-the-fill-aesthetic-to-another-variable-like-clarity-the-bars-are-automatically-stacked.-each-colored-rectangle-represents-a-combination-of-cut-and-clarity"
+class="section level4">
+<h4>map the fill aesthetic to another variable, like clarity: the bars
+are automatically stacked. Each colored rectangle represents a
+combination of cut and clarity</h4>
+<p>ggplot(data = diamonds) + geom_bar(mapping = aes(x = cut, fill =
+clarity))</p>
 </div>
-<div id="position-identity-will-place-each-object-exactly-where-it-falls-in-the-context-of-the-graph.-makes-them-transparent-for-easier-viewing" class="section level4">
-<h4>position = “identity” will place each object exactly where it falls in the context of the graph. Makes them transparent for easier viewing</h4>
-<p>ggplot(data = diamonds, mapping = aes(x = cut, fill = clarity)) + geom_bar(alpha = 1/5, position = “identity”) ggplot(data = diamonds, mapping = aes(x = cut, colour = clarity)) + geom_bar(fill = NA, position = “identity”)</p>
+<div
+id="position-identity-will-place-each-object-exactly-where-it-falls-in-the-context-of-the-graph.-makes-them-transparent-for-easier-viewing"
+class="section level4">
+<h4>position = “identity” will place each object exactly where it falls
+in the context of the graph. Makes them transparent for easier
+viewing</h4>
+<p>ggplot(data = diamonds, mapping = aes(x = cut, fill = clarity)) +
+geom_bar(alpha = 1/5, position = “identity”) ggplot(data = diamonds,
+mapping = aes(x = cut, colour = clarity)) + geom_bar(fill = NA, position
+= “identity”)</p>
 </div>
-<div id="position-fill-works-like-stacking-but-makes-each-set-of-stacked-bars-the-same-height." class="section level4">
-<h4>position = “fill” works like stacking, but makes each set of stacked bars the same height.</h4>
-<p>ggplot(data = diamonds) + geom_bar(mapping = aes(x = cut, fill = clarity), position = “fill”)</p>
+<div
+id="position-fill-works-like-stacking-but-makes-each-set-of-stacked-bars-the-same-height."
+class="section level4">
+<h4>position = “fill” works like stacking, but makes each set of stacked
+bars the same height.</h4>
+<p>ggplot(data = diamonds) + geom_bar(mapping = aes(x = cut, fill =
+clarity), position = “fill”)</p>
 </div>
-<div id="position-dodge-places-overlapping-objects-directly-beside-one-another." class="section level4">
-<h4>position = “dodge” places overlapping objects directly beside one another.</h4>
-<p>ggplot(data = diamonds) + geom_bar(mapping = aes(x = cut, fill = clarity), position = “dodge”)</p>
+<div
+id="position-dodge-places-overlapping-objects-directly-beside-one-another."
+class="section level4">
+<h4>position = “dodge” places overlapping objects directly beside one
+another.</h4>
+<p>ggplot(data = diamonds) + geom_bar(mapping = aes(x = cut, fill =
+clarity), position = “dodge”)</p>
 </div>
-<div id="position-jitter-adds-a-small-amount-of-random-noise-to-each-point.-this-spreads-the-points-out-because-no-two-points-are-likely-to-receive-the-same-amount-of-random-noise." class="section level4">
-<h4>position = “jitter” adds a small amount of random noise to each point. This spreads the points out because no two points are likely to receive the same amount of random noise.</h4>
-<p>ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy), position = “jitter”)</p>
+<div
+id="position-jitter-adds-a-small-amount-of-random-noise-to-each-point.-this-spreads-the-points-out-because-no-two-points-are-likely-to-receive-the-same-amount-of-random-noise."
+class="section level4">
+<h4>position = “jitter” adds a small amount of random noise to each
+point. This spreads the points out because no two points are likely to
+receive the same amount of random noise.</h4>
+<p>ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy),
+position = “jitter”)</p>
 </div>
-<div id="point-plot-that-does-not-include-jittering-to-add-random-noise" class="section level4">
+<div id="point-plot-that-does-not-include-jittering-to-add-random-noise"
+class="section level4">
 <h4>point plot that does not include jittering to add random noise</h4>
-<p>ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) + geom_point()</p>
+<p>ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
+geom_point()</p>
 </div>
-<div id="coord_flip-switches-the-x-and-y-axes.-this-is-useful-for-example-if-you-want-horizontal-boxplots" class="section level4">
-<h4>coord_flip() switches the x and y axes. This is useful (for example), if you want horizontal boxplots</h4>
-<p>ggplot(data = mpg, mapping = aes(x = class, y = hwy)) + geom_boxplot() ggplot(data = mpg, mapping = aes(x = class, y = hwy)) + geom_boxplot() + coord_flip()</p>
+<div
+id="coord_flip-switches-the-x-and-y-axes.-this-is-useful-for-example-if-you-want-horizontal-boxplots"
+class="section level4">
+<h4>coord_flip() switches the x and y axes. This is useful (for
+example), if you want horizontal boxplots</h4>
+<p>ggplot(data = mpg, mapping = aes(x = class, y = hwy)) +
+geom_boxplot() ggplot(data = mpg, mapping = aes(x = class, y = hwy)) +
+geom_boxplot() + coord_flip()</p>
 </div>
-<div id="oord_quickmap-sets-the-aspect-ratio-correctly-for-maps." class="section level4">
+<div id="oord_quickmap-sets-the-aspect-ratio-correctly-for-maps."
+class="section level4">
 <h4>oord_quickmap() sets the aspect ratio correctly for maps.</h4>
 <p>nz &lt;- map_data(“nz”)</p>
-<p>ggplot(nz, aes(long, lat, group = group)) + geom_polygon(fill = “white”, colour = “black”)</p>
-<p>ggplot(nz, aes(long, lat, group = group)) + geom_polygon(fill = “white”, colour = “black”) + coord_quickmap()</p>
+<p>ggplot(nz, aes(long, lat, group = group)) + geom_polygon(fill =
+“white”, colour = “black”)</p>
+<p>ggplot(nz, aes(long, lat, group = group)) + geom_polygon(fill =
+“white”, colour = “black”) + coord_quickmap()</p>
 </div>
-<div id="coord_polar-uses-polar-coordinates.-polar-coordinates-reveal-an-interesting-connection-between-a-bar-chart-and-a-coxcomb-chart" class="section level4">
-<h4>coord_polar() uses polar coordinates. Polar coordinates reveal an interesting connection between a bar chart and a Coxcomb chart</h4>
-<p>bar &lt;- ggplot(data = diamonds) + geom_bar( mapping = aes(x = cut, fill = cut), show.legend = FALSE, width = 1 ) + theme(aspect.ratio = 1) + labs(x = NULL, y = NULL)</p>
+<div
+id="coord_polar-uses-polar-coordinates.-polar-coordinates-reveal-an-interesting-connection-between-a-bar-chart-and-a-coxcomb-chart"
+class="section level4">
+<h4>coord_polar() uses polar coordinates. Polar coordinates reveal an
+interesting connection between a bar chart and a Coxcomb chart</h4>
+<p>bar &lt;- ggplot(data = diamonds) + geom_bar( mapping = aes(x = cut,
+fill = cut), show.legend = FALSE, width = 1 ) + theme(aspect.ratio = 1)
++ labs(x = NULL, y = NULL)</p>
 <p>bar + coord_flip() bar + coord_polar()</p>
 </div>
-<div id="generates-a-regression-line-for-the-plot---shows-that-there-is-not-a-good-relationship-between-the-two-variables.-creates-a-point-plot-without-randomness" class="section level4">
-<h4>generates a regression line for the plot - shows that there is not a good relationship between the two variables. Creates a point plot without randomness</h4>
-<p>ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) + geom_point() + geom_abline() + coord_fixed()</p>
+<div
+id="generates-a-regression-line-for-the-plot---shows-that-there-is-not-a-good-relationship-between-the-two-variables.-creates-a-point-plot-without-randomness"
+class="section level4">
+<h4>generates a regression line for the plot - shows that there is not a
+good relationship between the two variables. Creates a point plot
+without randomness</h4>
+<p>ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) + geom_point() +
+geom_abline() + coord_fixed()</p>
 </div>
 </div>
 <div id="pt-2" class="section level2">
 <h2>28 (pt 2)</h2>
 <p>library(tidyverse)</p>
-<div id="this-line-is-loading-the-package-tidyverse-which-we-already-have-installed" class="section level4">
-<h4>this line is loading the package ‘tidyverse’ which we already have installed</h4>
-<p>ggplot(mpg, aes(displ, hwy)) + geom_point(aes(color = class)) + geom_smooth(se = FALSE) + labs(title = “Fuel efficiency generally decreases with engine size”)</p>
+<div
+id="this-line-is-loading-the-package-tidyverse-which-we-already-have-installed"
+class="section level4">
+<h4>this line is loading the package ‘tidyverse’ which we already have
+installed</h4>
+<p>ggplot(mpg, aes(displ, hwy)) + geom_point(aes(color = class)) +
+geom_smooth(se = FALSE) + labs(title = “Fuel efficiency generally
+decreases with engine size”)</p>
 </div>
-<div id="this-section-is-making-a-scatterplot-with-the-function-geom_point-and-then-making-a-line-of-best-fit-using-the-geom_smooth-function" class="section level4">
-<h4>this section is making a scatterplot with the function geom_point and then making a line of best fit using the geom_smooth function</h4>
+<div
+id="this-section-is-making-a-scatterplot-with-the-function-geom_point-and-then-making-a-line-of-best-fit-using-the-geom_smooth-function"
+class="section level4">
+<h4>this section is making a scatterplot with the function geom_point
+and then making a line of best fit using the geom_smooth function</h4>
 </div>
-<div id="this-section-also-employs-the-labs-function-to-make-the-label-for-the-title-of-the-graph" class="section level4">
-<h4>this section also employs the labs function to make the label for the title of the graph</h4>
-<p>ggplot(mpg, aes(displ, hwy)) + geom_point(aes(color = class)) + geom_smooth(se = FALSE) + labs( title = “Fuel efficiency generally decreases with engine size”, subtitle = “Two seaters (sports cars) are an exception because of their light weight”, caption = “Data from fueleconomy.gov” )</p>
+<div
+id="this-section-also-employs-the-labs-function-to-make-the-label-for-the-title-of-the-graph"
+class="section level4">
+<h4>this section also employs the labs function to make the label for
+the title of the graph</h4>
+<p>ggplot(mpg, aes(displ, hwy)) + geom_point(aes(color = class)) +
+geom_smooth(se = FALSE) + labs( title = “Fuel efficiency generally
+decreases with engine size”, subtitle = “Two seaters (sports cars) are
+an exception because of their light weight”, caption = “Data from
+fueleconomy.gov” )</p>
 </div>
-<div id="this-section-does-the-same-as-the-last---the-only-difference-is-that-it-uses-the-labs-function-to-also-add-a-subtitle-and-caption-to-the-graph" class="section level4">
-<h4>this section does the same as the last - the only difference is that it uses the labs function to also add a subtitle and caption to the graph</h4>
-<p>ggplot(mpg, aes(displ, hwy)) + geom_point(aes(colour = class)) + geom_smooth(se = FALSE) + labs( x = “Engine displacement (L)”, y = “Highway fuel economy (mpg)”, colour = “Car type” )</p>
+<div
+id="this-section-does-the-same-as-the-last---the-only-difference-is-that-it-uses-the-labs-function-to-also-add-a-subtitle-and-caption-to-the-graph"
+class="section level4">
+<h4>this section does the same as the last - the only difference is that
+it uses the labs function to also add a subtitle and caption to the
+graph</h4>
+<p>ggplot(mpg, aes(displ, hwy)) + geom_point(aes(colour = class)) +
+geom_smooth(se = FALSE) + labs( x = “Engine displacement (L)”, y =
+“Highway fuel economy (mpg)”, colour = “Car type” )</p>
 </div>
-<div id="this-section-does-the-same-as-the-last---the-only-difference-is-that-it-uses-x-and-y-to-define-the-axes-labels-and-makes-the-legend-label-car-type" class="section level4">
-<h4>this section does the same as the last - the only difference is that it uses x and y to define the axes labels and makes the legend label “car type”</h4>
-<p>df &lt;- tibble( x = runif(10), y = runif(10) ) ggplot(df, aes(x, y)) + geom_point() + labs( x = quote(sum(x[i] ^ 2, i == 1, n)), y = quote(alpha + beta + frac(delta, theta)) )</p>
+<div
+id="this-section-does-the-same-as-the-last---the-only-difference-is-that-it-uses-x-and-y-to-define-the-axes-labels-and-makes-the-legend-label-car-type"
+class="section level4">
+<h4>this section does the same as the last - the only difference is that
+it uses x and y to define the axes labels and makes the legend label
+“car type”</h4>
+<p>df &lt;- tibble( x = runif(10), y = runif(10) ) ggplot(df, aes(x, y))
++ geom_point() + labs( x = quote(sum(x[i] ^ 2, i == 1, n)), y =
+quote(alpha + beta + frac(delta, theta)) )</p>
 </div>
-<div id="this-section-is-creating-a-data-frame-using-the-tibble-function" class="section level4">
+<div
+id="this-section-is-creating-a-data-frame-using-the-tibble-function"
+class="section level4">
 <h4>this section is creating a data frame using the tibble function</h4>
 </div>
-<div id="it-also-uses-mathematical-functions-in-place-of-strings-for-the-axes-using-the-quote-function" class="section level4">
-<h4>it also uses mathematical functions in place of strings for the axes using the quote function</h4>
-<p>best_in_class &lt;- mpg %&gt;% group_by(class) %&gt;% filter(row_number(desc(hwy)) == 1)</p>
-<p>ggplot(mpg, aes(displ, hwy)) + geom_point(aes(colour = class)) + geom_text(aes(label = model), data = best_in_class)</p>
+<div
+id="it-also-uses-mathematical-functions-in-place-of-strings-for-the-axes-using-the-quote-function"
+class="section level4">
+<h4>it also uses mathematical functions in place of strings for the axes
+using the quote function</h4>
+<p>best_in_class &lt;- mpg %&gt;% group_by(class) %&gt;%
+filter(row_number(desc(hwy)) == 1)</p>
+<p>ggplot(mpg, aes(displ, hwy)) + geom_point(aes(colour = class)) +
+geom_text(aes(label = model), data = best_in_class)</p>
 </div>
-<div id="this-section-pulls-out-the-highest-rated-of-each-class-in-this-case-the-most-efficient-cars" class="section level4">
-<h4>this section pulls out the highest rated of each class, in this case the most efficient cars</h4>
-<p>ggplot(mpg, aes(displ, hwy)) + geom_point(aes(colour = class)) + geom_label(aes(label = model), data = best_in_class, nudge_y = 2, alpha = 0.5)</p>
+<div
+id="this-section-pulls-out-the-highest-rated-of-each-class-in-this-case-the-most-efficient-cars"
+class="section level4">
+<h4>this section pulls out the highest rated of each class, in this case
+the most efficient cars</h4>
+<p>ggplot(mpg, aes(displ, hwy)) + geom_point(aes(colour = class)) +
+geom_label(aes(label = model), data = best_in_class, nudge_y = 2, alpha
+= 0.5)</p>
 </div>
-<div id="this-section-uses-the-geom_label-function-to-draw-a-rectangle-behind-the-text-with-nudge_y-moving-the-labels-above-the-corresponding-points" class="section level4">
-<h4>this section uses the geom_label function to draw a rectangle behind the text, with nudge_y moving the labels above the corresponding points</h4>
-<p>ggplot(mpg, aes(displ, hwy)) + geom_point(aes(colour = class)) + geom_point(size = 3, shape = 1, data = best_in_class) + ggrepel::geom_label_repel(aes(label = model), data = best_in_class)</p>
+<div
+id="this-section-uses-the-geom_label-function-to-draw-a-rectangle-behind-the-text-with-nudge_y-moving-the-labels-above-the-corresponding-points"
+class="section level4">
+<h4>this section uses the geom_label function to draw a rectangle behind
+the text, with nudge_y moving the labels above the corresponding
+points</h4>
+<p>ggplot(mpg, aes(displ, hwy)) + geom_point(aes(colour = class)) +
+geom_point(size = 3, shape = 1, data = best_in_class) +
+ggrepel::geom_label_repel(aes(label = model), data = best_in_class)</p>
 </div>
-<div id="this-section-uses-the-ggrepel-package-to-automatically-adjust-labels-so-they-dont-overlap" class="section level4">
-<h4>this section uses the ggrepel package to automatically adjust labels so they don’t overlap</h4>
-<p>class_avg &lt;- mpg %&gt;% group_by(class) %&gt;% summarise( displ = median(displ), hwy = median(hwy) )</p>
-<p>ggplot(mpg, aes(displ, hwy, colour = class)) + ggrepel::geom_label_repel(aes(label = class), data = class_avg, size = 6, label.size = 0, segment.color = NA ) + geom_point() + theme(legend.position = “none”)</p>
+<div
+id="this-section-uses-the-ggrepel-package-to-automatically-adjust-labels-so-they-dont-overlap"
+class="section level4">
+<h4>this section uses the ggrepel package to automatically adjust labels
+so they don’t overlap</h4>
+<p>class_avg &lt;- mpg %&gt;% group_by(class) %&gt;% summarise( displ =
+median(displ), hwy = median(hwy) )</p>
+<p>ggplot(mpg, aes(displ, hwy, colour = class)) +
+ggrepel::geom_label_repel(aes(label = class), data = class_avg, size =
+6, label.size = 0, segment.color = NA ) + geom_point() +
+theme(legend.position = “none”)</p>
 </div>
-<div id="this-section-replaces-the-legend-with-labels-on-the-plot" class="section level4">
+<div id="this-section-replaces-the-legend-with-labels-on-the-plot"
+class="section level4">
 <h4>this section replaces the legend with labels on the plot</h4>
-<p>label &lt;- mpg %&gt;% summarise( displ = max(displ), hwy = max(hwy), label = “Increasing engine size is to decreasing fuel economy.” )</p>
-<p>ggplot(mpg, aes(displ, hwy)) + geom_point() + geom_text(aes(label = label), data = label, vjust = “top”, hjust = “right”)</p>
+<p>label &lt;- mpg %&gt;% summarise( displ = max(displ), hwy = max(hwy),
+label = “Increasing engine size is to decreasing fuel economy.” )</p>
+<p>ggplot(mpg, aes(displ, hwy)) + geom_point() + geom_text(aes(label =
+label), data = label, vjust = “top”, hjust = “right”)</p>
 </div>
-<div id="this-section-adds-a-single-label-to-the-plot-by-creating-a-new-data-frame" class="section level4">
-<h4>this section adds a single label to the plot by creating a new data frame</h4>
-<p>label &lt;- tibble( displ = Inf, hwy = Inf, label = “Increasing engine size is to decreasing fuel economy.” )</p>
-<p>ggplot(mpg, aes(displ, hwy)) + geom_point() + geom_text(aes(label = label), data = label, vjust = “top”, hjust = “right”)</p>
+<div
+id="this-section-adds-a-single-label-to-the-plot-by-creating-a-new-data-frame"
+class="section level4">
+<h4>this section adds a single label to the plot by creating a new data
+frame</h4>
+<p>label &lt;- tibble( displ = Inf, hwy = Inf, label = “Increasing
+engine size is to decreasing fuel economy.” )</p>
+<p>ggplot(mpg, aes(displ, hwy)) + geom_point() + geom_text(aes(label =
+label), data = label, vjust = “top”, hjust = “right”)</p>
 </div>
-<div id="this-section-places-the-text-we-just-created-directly-on-the-borders-of-the-plot" class="section level4">
-<h4>this section places the text we just created directly on the borders of the plot</h4>
-<p>“Increasing engine size is related to decreasing fuel economy.” %&gt;% stringr::str_wrap(width = 40) %&gt;% writeLines()</p>
+<div
+id="this-section-places-the-text-we-just-created-directly-on-the-borders-of-the-plot"
+class="section level4">
+<h4>this section places the text we just created directly on the borders
+of the plot</h4>
+<p>“Increasing engine size is related to decreasing fuel economy.”
+%&gt;% stringr::str_wrap(width = 40) %&gt;% writeLines()</p>
 </div>
-<div id="this-section-adds-line-breaks-given-the-number-of-characters" class="section level4">
+<div id="this-section-adds-line-breaks-given-the-number-of-characters"
+class="section level4">
 <h4>this section adds line breaks given the number of characters</h4>
-<p>ggplot(mpg, aes(displ, hwy)) + geom_point(aes(colour = class)) + scale_x_continuous() + scale_y_continuous() + scale_colour_discrete()</p>
+<p>ggplot(mpg, aes(displ, hwy)) + geom_point(aes(colour = class)) +
+scale_x_continuous() + scale_y_continuous() +
+scale_colour_discrete()</p>
 </div>
-<div id="this-section-chooses-scales-that-are-not-the-default" class="section level4">
+<div id="this-section-chooses-scales-that-are-not-the-default"
+class="section level4">
 <h4>this section chooses scales that are not the default</h4>
-<p>ggplot(mpg, aes(displ, hwy)) + geom_point() + scale_y_continuous(breaks = seq(15, 40, by = 5))</p>
+<p>ggplot(mpg, aes(displ, hwy)) + geom_point() +
+scale_y_continuous(breaks = seq(15, 40, by = 5))</p>
 </div>
-<div id="this-section-uses-the-break-function-to-override-the-default-choice-of-axes-ticks" class="section level4">
-<h4>this section uses the break function to override the default choice of axes ticks</h4>
-<p>ggplot(mpg, aes(displ, hwy)) + geom_point() + scale_x_continuous(labels = NULL) + scale_y_continuous(labels = NULL)</p>
+<div
+id="this-section-uses-the-break-function-to-override-the-default-choice-of-axes-ticks"
+class="section level4">
+<h4>this section uses the break function to override the default choice
+of axes ticks</h4>
+<p>ggplot(mpg, aes(displ, hwy)) + geom_point() +
+scale_x_continuous(labels = NULL) + scale_y_continuous(labels =
+NULL)</p>
 </div>
-<div id="this-section-uses-labels-null-to-get-rid-of-the-numeric-tick-labels-on-the-axes" class="section level4">
-<h4>this section uses labels = NULL to get rid of the numeric tick labels on the axes</h4>
-<p>presidential %&gt;% mutate(id = 33 + row_number()) %&gt;% ggplot(aes(start, id)) + geom_point() + geom_segment(aes(xend = end, yend = id)) + scale_x_date(NULL, breaks = presidential$start, date_labels = “’%y”)</p>
+<div
+id="this-section-uses-labels-null-to-get-rid-of-the-numeric-tick-labels-on-the-axes"
+class="section level4">
+<h4>this section uses labels = NULL to get rid of the numeric tick
+labels on the axes</h4>
+<p>presidential %&gt;% mutate(id = 33 + row_number()) %&gt;%
+ggplot(aes(start, id)) + geom_point() + geom_segment(aes(xend = end,
+yend = id)) + scale_x_date(NULL, breaks = presidential$start,
+date_labels = “’%y”)</p>
 </div>
-<div id="this-section-uses-the-breaks-function-to-highlight-the-observations-in-the-data-set" class="section level4">
-<h4>this section uses the breaks function to highlight the observations in the data set</h4>
-<p>base &lt;- ggplot(mpg, aes(displ, hwy)) + geom_point(aes(colour = class))</p>
-<p>base + theme(legend.position = “left”) base + theme(legend.position = “top”) base + theme(legend.position = “bottom”) base + theme(legend.position = “right”) # the default</p>
+<div
+id="this-section-uses-the-breaks-function-to-highlight-the-observations-in-the-data-set"
+class="section level4">
+<h4>this section uses the breaks function to highlight the observations
+in the data set</h4>
+<p>base &lt;- ggplot(mpg, aes(displ, hwy)) + geom_point(aes(colour =
+class))</p>
+<p>base + theme(legend.position = “left”) base + theme(legend.position =
+“top”) base + theme(legend.position = “bottom”) base +
+theme(legend.position = “right”) # the default</p>
 </div>
-<div id="this-section-controls-where-the-legend-is-drawn" class="section level4">
+<div id="this-section-controls-where-the-legend-is-drawn"
+class="section level4">
 <h4>this section controls where the legend is drawn</h4>
-<p>ggplot(mpg, aes(displ, hwy)) + geom_point(aes(colour = class)) + geom_smooth(se = FALSE) + theme(legend.position = “bottom”) + guides(colour = guide_legend(nrow = 1, override.aes = list(size = 4)))</p>
+<p>ggplot(mpg, aes(displ, hwy)) + geom_point(aes(colour = class)) +
+geom_smooth(se = FALSE) + theme(legend.position = “bottom”) +
+guides(colour = guide_legend(nrow = 1, override.aes = list(size =
+4)))</p>
 </div>
-<div id="uses-nrow-to-control-the-number-of-rows-and-overrides-the-aesthetic-using-override.aes" class="section level4">
-<h4>uses nrow to control the number of rows and overrides the aesthetic using override.aes</h4>
+<div
+id="uses-nrow-to-control-the-number-of-rows-and-overrides-the-aesthetic-using-override.aes"
+class="section level4">
+<h4>uses nrow to control the number of rows and overrides the aesthetic
+using override.aes</h4>
 <p>ggplot(diamonds, aes(carat, price)) + geom_bin2d()</p>
 <p>ggplot(diamonds, aes(log10(carat), log10(price))) + geom_bin2d()</p>
 </div>
-<div id="this-section-log-transforms-the-data-to-make-it-easier-to-see-the-precise-relationship" class="section level4">
-<h4>this section log transforms the data to make it easier to see the precise relationship</h4>
-<p>ggplot(diamonds, aes(carat, price)) + geom_bin2d() + scale_x_log10() + scale_y_log10()</p>
+<div
+id="this-section-log-transforms-the-data-to-make-it-easier-to-see-the-precise-relationship"
+class="section level4">
+<h4>this section log transforms the data to make it easier to see the
+precise relationship</h4>
+<p>ggplot(diamonds, aes(carat, price)) + geom_bin2d() + scale_x_log10()
++ scale_y_log10()</p>
 </div>
-<div id="we-use-this-to-get-rid-of-the-log-axes-labels-and-rescale-the-axes" class="section level4">
-<h4>we use this to get rid of the log axes labels and rescale the axes</h4>
+<div
+id="we-use-this-to-get-rid-of-the-log-axes-labels-and-rescale-the-axes"
+class="section level4">
+<h4>we use this to get rid of the log axes labels and rescale the
+axes</h4>
 <p>ggplot(mpg, aes(displ, hwy)) + geom_point(aes(color = drv))</p>
-<p>ggplot(mpg, aes(displ, hwy)) + geom_point(aes(color = drv)) + scale_colour_brewer(palette = “Set1”)</p>
+<p>ggplot(mpg, aes(displ, hwy)) + geom_point(aes(color = drv)) +
+scale_colour_brewer(palette = “Set1”)</p>
 </div>
-<div id="this-section-adjusts-the-colors-of-the-graph-using-the-palette-function" class="section level4">
-<h4>this section adjusts the colors of the graph using the palette function</h4>
-<p>ggplot(mpg, aes(displ, hwy)) + geom_point(aes(color = drv, shape = drv)) + scale_colour_brewer(palette = “Set1”)</p>
+<div
+id="this-section-adjusts-the-colors-of-the-graph-using-the-palette-function"
+class="section level4">
+<h4>this section adjusts the colors of the graph using the palette
+function</h4>
+<p>ggplot(mpg, aes(displ, hwy)) + geom_point(aes(color = drv, shape =
+drv)) + scale_colour_brewer(palette = “Set1”)</p>
 </div>
-<div id="this-section-adds-a-redundant-shape-mapping-using-the-shape-function" class="section level4">
-<h4>this section adds a redundant shape mapping using the shape function</h4>
-<p>presidential %&gt;% mutate(id = 33 + row_number()) %&gt;% ggplot(aes(start, id, colour = party)) + geom_point() + geom_segment(aes(xend = end, yend = id)) + scale_colour_manual(values = c(Republican = “red”, Democratic = “blue”))</p>
+<div
+id="this-section-adds-a-redundant-shape-mapping-using-the-shape-function"
+class="section level4">
+<h4>this section adds a redundant shape mapping using the shape
+function</h4>
+<p>presidential %&gt;% mutate(id = 33 + row_number()) %&gt;%
+ggplot(aes(start, id, colour = party)) + geom_point() +
+geom_segment(aes(xend = end, yend = id)) + scale_colour_manual(values =
+c(Republican = “red”, Democratic = “blue”))</p>
 </div>
-<div id="this-section-sets-the-colors-of-the-data-set-to-match-the-standard-mapping-of-party-with-colour-party" class="section level4">
-<h4>this section sets the colors of the data set to match the standard mapping of party with colour = party</h4>
-<p>df &lt;- tibble( x = rnorm(10000), y = rnorm(10000) ) ggplot(df, aes(x, y)) + geom_hex() + coord_fixed()</p>
-<p>ggplot(df, aes(x, y)) + geom_hex() + viridis::scale_fill_viridis() + coord_fixed()</p>
+<div
+id="this-section-sets-the-colors-of-the-data-set-to-match-the-standard-mapping-of-party-with-colour-party"
+class="section level4">
+<h4>this section sets the colors of the data set to match the standard
+mapping of party with colour = party</h4>
+<p>df &lt;- tibble( x = rnorm(10000), y = rnorm(10000) ) ggplot(df,
+aes(x, y)) + geom_hex() + coord_fixed()</p>
+<p>ggplot(df, aes(x, y)) + geom_hex() + viridis::scale_fill_viridis() +
+coord_fixed()</p>
 </div>
-<div id="this-section-emplys-a-colour-scheme-that-uses-continous-colors" class="section level4">
+<div id="this-section-emplys-a-colour-scheme-that-uses-continous-colors"
+class="section level4">
 <h4>this section emplys a colour scheme that uses continous colors</h4>
-<p>ggplot(mpg, mapping = aes(displ, hwy)) + geom_point(aes(color = class)) + geom_smooth() + coord_cartesian(xlim = c(5, 7), ylim = c(10, 30))</p>
-<p>mpg %&gt;% filter(displ &gt;= 5, displ &lt;= 7, hwy &gt;= 10, hwy &lt;= 30) %&gt;% ggplot(aes(displ, hwy)) + geom_point(aes(color = class)) + geom_smooth()</p>
+<p>ggplot(mpg, mapping = aes(displ, hwy)) + geom_point(aes(color =
+class)) + geom_smooth() + coord_cartesian(xlim = c(5, 7), ylim = c(10,
+30))</p>
+<p>mpg %&gt;% filter(displ &gt;= 5, displ &lt;= 7, hwy &gt;= 10, hwy
+&lt;= 30) %&gt;% ggplot(aes(displ, hwy)) + geom_point(aes(color =
+class)) + geom_smooth()</p>
 </div>
-<div id="this-section-uses-coord_cartesian-to-zoom-in-on-a-specific-region-of-the-plot" class="section level4">
-<h4>this section uses coord_cartesian to zoom in on a specific region of the plot</h4>
-<p>suv &lt;- mpg %&gt;% filter(class == “suv”) compact &lt;- mpg %&gt;% filter(class == “compact”)</p>
+<div
+id="this-section-uses-coord_cartesian-to-zoom-in-on-a-specific-region-of-the-plot"
+class="section level4">
+<h4>this section uses coord_cartesian to zoom in on a specific region of
+the plot</h4>
+<p>suv &lt;- mpg %&gt;% filter(class == “suv”) compact &lt;- mpg %&gt;%
+filter(class == “compact”)</p>
 <p>ggplot(suv, aes(displ, hwy, colour = drv)) + geom_point()</p>
 <p>ggplot(compact, aes(displ, hwy, colour = drv)) + geom_point()</p>
 </div>
 <div id="this-section-subsets-the-data" class="section level4">
 <h4>this section subsets the data</h4>
-<p>x_scale &lt;- scale_x_continuous(limits = range(mpg<span class="math inline">\(displ)) y_scale &lt;- scale_y_continuous(limits = range(mpg\)</span>hwy)) col_scale &lt;- scale_colour_discrete(limits = unique(mpg$drv))</p>
-<p>ggplot(suv, aes(displ, hwy, colour = drv)) + geom_point() + x_scale + y_scale + col_scale</p>
-<p>ggplot(compact, aes(displ, hwy, colour = drv)) + geom_point() + x_scale + y_scale + col_scale</p>
+<p>x_scale &lt;- scale_x_continuous(limits = range(mpg<span
+class="math inline">\(displ)) y_scale &lt;- scale_y_continuous(limits =
+range(mpg\)</span>hwy)) col_scale &lt;- scale_colour_discrete(limits =
+unique(mpg$drv))</p>
+<p>ggplot(suv, aes(displ, hwy, colour = drv)) + geom_point() + x_scale +
+y_scale + col_scale</p>
+<p>ggplot(compact, aes(displ, hwy, colour = drv)) + geom_point() +
+x_scale + y_scale + col_scale</p>
 </div>
-<div id="this-section-shares-the-scales-of-the-plots-across-different-plots-using-the-limits-function" class="section level4">
-<h4>this section shares the scales of the plots across different plots using the limits function</h4>
-<p>ggplot(mpg, aes(displ, hwy)) + geom_point(aes(color = class)) + geom_smooth(se = FALSE) + theme_bw()</p>
+<div
+id="this-section-shares-the-scales-of-the-plots-across-different-plots-using-the-limits-function"
+class="section level4">
+<h4>this section shares the scales of the plots across different plots
+using the limits function</h4>
+<p>ggplot(mpg, aes(displ, hwy)) + geom_point(aes(color = class)) +
+geom_smooth(se = FALSE) + theme_bw()</p>
 </div>
-<div id="this-section-uses-theme_bw-to-change-the-theme-of-the-plot" class="section level4">
+<div id="this-section-uses-theme_bw-to-change-the-theme-of-the-plot"
+class="section level4">
 <h4>this section uses theme_bw to change the theme of the plot</h4>
 <p>ggplot(mpg, aes(displ, hwy)) + geom_point()</p>
 </div>
-<div id="this-section-just-creates-a-ggplot-as-we-have-been-doing" class="section level4">
+<div id="this-section-just-creates-a-ggplot-as-we-have-been-doing"
+class="section level4">
 <h4>this section just creates a ggplot as we have been doing</h4>
 <p>ggsave(“my-plot.pdf”)</p>
 </div>
-<div id="this-section-uses-the-ggsave-function-to-save-our-current-plot-as-an-image" class="section level4">
-<h4>this section uses the ggsave function to save our current plot as an image</h4>
+<div
+id="this-section-uses-the-ggsave-function-to-save-our-current-plot-as-an-image"
+class="section level4">
+<h4>this section uses the ggsave function to save our current plot as an
+image</h4>
 </div>
 </div>
 </div>
@@ -1411,47 +2114,202 @@ plot(reg.output, which=2)</code></pre>
 <h1>Final Paper</h1>
 <div id="marijuana-possession-charges" class="section level2">
 <h2>Marijuana Possession Charges</h2>
-<div id="an-exploratory-look-at-the-relationship-between-race-and-sentencing-outcomes" class="section level3">
-<h3>An exploratory look at the relationship between race and sentencing outcomes</h3>
+<div
+id="an-exploratory-look-at-the-relationship-between-race-and-sentencing-outcomes"
+class="section level3">
+<h3>An exploratory look at the relationship between race and sentencing
+outcomes</h3>
 <div id="introduction" class="section level4">
 <h4>INTRODUCTION</h4>
-<p>Following Nixon’s call for the War on Drugs in June 1971, there was a push for mandatory sentencing in drug-related crimes, effectively expanding the role of the federal government in drug-related arrests and sentencing (Drug Policy Alliance, 2021). Recently, there has been an uptick of discussion in the political world and in pop culture of the United States on the War on Drugs, namely regarding the adjustment of the severity of sentencing and its disproportionate effect on minority communities. These racial disparities are particularly discussed in regards to marijuana-related charges, as Black Americans have been found to be four times more likely to be arrested for marijuana charges than White Americans and six times more likely to be incarcerated for drug-related charges (Rahamatulla, 2017). Many agree that a solution to the disproportionate effects of drug-related charges needs to be created, and through the work discussed in this paper, we hope to focus our attention on sentencing outcomes and race for marijuana charges to further understand where disparities lie. Due to the increasing prevalence and history of drug-related sentencing, we wanted to examine the relationships in drug-related sentencing between race and sentencing likelihood, especially focusing on marijuana. We expect, from past studies examined in and outside of this course, that the rate of prison sentencing for Black people would be higher than the rate of prison sentencing of white people. These motivations lead to the research question: Are Black people sentenced federally to prison for marijuana at a higher rate than white people?</p>
+<p>Following Nixon’s call for the War on Drugs in June 1971, there was a
+push for mandatory sentencing in drug-related crimes, effectively
+expanding the role of the federal government in drug-related arrests and
+sentencing (Drug Policy Alliance, 2021). Recently, there has been an
+uptick of discussion in the political world and in pop culture of the
+United States on the War on Drugs, namely regarding the adjustment of
+the severity of sentencing and its disproportionate effect on minority
+communities. These racial disparities are particularly discussed in
+regards to marijuana-related charges, as Black Americans have been found
+to be four times more likely to be arrested for marijuana charges than
+White Americans and six times more likely to be incarcerated for
+drug-related charges (Rahamatulla, 2017). Many agree that a solution to
+the disproportionate effects of drug-related charges needs to be
+created, and through the work discussed in this paper, we hope to focus
+our attention on sentencing outcomes and race for marijuana charges to
+further understand where disparities lie. Due to the increasing
+prevalence and history of drug-related sentencing, we wanted to examine
+the relationships in drug-related sentencing between race and sentencing
+likelihood, especially focusing on marijuana. We expect, from past
+studies examined in and outside of this course, that the rate of prison
+sentencing for Black people would be higher than the rate of prison
+sentencing of white people. These motivations lead to the research
+question: Are Black people sentenced federally to prison for marijuana
+at a higher rate than white people?</p>
 </div>
 <div id="description-of-the-data-used" class="section level4">
 <h4>DESCRIPTION OF THE DATA USED</h4>
-<p>The data set we utilized for this review is a record of federal criminal sentences as provided by the US Sentencing Committee (United States Sentencing Commission, 2007). This data set includes information on federal cases sentenced under the guidelines of the Sentencing Reform Act of 1984. Because of the research question prompting this paper, we chose to look at only cases where the defendant was charged with possession of marijuana. We used the “Drug Type 1” variable in the dataset to create a subset with these cases, as this variable indicated that marijuana was the highest penalty incurring drug the defendant was found with. Because we wanted to look at the relationship between race and being sentenced to prison, our independent variable was the defendant’s race (either Black or white cases) and our dependent variable was the type of sentence (either prison or no prison). We extrapolated specifically Black and white instantiations in the race variable so as to control for the number of independent variables being observed. We also decided to control for the defendant’s age, the defendant’s gender, and whether or not the defendant has a criminal record. We thought that these three variables would be the most influential in determining sentence type, both as legal (criminal record) and extralegal (age and gender) variables.</p>
-<p>For the sake of our data set, we used a logistic regression. A logistic regression model is very similar to a linear regression; however, it is used to evaluate relationships between binary variables. Because our variables - race and sentencing outcome - both have only two options for the purpose of our study, we can examine this relationship between the binaries. Rather than a standard line, the graph of fit is a logit. The application of this model is to categorical variables, and the dependent variable matches the variable type of the independent.</p>
-<p>The Residual vs. Fitted Plots in this figure look to see if there are any curvilinear trends in the plots that were originally missed. Because logistic regression is already curvilinear - as demonstrated by the logit that was previously displayed - these plots do not tell us any definitive information on the validity of this regression.</p>
-<p>The QQ plot in the figure determines if the residuals are normally distributed. This plot is not indicative of anything definitive either because residuals do not have to be normally distributed in a logistic regression.</p>
-<p>The Residuals vs. Leverage plots help identify outliers, but this plot too is not particularly useful because the results are not definitive either. From the models demonstrated in the assumptions, we do not gain information that definitively determines the strength of the logistic regression model for our data set, but the assumption display is crucial to data analysis so as to examine any particularly significant data that strays from the norm.</p>
-<p>Looking at the baseline regression, we can see that Black people in the dataset were less likely to be sentenced to prison at a significant rate. Similarly, looking at the controlled regression, we can see that Black people were more likely to not be sentenced when compared to white people in the dataset. We split the age variable into three groups (of 16-29, 30-49, 50-69, and 70-97), leaving the 16-29 group out of the regression as our control because we thought that this group would be most likely to be in possession of marijuana. To our surprise, all three age groups were more likely to be sentenced to prison for marijuana charges than people that were 16-29. This may be due to the fact that there could have been more people in these other groups, or there could have been a large number of minors in the 16-29 group that were not sentenced to prison. We split the gender variable into male or female, leaving out the male group since we thought that this group would be more likely to be sentenced to prison. Looking at the model, we can see that this is true, and females were significantly less likely to be sentenced to prison than males. Finally, we split the criminal history variable into yes or no groups, leaving out the yes group since we thought that this group would be more likely to be sentenced to prison. To our surprise, having no criminal history made the defendant more likely to be sentenced to prison, but by an insignificant amount.</p>
+<p>The data set we utilized for this review is a record of federal
+criminal sentences as provided by the US Sentencing Committee (United
+States Sentencing Commission, 2007). This data set includes information
+on federal cases sentenced under the guidelines of the Sentencing Reform
+Act of 1984. Because of the research question prompting this paper, we
+chose to look at only cases where the defendant was charged with
+possession of marijuana. We used the “Drug Type 1” variable in the
+dataset to create a subset with these cases, as this variable indicated
+that marijuana was the highest penalty incurring drug the defendant was
+found with. Because we wanted to look at the relationship between race
+and being sentenced to prison, our independent variable was the
+defendant’s race (either Black or white cases) and our dependent
+variable was the type of sentence (either prison or no prison). We
+extrapolated specifically Black and white instantiations in the race
+variable so as to control for the number of independent variables being
+observed. We also decided to control for the defendant’s age, the
+defendant’s gender, and whether or not the defendant has a criminal
+record. We thought that these three variables would be the most
+influential in determining sentence type, both as legal (criminal
+record) and extralegal (age and gender) variables.</p>
+<p>For the sake of our data set, we used a logistic regression. A
+logistic regression model is very similar to a linear regression;
+however, it is used to evaluate relationships between binary variables.
+Because our variables - race and sentencing outcome - both have only two
+options for the purpose of our study, we can examine this relationship
+between the binaries. Rather than a standard line, the graph of fit is a
+logit. The application of this model is to categorical variables, and
+the dependent variable matches the variable type of the independent.</p>
+<p>The Residual vs. Fitted Plots in this figure look to see if there are
+any curvilinear trends in the plots that were originally missed. Because
+logistic regression is already curvilinear - as demonstrated by the
+logit that was previously displayed - these plots do not tell us any
+definitive information on the validity of this regression.</p>
+<p>The QQ plot in the figure determines if the residuals are normally
+distributed. This plot is not indicative of anything definitive either
+because residuals do not have to be normally distributed in a logistic
+regression.</p>
+<p>The Residuals vs. Leverage plots help identify outliers, but this
+plot too is not particularly useful because the results are not
+definitive either. From the models demonstrated in the assumptions, we
+do not gain information that definitively determines the strength of the
+logistic regression model for our data set, but the assumption display
+is crucial to data analysis so as to examine any particularly
+significant data that strays from the norm.</p>
+<p>Looking at the baseline regression, we can see that Black people in
+the dataset were less likely to be sentenced to prison at a significant
+rate. Similarly, looking at the controlled regression, we can see that
+Black people were more likely to not be sentenced when compared to white
+people in the dataset. We split the age variable into three groups (of
+16-29, 30-49, 50-69, and 70-97), leaving the 16-29 group out of the
+regression as our control because we thought that this group would be
+most likely to be in possession of marijuana. To our surprise, all three
+age groups were more likely to be sentenced to prison for marijuana
+charges than people that were 16-29. This may be due to the fact that
+there could have been more people in these other groups, or there could
+have been a large number of minors in the 16-29 group that were not
+sentenced to prison. We split the gender variable into male or female,
+leaving out the male group since we thought that this group would be
+more likely to be sentenced to prison. Looking at the model, we can see
+that this is true, and females were significantly less likely to be
+sentenced to prison than males. Finally, we split the criminal history
+variable into yes or no groups, leaving out the yes group since we
+thought that this group would be more likely to be sentenced to prison.
+To our surprise, having no criminal history made the defendant more
+likely to be sentenced to prison, but by an insignificant amount.</p>
 </div>
 <div id="causal-analysis" class="section level4">
 <h4>CAUSAL ANALYSIS</h4>
-<p>Because we used the “Drug Type 1” variable, we assumed that the defendant was either only found with marijuana or the other drug(s) did not incur any penalty. This did not take into account whether or not the defendant was charged with something incurring a felony charge, such as possession of drug paraphernalia or intent to sell. In an ideal world, our data would have been clear about what the defendant was actually charged with on all fronts, rather than just what drugs they were in possession of at the time of their arrest. We also only looked at about 6,000 observations, since we dropped everyone who was not Black or white. However, there were more white people in the dataset and more white people in prison in the dataset, so the groups may not have been proportional.</p>
+<p>Because we used the “Drug Type 1” variable, we assumed that the
+defendant was either only found with marijuana or the other drug(s) did
+not incur any penalty. This did not take into account whether or not the
+defendant was charged with something incurring a felony charge, such as
+possession of drug paraphernalia or intent to sell. In an ideal world,
+our data would have been clear about what the defendant was actually
+charged with on all fronts, rather than just what drugs they were in
+possession of at the time of their arrest. We also only looked at about
+6,000 observations, since we dropped everyone who was not Black or
+white. However, there were more white people in the dataset and more
+white people in prison in the dataset, so the groups may not have been
+proportional.</p>
 <div id="dag" class="section level5">
 <h5>DAG:</h5>
 <pre><code>BEING ARRESTED 
 ^           |
 |           v
 RACE -------&gt; BEING SENTENCED TO PRISON</code></pre>
-<p>Additionally, the DAG portrays the situation where the defendant’s race determines whether or not they will be arrested, and therefore the arrest determines whether they will be sentenced. Not everyone who is caught with marijuana is arrested, and not everyone who is arrested for marijuana charges is convicted. Similarly, the biases of the police and prosecutors could be at play, influencing both the arrest and sentence outcome. Because of these confounders, we would not be able to conclude that there was a causal analysis.</p>
+<p>Additionally, the DAG portrays the situation where the defendant’s
+race determines whether or not they will be arrested, and therefore the
+arrest determines whether they will be sentenced. Not everyone who is
+caught with marijuana is arrested, and not everyone who is arrested for
+marijuana charges is convicted. Similarly, the biases of the police and
+prosecutors could be at play, influencing both the arrest and sentence
+outcome. Because of these confounders, we would not be able to conclude
+that there was a causal analysis.</p>
 </div>
 <div id="limitations-and-future-directions" class="section level5">
 <h5>LIMITATIONS AND FUTURE DIRECTIONS</h5>
-<p>While setting out to examine sentencing outcomes and their relationship to race for marijuana-related charges, we observed a series of confounds:</p>
+<p>While setting out to examine sentencing outcomes and their
+relationship to race for marijuana-related charges, we observed a series
+of confounds:</p>
 <ol style="list-style-type: decimal">
-<li>Sentencing charges are not equated to arrests. It is worth looking in the future into the relationship between arrests and race for marijuana-related charges.</li>
-<li>Our analysis did not include sentencing duration. Sentencing severity is a large component of the discussion for racial disparities in sentencing, not just the binary of whether someone was sentenced or not.</li>
-<li>Though we controlled for different factors such as past arrests because they are crucial in determining sentencing outcomes they should be analyzed further in conjunction with the information we observed for future studies.</li>
+<li>Sentencing charges are not equated to arrests. It is worth looking
+in the future into the relationship between arrests and race for
+marijuana-related charges.</li>
+<li>Our analysis did not include sentencing duration. Sentencing
+severity is a large component of the discussion for racial disparities
+in sentencing, not just the binary of whether someone was sentenced or
+not.</li>
+<li>Though we controlled for different factors such as past arrests
+because they are crucial in determining sentencing outcomes they should
+be analyzed further in conjunction with the information we observed for
+future studies.</li>
 </ol>
-<p>This dataset is also a really interesting example of how a failure through data analysis can lead to false projections and misleading statistics. This is also a useful showcase of how easily data can also be manipulated depending on the neglect of specific outliers or parameters for the research. As previously stated, this data set is very limited. We don’t feel it can answer our research question in an accurate way, but it still provides a good lesson on the sensitivity of datasets with outlying variables and unobserved confounders.</p>
-<p>For future research, it could be extremely valuable to look at the current different sentencing rates across states with different laws regarding the legality and decriminalization of marijuana. All marijuana usage (whether medical or recreational) is a federal crime, so theoretically everyone in the dataset should have been arrested regardless of race. However, this is not the case, and it is important to look at how there are disparities between federal and state sentences. Additionally, state police and prosecutors have much more discretion in deciding who to arrest, and what crimes to charge. We also were only able to look at sentencing as a binary factor without the important information of arrests records in general or whether or not the defendant has been arrested for marijuana in the past. In the future, we want to do a more well-rounded in-depth data analysis including everyone who was arrested (regardless of their conviction status), as well as the state’s current laws regarding marijuana.</p>
+<p>This dataset is also a really interesting example of how a failure
+through data analysis can lead to false projections and misleading
+statistics. This is also a useful showcase of how easily data can also
+be manipulated depending on the neglect of specific outliers or
+parameters for the research. As previously stated, this data set is very
+limited. We don’t feel it can answer our research question in an
+accurate way, but it still provides a good lesson on the sensitivity of
+datasets with outlying variables and unobserved confounders.</p>
+<p>For future research, it could be extremely valuable to look at the
+current different sentencing rates across states with different laws
+regarding the legality and decriminalization of marijuana. All marijuana
+usage (whether medical or recreational) is a federal crime, so
+theoretically everyone in the dataset should have been arrested
+regardless of race. However, this is not the case, and it is important
+to look at how there are disparities between federal and state
+sentences. Additionally, state police and prosecutors have much more
+discretion in deciding who to arrest, and what crimes to charge. We also
+were only able to look at sentencing as a binary factor without the
+important information of arrests records in general or whether or not
+the defendant has been arrested for marijuana in the past. In the
+future, we want to do a more well-rounded in-depth data analysis
+including everyone who was arrested (regardless of their conviction
+status), as well as the state’s current laws regarding marijuana.</p>
 </div>
 </div>
 <div id="references" class="section level4">
 <h4>References</h4>
-<p>Commission, U. S. S. (2014, June 25). Monitoring of federal criminal sentences, [united states], 2007. Monitoring of Federal Criminal Sentences, [United States], 2007. Retrieved December 12, 2021, from <a href="https://www.icpsr.umich.edu/web/NACJD/studies/22623" class="uri">https://www.icpsr.umich.edu/web/NACJD/studies/22623</a>. Cusick Director, J., Cusick, J., Director, Director, C. M. A., Montecinos, C., Director, A., Director, S. H. A., Hananel, S., Oduyeru Manager, L., Oduyeru, L., Manager, Gordon Director, P., Gordon, P., Director, J. P. D., Parshall, J., Director, D., Pearl, B., Perez, M., Chung, E., … Simpson, E. (2021, October 28). Ending the war on drugs: By the numbers. Center for American Progress. Retrieved December 12, 2021, from <a href="https://www.americanprogress.org/article/ending-war-drugs-numbers/" class="uri">https://www.americanprogress.org/article/ending-war-drugs-numbers/</a>. Rahamatulla, A. (2017, March 23). The War on Drugs has failed. what’s next? Ford Foundation. Retrieved December 12, 2021, from <a href="https://www.fordfoundation.org/just-matters/just-matters/posts/the-war-on-drugs-has-failed-what-s-next/" class="uri">https://www.fordfoundation.org/just-matters/just-matters/posts/the-war-on-drugs-has-failed-what-s-next/</a>. We Are The Drug Policy Alliance. (n.d.). A history of the Drug War. Drug Policy Alliance. Retrieved December 12, 2021, from <a href="https://drugpolicy.org/issues/brief-history-drug-war" class="uri">https://drugpolicy.org/issues/brief-history-drug-war</a>.</p>
+<p>Commission, U. S. S. (2014, June 25). Monitoring of federal criminal
+sentences, [united states], 2007. Monitoring of Federal Criminal
+Sentences, [United States], 2007. Retrieved December 12, 2021, from <a
+href="https://www.icpsr.umich.edu/web/NACJD/studies/22623"
+class="uri">https://www.icpsr.umich.edu/web/NACJD/studies/22623</a>.
+Cusick Director, J., Cusick, J., Director, Director, C. M. A.,
+Montecinos, C., Director, A., Director, S. H. A., Hananel, S., Oduyeru
+Manager, L., Oduyeru, L., Manager, Gordon Director, P., Gordon, P.,
+Director, J. P. D., Parshall, J., Director, D., Pearl, B., Perez, M.,
+Chung, E., … Simpson, E. (2021, October 28). Ending the war on drugs: By
+the numbers. Center for American Progress. Retrieved December 12, 2021,
+from <a
+href="https://www.americanprogress.org/article/ending-war-drugs-numbers/"
+class="uri">https://www.americanprogress.org/article/ending-war-drugs-numbers/</a>.
+Rahamatulla, A. (2017, March 23). The War on Drugs has failed. what’s
+next? Ford Foundation. Retrieved December 12, 2021, from <a
+href="https://www.fordfoundation.org/just-matters/just-matters/posts/the-war-on-drugs-has-failed-what-s-next/"
+class="uri">https://www.fordfoundation.org/just-matters/just-matters/posts/the-war-on-drugs-has-failed-what-s-next/</a>.
+We Are The Drug Policy Alliance. (n.d.). A history of the Drug War. Drug
+Policy Alliance. Retrieved December 12, 2021, from <a
+href="https://drugpolicy.org/issues/brief-history-drug-war"
+class="uri">https://drugpolicy.org/issues/brief-history-drug-war</a>.</p>
 </div>
 </div>
 </div>
